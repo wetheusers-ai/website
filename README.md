@@ -30,11 +30,6 @@ six essays, the founding brief — are drafted in the open in the main repositor
 discussions and pull requests are welcome on any piece of the work:
 **https://github.com/wetheusers-ai/wetheusers**
 
-## How these drafts were made
-
-With Claude Code, to get the ideas onto the page fast. Speed was the point — so is the
-humility. None of this is a final product; the final version is the one written together.
-
 ## License
 
 Site text and documents: CC BY-SA 4.0. Code: Apache-2.0. See the LICENSE files in the main
