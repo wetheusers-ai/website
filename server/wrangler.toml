@@ -1,0 +1,32 @@
+name = "wtu-call"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# --- D1 database binding ---
+# Create the DB once with:  wrangler d1 create wtu_call
+# then paste the printed database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "wtu_call"
+database_id = "b8a7bcdb-0507-4521-94f0-3db6fd8f7ed5"
+
+# --- non-secret config (safe to commit) ---
+[vars]
+# Comma-separated list of site origins allowed to call this API. Use "*" only for local testing.
+ALLOWED_ORIGINS = "https://wetheusers.ai,https://www.wetheusers.ai"
+# Verified sender for confirmation emails (must be a domain you've verified in Resend).
+FROM_EMAIL = "We the Users <hello@wetheusers.ai>"
+# Where the "Return to We the Users" link on the confirmation page points.
+SITE_URL = "https://wetheusers.ai"
+# Optional: the Worker's own public URL, used to build verification links.
+# Leave blank to use the request origin (fine for *.workers.dev or a custom route).
+PUBLIC_BASE = ""
+# A community appears in the public tallies only after this many CONFIRMED voices.
+# The picker always offers every approved community regardless of this threshold.
+MIN_PUBLIC_TALLY = "50"
+
+# --- secrets (DO NOT put these here; set with `wrangler secret put NAME`) ---
+#   RESEND_API_KEY   required to send verification emails (https://resend.com)
+#   ADMIN_TOKEN      required to approve/reject write-in community names
+#   SALT             any random string; salts the hashed-IP throttle

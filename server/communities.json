@@ -1,0 +1,749 @@
+{
+ "version": "2026-07-01-v3",
+ "principles": [
+  "Seed entries are REAL, named communities at recognizable scale — canonical spellings so tallies never fragment.",
+  "The 8 category rows remain choosable as generic catch-alls; every member entry is a proper noun.",
+  "'We the Users' is the default community — the home for anyone joining as themselves. Pinned first in the picker; auto-selected if the field is left blank.",
+  "Write-ins carry the tail (your congregation, your town, your guild); moderation approves and assigns a category.",
+  "A listed name describes the people joining through it, never an endorsement by the organization.",
+  "No political parties or partisan-coded organizations in the seed; mission-aligned digital-rights groups are included.",
+  "No hate groups: nothing designated as such by major civil-rights trackers, and nothing whose identity is defined against a group of people — applied to this seed and to write-in moderation."
+ ],
+ "categories": [
+  {
+   "key": "we-the-users",
+   "label": "We the Users",
+   "communities": []
+  },
+  {
+   "key": "builders-engineers",
+   "label": "Builders & engineers",
+   "communities": [
+    {
+     "key": "linux-community",
+     "name": "The Linux community"
+    },
+    {
+     "key": "python-community",
+     "name": "The Python community"
+    },
+    {
+     "key": "rust-community",
+     "name": "The Rust community"
+    },
+    {
+     "key": "godot-community",
+     "name": "The Godot game-dev community"
+    },
+    {
+     "key": "home-assistant",
+     "name": "The Home Assistant community"
+    },
+    {
+     "key": "raspberry-pi",
+     "name": "The Raspberry Pi community"
+    },
+    {
+     "key": "arduino",
+     "name": "The Arduino community"
+    },
+    {
+     "key": "stack-overflow",
+     "name": "Stack Overflow"
+    },
+    {
+     "key": "hacker-news",
+     "name": "Hacker News"
+    },
+    {
+     "key": "kaggle",
+     "name": "Kaggle"
+    },
+    {
+     "key": "hugging-face",
+     "name": "The Hugging Face community"
+    },
+    {
+     "key": "first-robotics",
+     "name": "FIRST Robotics"
+    },
+    {
+     "key": "ieee",
+     "name": "IEEE"
+    },
+    {
+     "key": "acm",
+     "name": "ACM"
+    },
+    {
+     "key": "wordpress-community",
+     "name": "The WordPress community"
+    },
+    {
+     "key": "postgresql",
+     "name": "The PostgreSQL community"
+    },
+    {
+     "key": "kubernetes-cncf",
+     "name": "Kubernetes & the CNCF community"
+    },
+    {
+     "key": "apache-software",
+     "name": "Apache Software Foundation community"
+    },
+    {
+     "key": "ubuntu",
+     "name": "The Ubuntu community"
+    },
+    {
+     "key": "owasp",
+     "name": "OWASP"
+    },
+    {
+     "key": "defcon",
+     "name": "The DEF CON community"
+    },
+    {
+     "key": "arrl",
+     "name": "ARRL — amateur (ham) radio operators"
+    },
+    {
+     "key": "adafruit",
+     "name": "The Adafruit community"
+    },
+    {
+     "key": "roblox-developers",
+     "name": "Roblox developers"
+    },
+    {
+     "key": "minecraft-modders",
+     "name": "Minecraft modders & builders"
+    }
+   ]
+  },
+  {
+   "key": "artists-makers",
+   "label": "Artists & makers",
+   "communities": [
+    {
+     "key": "ravelry",
+     "name": "Ravelry — knitting & fiber arts"
+    },
+    {
+     "key": "etsy-sellers",
+     "name": "Etsy sellers"
+    },
+    {
+     "key": "bandcamp-artists",
+     "name": "Bandcamp artists"
+    },
+    {
+     "key": "blender-community",
+     "name": "The Blender community"
+    },
+    {
+     "key": "deviantart",
+     "name": "DeviantArt"
+    },
+    {
+     "key": "behance",
+     "name": "Behance"
+    },
+    {
+     "key": "dribbble",
+     "name": "Dribbble"
+    },
+    {
+     "key": "instructables",
+     "name": "Instructables"
+    },
+    {
+     "key": "maker-faire",
+     "name": "The Maker Faire community"
+    },
+    {
+     "key": "flickr",
+     "name": "Flickr photographers"
+    },
+    {
+     "key": "soundcloud-producers",
+     "name": "SoundCloud producers"
+    },
+    {
+     "key": "barbershop-harmony",
+     "name": "Barbershop Harmony Society"
+    },
+    {
+     "key": "artstation",
+     "name": "ArtStation"
+    },
+    {
+     "key": "modern-quilt-guild",
+     "name": "The Modern Quilt Guild"
+    },
+    {
+     "key": "sweet-adelines",
+     "name": "Sweet Adelines International"
+    },
+    {
+     "key": "ppa",
+     "name": "Professional Photographers of America"
+    },
+    {
+     "key": "lego-afol",
+     "name": "The LEGO fan community (AFOLs & LUGs)"
+    },
+    {
+     "key": "cosplay",
+     "name": "The cosplay community"
+    }
+   ]
+  },
+  {
+   "key": "writers-journalists",
+   "label": "Writers & journalists",
+   "communities": [
+    {
+     "key": "substack-writers",
+     "name": "Substack writers"
+    },
+    {
+     "key": "archive-of-our-own",
+     "name": "Archive of Our Own (AO3)"
+    },
+    {
+     "key": "wattpad",
+     "name": "Wattpad writers"
+    },
+    {
+     "key": "authors-guild",
+     "name": "The Authors Guild"
+    },
+    {
+     "key": "sfwa",
+     "name": "SFWA — Science Fiction & Fantasy Writers"
+    },
+    {
+     "key": "freelancers-union",
+     "name": "Freelancers Union"
+    },
+    {
+     "key": "spj",
+     "name": "Society of Professional Journalists"
+    },
+    {
+     "key": "report-for-america",
+     "name": "Report for America"
+    },
+    {
+     "key": "poets-and-writers",
+     "name": "Poets & Writers"
+    },
+    {
+     "key": "medium-writers",
+     "name": "Medium writers"
+    },
+    {
+     "key": "the-moth",
+     "name": "The Moth storytellers"
+    },
+    {
+     "key": "webtoon-creators",
+     "name": "Webtoon creators"
+    },
+    {
+     "key": "scbwi",
+     "name": "SCBWI — children's book writers & illustrators"
+    },
+    {
+     "key": "mwa",
+     "name": "Mystery Writers of America"
+    },
+    {
+     "key": "lion-publishers",
+     "name": "LION Publishers — local independent news"
+    },
+    {
+     "key": "letterboxd",
+     "name": "Letterboxd film community"
+    }
+   ]
+  },
+  {
+   "key": "educators-students",
+   "label": "Educators & students",
+   "communities": [
+    {
+     "key": "khan-academy",
+     "name": "Khan Academy learners"
+    },
+    {
+     "key": "duolingo",
+     "name": "Duolingo learners"
+    },
+    {
+     "key": "scratch-community",
+     "name": "The Scratch community"
+    },
+    {
+     "key": "code-org",
+     "name": "Code.org classrooms"
+    },
+    {
+     "key": "classical-conversations",
+     "name": "Classical Conversations homeschoolers"
+    },
+    {
+     "key": "montessori",
+     "name": "Montessori schools & families"
+    },
+    {
+     "key": "national-ffa",
+     "name": "National FFA"
+    },
+    {
+     "key": "four-h",
+     "name": "4-H"
+    },
+    {
+     "key": "us-chess",
+     "name": "US Chess Federation"
+    },
+    {
+     "key": "ala",
+     "name": "American Library Association"
+    },
+    {
+     "key": "scientists-researchers",
+     "name": "Scientists & researchers"
+    },
+    {
+     "key": "freecodecamp",
+     "name": "freeCodeCamp"
+    },
+    {
+     "key": "toastmasters",
+     "name": "Toastmasters International"
+    },
+    {
+     "key": "goodreads",
+     "name": "Goodreads readers"
+    },
+    {
+     "key": "nsda",
+     "name": "National Speech & Debate Association"
+    },
+    {
+     "key": "science-olympiad",
+     "name": "Science Olympiad"
+    },
+    {
+     "key": "donorschoose",
+     "name": "DonorsChoose teachers"
+    }
+   ]
+  },
+  {
+   "key": "families-parents",
+   "label": "Families & parents",
+   "communities": [
+    {
+     "key": "la-leche-league",
+     "name": "La Leche League"
+    },
+    {
+     "key": "the-momco",
+     "name": "The MomCo (formerly MOPS)"
+    },
+    {
+     "key": "scouting-america",
+     "name": "Scouting America (formerly Boy Scouts)"
+    },
+    {
+     "key": "girl-scouts",
+     "name": "Girl Scouts of the USA"
+    },
+    {
+     "key": "little-league",
+     "name": "Little League"
+    },
+    {
+     "key": "ayso",
+     "name": "AYSO youth soccer"
+    },
+    {
+     "key": "national-pta",
+     "name": "National PTA"
+    },
+    {
+     "key": "familysearch",
+     "name": "FamilySearch genealogists"
+    },
+    {
+     "key": "ancestry-community",
+     "name": "Ancestry family historians"
+    },
+    {
+     "key": "aarp",
+     "name": "AARP members"
+    },
+    {
+     "key": "blue-star-families",
+     "name": "Blue Star Families"
+    },
+    {
+     "key": "big-brothers-big-sisters",
+     "name": "Big Brothers Big Sisters"
+    },
+    {
+     "key": "boys-girls-clubs",
+     "name": "Boys & Girls Clubs of America"
+    },
+    {
+     "key": "casa",
+     "name": "CASA — Court Appointed Special Advocates"
+    }
+   ]
+  },
+  {
+   "key": "faith-spirituality",
+   "label": "Faith & spirituality",
+   "communities": [
+    {
+     "key": "church-of-jesus-christ",
+     "name": "The Church of Jesus Christ of Latter-day Saints"
+    },
+    {
+     "key": "catholic-church",
+     "name": "The Catholic Church"
+    },
+    {
+     "key": "southern-baptist",
+     "name": "Southern Baptist Convention"
+    },
+    {
+     "key": "united-methodist",
+     "name": "United Methodist Church"
+    },
+    {
+     "key": "assemblies-of-god",
+     "name": "Assemblies of God"
+    },
+    {
+     "key": "episcopal-church",
+     "name": "The Episcopal Church"
+    },
+    {
+     "key": "elca",
+     "name": "Evangelical Lutheran Church in America (ELCA)"
+    },
+    {
+     "key": "lcms",
+     "name": "Lutheran Church—Missouri Synod"
+    },
+    {
+     "key": "greek-orthodox",
+     "name": "Greek Orthodox Archdiocese of America"
+    },
+    {
+     "key": "chabad",
+     "name": "Chabad-Lubavitch"
+    },
+    {
+     "key": "reform-judaism",
+     "name": "Union for Reform Judaism"
+    },
+    {
+     "key": "isna",
+     "name": "Islamic Society of North America (ISNA)"
+    },
+    {
+     "key": "baps",
+     "name": "BAPS Swaminarayan Sanstha"
+    },
+    {
+     "key": "sgi-usa",
+     "name": "Soka Gakkai International (SGI-USA)"
+    },
+    {
+     "key": "knights-of-columbus",
+     "name": "Knights of Columbus"
+    },
+    {
+     "key": "young-life",
+     "name": "Young Life"
+    },
+    {
+     "key": "fca",
+     "name": "Fellowship of Christian Athletes"
+    },
+    {
+     "key": "twelve-step",
+     "name": "Alcoholics Anonymous & twelve-step fellowships"
+    },
+    {
+     "key": "pcusa",
+     "name": "Presbyterian Church (U.S.A.)"
+    },
+    {
+     "key": "pca",
+     "name": "Presbyterian Church in America"
+    },
+    {
+     "key": "seventh-day-adventist",
+     "name": "Seventh-day Adventist Church"
+    },
+    {
+     "key": "cogic",
+     "name": "Church of God in Christ (COGIC)"
+    },
+    {
+     "key": "national-baptist",
+     "name": "National Baptist Convention, USA"
+    },
+    {
+     "key": "ame-church",
+     "name": "African Methodist Episcopal (AME) Church"
+    },
+    {
+     "key": "nazarene",
+     "name": "Church of the Nazarene"
+    },
+    {
+     "key": "calvary-chapel",
+     "name": "Calvary Chapel"
+    },
+    {
+     "key": "salvation-army",
+     "name": "The Salvation Army"
+    },
+    {
+     "key": "uua",
+     "name": "Unitarian Universalist Association"
+    },
+    {
+     "key": "quakers",
+     "name": "Quaker meetings (Friends)"
+    },
+    {
+     "key": "orthodox-union",
+     "name": "Orthodox Union (OU)"
+    },
+    {
+     "key": "uscj",
+     "name": "United Synagogue of Conservative Judaism"
+    },
+    {
+     "key": "hillel",
+     "name": "Hillel International"
+    },
+    {
+     "key": "cru",
+     "name": "Cru"
+    },
+    {
+     "key": "intervarsity",
+     "name": "InterVarsity Christian Fellowship"
+    },
+    {
+     "key": "bsf",
+     "name": "Bible Study Fellowship (BSF)"
+    },
+    {
+     "key": "awana",
+     "name": "Awana"
+    },
+    {
+     "key": "bahai",
+     "name": "Baha'i community of the United States"
+    },
+    {
+     "key": "buddhist-churches",
+     "name": "Buddhist Churches of America"
+    }
+   ]
+  },
+  {
+   "key": "local-neighborhood",
+   "label": "Local & neighborhood",
+   "communities": [
+    {
+     "key": "buy-nothing",
+     "name": "The Buy Nothing Project"
+    },
+    {
+     "key": "rotary",
+     "name": "Rotary International"
+    },
+    {
+     "key": "lions-clubs",
+     "name": "Lions Clubs International"
+    },
+    {
+     "key": "kiwanis",
+     "name": "Kiwanis International"
+    },
+    {
+     "key": "american-legion",
+     "name": "American Legion"
+    },
+    {
+     "key": "vfw",
+     "name": "Veterans of Foreign Wars (VFW)"
+    },
+    {
+     "key": "elks",
+     "name": "Elks Lodges"
+    },
+    {
+     "key": "habitat",
+     "name": "Habitat for Humanity volunteers"
+    },
+    {
+     "key": "national-grange",
+     "name": "The National Grange"
+    },
+    {
+     "key": "friends-of-library",
+     "name": "Friends of the Library groups"
+    },
+    {
+     "key": "little-free-library",
+     "name": "Little Free Library stewards"
+    },
+    {
+     "key": "cert-volunteers",
+     "name": "CERT & volunteer fire/EMS"
+    },
+    {
+     "key": "united-way",
+     "name": "United Way"
+    },
+    {
+     "key": "ymca",
+     "name": "The YMCA"
+    },
+    {
+     "key": "optimist",
+     "name": "Optimist International"
+    },
+    {
+     "key": "master-gardeners",
+     "name": "Extension Master Gardeners"
+    },
+    {
+     "key": "audubon",
+     "name": "National Audubon Society"
+    },
+    {
+     "key": "parkrun",
+     "name": "parkrun"
+    },
+    {
+     "key": "ruritan",
+     "name": "Ruritan"
+    }
+   ]
+  },
+  {
+   "key": "privacy-digital-rights",
+   "label": "Privacy & digital rights",
+   "communities": [
+    {
+     "key": "eff",
+     "name": "Electronic Frontier Foundation (EFF) supporters"
+    },
+    {
+     "key": "mozilla",
+     "name": "The Mozilla community"
+    },
+    {
+     "key": "wikipedia-editors",
+     "name": "Wikipedia editors"
+    },
+    {
+     "key": "internet-archive",
+     "name": "Internet Archive supporters"
+    },
+    {
+     "key": "openstreetmap",
+     "name": "OpenStreetMap contributors"
+    },
+    {
+     "key": "indieweb",
+     "name": "The IndieWeb"
+    },
+    {
+     "key": "fediverse",
+     "name": "The Fediverse — Mastodon & friends"
+    },
+    {
+     "key": "creative-commons",
+     "name": "Creative Commons community"
+    },
+    {
+     "key": "fsf",
+     "name": "Free Software Foundation (FSF)"
+    },
+    {
+     "key": "ifixit-repair",
+     "name": "iFixit & Repair Cafe communities"
+    },
+    {
+     "key": "tor-project",
+     "name": "The Tor community"
+    },
+    {
+     "key": "fight-for-the-future",
+     "name": "Fight for the Future"
+    },
+    {
+     "key": "privacy-guides",
+     "name": "Privacy Guides community"
+    }
+   ]
+  }
+ ],
+ "aliases": {
+  "LDS": "church-of-jesus-christ",
+  "Mormon": "church-of-jesus-christ",
+  "Latter-day Saints": "church-of-jesus-christ",
+  "Catholic": "catholic-church",
+  "SBC": "southern-baptist",
+  "Methodist": "united-methodist",
+  "Boy Scouts": "scouting-america",
+  "BSA": "scouting-america",
+  "MOPS": "the-momco",
+  "AO3": "archive-of-our-own",
+  "AA": "twelve-step",
+  "Mastodon": "fediverse",
+  "Wikipedia": "wikipedia-editors",
+  "FFA": "national-ffa",
+  "PTA": "national-pta",
+  "Linux": "linux-community",
+  "Python": "python-community",
+  "Rust": "rust-community",
+  "knitters": "ravelry",
+  "Etsy": "etsy-sellers",
+  "EFF": "eff",
+  "OSM": "openstreetmap",
+  "SDA": "seventh-day-adventist",
+  "Adventist": "seventh-day-adventist",
+  "AME": "ame-church",
+  "UU": "uua",
+  "Quaker": "quakers",
+  "WordPress": "wordpress-community",
+  "Postgres": "postgresql",
+  "K8s": "kubernetes-cncf",
+  "CNCF": "kubernetes-cncf",
+  "Ham radio": "arrl",
+  "LEGO": "lego-afol",
+  "Presbyterian": "pcusa"
+ },
+ "sources": [
+  "US Religion Census / ARDA (canonical religious bodies)",
+  "IRS Exempt Organizations Business Master File (registry of US nonprofits; post-launch write-in validation)",
+  "Wikipedia curated lists (denominations, fraternal & service organizations, professional associations)",
+  "Platform community directories (reference only)"
+ ]
+}
