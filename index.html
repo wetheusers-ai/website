@@ -1360,7 +1360,7 @@ document.documentElement.classList.add('js');
     var live=(tallies||[]).filter(function(t){ return t.confirmed>0; });
     if(!API_BASE || !live.length){
       dashList.innerHTML='';
-      if(dashEmpty){ dashEmpty.textContent='The ledger is open. Communities appear here as their first voices are confirmed.'; dashEmpty.style.display='block'; }
+      if(dashEmpty){ dashEmpty.textContent='Communities take the ledger at fifty confirmed voices. None has yet — be the reason yours is first.'; dashEmpty.style.display='block'; }
       if(dashFoot) dashFoot.textContent = API_BASE ? '' : 'The live tally comes online when the call connects.';
       return;
     }
