@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS signups (
   name           TEXT,                        -- optional, private
   email          TEXT,                        -- optional, private (never returned publicly)
   email_verified INTEGER NOT NULL DEFAULT 0,  -- only verified emails count toward public tallies
-  verify_token   TEXT,                        -- nulled once verified
+  verify_token   TEXT,                        -- kept after verification: the same token also authorizes POST /forget
   created_at     TEXT NOT NULL,
   verified_at    TEXT,
   ip_hash        TEXT                         -- hashed IP for light abuse throttling (no raw IP stored)

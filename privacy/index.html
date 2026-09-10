@@ -35,7 +35,6 @@ a:hover{color:var(--goldb)}
 .note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--mutedl);border-top:1px dotted var(--line);padding-top:16px;margin-top:36px}
 .back{display:inline-block;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--cream);padding:12px 22px;border-radius:8px;text-decoration:none}
 .back:hover{background:var(--goldb);color:#fff}
-.herald{background:#F6E9C9;border:1px solid #E3C888;border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:12.5px;color:#6b5316;margin:0 0 28px}
 </style>
 </head>
 <body>
@@ -44,22 +43,23 @@ a:hover{color:var(--goldb)}
   <p class="eyebrow">Privacy</p>
   <h1>What we keep, and how to leave.</h1>
 
-  <div class="herald">[HERALD: copy needed — a pass in the site's full voice. The facts below are accurate as of 9 September 2026; the sentences are honest placeholders, not final prose.]</div>
+  <!-- HERALD: copy needed — a pass in the site's full voice. The facts below are accurate as of 9 September 2026; the sentences are honest placeholders, not final prose. -->
 
   <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole record.</p>
 
   <h2>Who touches it</h2>
-  <p>Two processors, both under contract, neither permitted to use it for anything but running this form: <a href="https://www.cloudflare.com/trust-hub/gdpr/" target="_blank" rel="noopener">Cloudflare</a> stores the record and runs the page; <a href="https://resend.com" target="_blank" rel="noopener">Resend</a> sends the one confirmation email. No one else receives it.</p>
+  <p><strong>Who touches it.</strong> Three companies, all under contract, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores the record and serves the page, <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them.</p>
 
   <h2>What we never do</h2>
   <ul>
-    <li>We never sell it, and we never share it beyond the two processors above.</li>
+    <li>We never sell it, and we never share it beyond the three companies named above.</li>
     <li>We never train a model on it.</li>
     <li>We never show your name publicly. What is public is a count — how many confirmed voices a community has — never a list of who they are.</li>
   </ul>
 
   <h2>How to leave</h2>
-  <p>Every confirmation email carries a link that deletes your row in one click, permanently. If you never received or kept that email and want your record found and removed, write to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> and we'll do it by hand.</p>
+  <p>Every confirmation email carries a link that deletes your row, permanently. If you never received or kept that email and want your record found and removed, write to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> and we'll do it by hand.</p>
+  <p>If you joined without giving an email, there is no link to send you and no way for us to prove a request is yours. What we hold in that case is a first name, a community, and a timestamp. Write to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a>, tell us what you entered and roughly when, and we will find it and remove it.</p>
 
   <h2>The one thing we watch</h2>
   <p>We count page views with <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener">Cloudflare Web Analytics</a>. We do not know who you are.</p>

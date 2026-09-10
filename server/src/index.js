@@ -5,8 +5,10 @@
  * Public endpoints (CORS-guarded):
  *   GET  /communities         -> picker list + public tallies (aggregate counts only)
  *   POST /join                -> record a sign-up; emails get a verification link
- *   GET  /verify?token=...    -> confirm an email (returns a small HTML page)
- *   GET  /forget?token=...    -> delete a sign-up row outright (same token as /verify)
+ *   GET  /verify?token=...    -> show a "confirm my place" page; does nothing by itself
+ *   POST /verify  (form: token) -> confirm an email
+ *   GET  /forget?token=...    -> show a "delete my record" page; does nothing by itself
+ *   POST /forget  (form: token) -> delete a sign-up row outright (same token as /verify)
  *
  * Admin endpoints (require ADMIN_TOKEN):
  *   GET  /admin/communities?token=...      -> list communities incl. pending write-ins
@@ -21,8 +23,11 @@
  *   - Names and emails are private; /communities never returns them.
  *   - verify_token is not cleared on verification (only on /forget, by deleting the
  *     row outright) so the same link in the confirmation email keeps working as a
- *     one-click delete afterwards. Re-hitting /verify with a spent token is harmless:
- *     it can only re-confirm a row that already exists, never fabricate one.
+ *     one-click-to-a-prompt delete afterwards. Re-hitting /verify with a spent token
+ *     is harmless: it can only re-confirm a row that already exists, never fabricate
+ *     one.
+ *   - /verify and /forget only act on POST. GET renders a page with a button and
+ *     changes nothing — see the routing block below for why.
  */
 
 const SISO = (d) => new Date(d).toISOString();
@@ -85,7 +90,7 @@ async function sendVerifyEmail(env, email, link, forgetLink) {
              <p style="font-size:19px;margin:0 0 14px">We believe there is a better way.</p>
              <p>Thank you for joining the call for an internet owned by the people who use it. Confirm your email so your voice is counted toward your community, and so we can keep you posted as the work moves forward.</p>
              <p style="margin:28px 0"><a href="${link}" style="background:#B08D3A;color:#fff;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Confirm my place</a></p>
-             <p style="font-size:13px;color:#667">If you didn't ask to join, ignore this email — nothing will be counted, and this link deletes the record: <a href="${forgetLink}" style="color:#667">${forgetLink}</a>.</p>
+             <p style="font-size:13px;color:#667">If you didn't ask to join, ignore this email — nothing will be counted, and this link opens a page to remove the record: <a href="${forgetLink}" style="color:#667">${forgetLink}</a>.</p>
            </div>`,
       }),
     });
@@ -103,8 +108,17 @@ export default {
     try {
       if (url.pathname === "/communities" && req.method === "GET") return getCommunities(env, origin);
       if (url.pathname === "/join" && req.method === "POST") return join(req, env, origin);
-      if (url.pathname === "/verify" && req.method === "GET") return verify(url, env);
-      if (url.pathname === "/forget" && req.method === "GET") return forget(url, env);
+      // GET is what mail link-scanners issue before a human ever opens the message
+      // (Microsoft Defender/ATP Safe Links, Proofpoint, Mimecast and Barracuda all
+      // pre-fetch every link in transit). Nothing that changes a row or a public
+      // count may happen on a GET arriving from an email link, so GET only renders
+      // a page with a button; the button POSTs the same token to do the work. This
+      // is exactly what RFC 8058 requires for one-click email actions, and for the
+      // same reason: an automated fetch must not be able to trigger the action.
+      if (url.pathname === "/verify" && req.method === "GET") return verifyPrompt(url, env);
+      if (url.pathname === "/verify" && req.method === "POST") return verify(req, env);
+      if (url.pathname === "/forget" && req.method === "GET") return forgetPrompt(url, env);
+      if (url.pathname === "/forget" && req.method === "POST") return forget(req, env);
       if (url.pathname === "/admin/communities" && req.method === "GET") return adminList(req, url, env, origin);
       if (url.pathname === "/admin/approve" && req.method === "POST") return adminApprove(req, env, origin);
       if (url.pathname === "/") return json({ ok: true, service: "wtu-call" }, 200, origin);
@@ -224,26 +238,67 @@ function verifyPage(title, msg, env, ok, extraHtml) {
   );
 }
 function forgetLinkHtml(base, token) {
-  return `<p style="margin-top:26px;font-size:13px;color:#667">Changed your mind? <a href="${base}/forget?token=${token}" style="color:#B08D3A">Delete this record</a> — one click, no confirmation needed.</p>`;
+  return `<p style="margin-top:26px;font-size:13px;color:#667">Changed your mind? <a href="${base}/forget?token=${token}" style="color:#B08D3A">Remove this record</a>.</p>`;
 }
-async function verify(url, env) {
+const btnStyle = "background:#B08D3A;color:#fff;padding:13px 24px;border-radius:8px;border:none;font-weight:bold;font-size:16px;font-family:inherit;cursor:pointer";
+
+// POST arrives as the confirmation/delete form's own submission (the button the
+// GET-rendered prompt page shows), not as JSON — read the token from the form body.
+async function readToken(req) {
+  try {
+    const fd = await req.formData();
+    return String(fd.get("token") || "");
+  } catch {
+    return "";
+  }
+}
+
+function verifyPrompt(url, env) {
   const t = url.searchParams.get("token") || "";
+  if (!t) return verifyPage("Invalid link", "This confirmation link is missing its token.", env, false);
+  return verifyPage(
+    "Confirm your place.",
+    "Press the button to confirm your email and count your voice toward your community.",
+    env, true,
+    `<form method="POST" action="/verify" style="margin-top:30px">
+       <input type="hidden" name="token" value="${t}">
+       <button type="submit" style="${btnStyle}">Confirm my place</button>
+     </form>
+     <p style="font-size:13px;color:#667;margin-top:18px">Nothing is confirmed until you press the button. This page does not act on its own.</p>`
+  );
+}
+async function verify(req, env) {
+  const t = await readToken(req);
   if (!t) return verifyPage("Invalid link", "This confirmation link is missing its token.", env, false);
   const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
   if (!row) return verifyPage("Already confirmed, or expired", "We couldn't find a pending confirmation for this link — it may already be confirmed, or the record has been deleted.", env, false);
   // The token is deliberately left in place (not nulled) so the same link keeps
-  // working as a one-click delete afterwards. /forget removes the row outright.
+  // working as a delete prompt afterwards. /forget removes the row outright.
   await env.DB.prepare(`UPDATE signups SET email_verified=1, verified_at=? WHERE id=?`)
     .bind(SISO(Date.now()), row.id).run();
-  const base = env.PUBLIC_BASE || url.origin;
+  const base = env.PUBLIC_BASE || new URL(req.url).origin;
   return verifyPage(
     "You're counted.",
     "Thank you for joining the call. Your email is confirmed, your community now reflects your voice, and we'll keep you posted as the work moves forward.",
     env, true, forgetLinkHtml(base, t)
   );
 }
-async function forget(url, env) {
+function forgetPrompt(url, env) {
   const t = url.searchParams.get("token") || "";
+  if (!t) return verifyPage("Invalid link", "This link is missing its token.", env, false);
+  return verifyPage(
+    "Remove your record?",
+    "Press the button to delete your sign-up. Nothing is deleted until you press it.",
+    env, true,
+    `<form method="POST" action="/forget" style="margin-top:30px">
+       <input type="hidden" name="token" value="${t}">
+       <button type="submit" style="${btnStyle}">Delete my record</button>
+     </form>
+     <p style="font-size:13px;color:#667;margin-top:18px">This page does not act on its own.</p>`
+  );
+}
+async function forget(req, env) {
+  const t = await readToken(req);
   if (!t) return verifyPage("Invalid link", "This link is missing its token.", env, false);
   const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
   if (!row) return verifyPage("Nothing to remove", "We couldn't find a record for this link — it may already be deleted.", env, false);
