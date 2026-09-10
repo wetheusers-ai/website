@@ -1,0 +1,31 @@
+# We the Users
+
+> A call to draft a Declaration of Internet Independence — an internet owned by the people who use it, argued for in a provisional Declaration and six essays, and made checkable with an agent skill, an export guide, and a privacy page.
+
+## The call
+
+- [We the Users](https://wetheusers.ai/): the case, the Declaration, the six essays, and the sign-up form.
+- [A Declaration of Internet Independence](https://wetheusers.ai/#read/declaration): the provisional draft.
+- [What you can do](https://wetheusers.ai/#help): five concrete actions, including the agent skill and the data-export guide.
+
+## The essays
+
+- [We Never Agreed](https://wetheusers.ai/#read/weather): why change is possible.
+- [Your Digital Shadow](https://wetheusers.ai/#read/shadow): what your data is made of.
+- [Ambition Against Ambition](https://wetheusers.ai/#read/ambition): how a user-owned internet keeps power from re-concentrating.
+- [The Longer Race](https://wetheusers.ai/#read/race): why the race worth running is the next thousand years, not the next quarter.
+- [The Ledger and the Spoils](https://wetheusers.ai/#read/ledger): why the rewards, not just the record, must be decentralized.
+- [The Second Zero](https://wetheusers.ai/#read/secondzero): where the road leads, and how the money works.
+- [The founding brief](https://github.com/wetheusers-ai/wetheusers/blob/main/docs/founding-brief.md): the longer case, drafted in the open repository.
+
+## The skill
+
+- [The skill, for your agent](https://wetheusers.ai/skill/): what it does, how to install it, and how to check it.
+- [SKILL.md, in full](https://wetheusers.ai/skill/SKILL.md): the raw file an agent loads.
+- [The always-on block](https://wetheusers.ai/skill/AGENTS-block.md): the same instruction, to paste into an AGENTS.md or CLAUDE.md.
+
+## Optional
+
+- [Privacy](https://wetheusers.ai/privacy/): what the sign-up form stores, who touches it, and how to leave.
+- [Where the export button is](https://wetheusers.ai/export/): the export tool for eleven major platforms.
+- [The repository](https://github.com/wetheusers-ai/wetheusers): where the Declaration, the essays, and the founding brief are drafted in the open.

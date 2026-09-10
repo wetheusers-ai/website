@@ -211,6 +211,21 @@ em,i{font-style:italic}
 .card:hover .cgo .arr{transform:translateX(4px)}
 .cgo .arr{transition:transform .2s}
 
+/* ---- help rungs ---- */
+.rungs{display:flex;flex-direction:column;margin-top:44px;border-top:1px solid var(--line)}
+.rung{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid var(--line)}
+.rnum{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--gold);flex:none;width:34px;height:34px;
+  border:1.5px solid rgba(176,141,58,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.rbody{flex:1;min-width:0}
+.rbody h3{font-family:var(--disp);font-weight:600;font-size:21px;color:var(--ink);margin:0 0 8px;line-height:1.15}
+.rbody p{margin:0 0 12px}
+.rgo{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;
+  color:var(--gold);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;margin:0 20px 6px 0;font-weight:500}
+.rgo:hover{color:var(--goldb)}
+.rgo .arr{transition:transform .2s;display:inline-block}
+.rgo:hover .arr{transform:translateX(4px)}
+.copystatus{font-family:var(--mono);font-size:12.5px;color:var(--mutedl);margin:6px 0 0;word-break:break-all}
+
 /* ---- horizon ---- */
 .horizon{text-align:center}
 .horizon .big{font-family:var(--disp);font-weight:600;font-size:clamp(72px,16vw,180px);line-height:.9;color:var(--ivory)}
@@ -405,7 +420,7 @@ em,i{font-style:italic}
     <a href="#how">How it works</a>
     <a href="#declaration">The Declaration</a>
     <a href="#case">The essays</a>
-    <a href="#dashboard">Communities</a>
+    <a href="#help">What you can do</a>
     <a class="cta" href="#sign">Join the call</a>
   </div>
 </div></nav>
@@ -620,6 +635,60 @@ em,i{font-style:italic}
   </div>
 </section>
 
+<!-- HELP -->
+<section class="movement on-ivory" id="help">
+  <div class="wrap">
+    <p class="eyebrow reveal">Ways to help</p>
+    <h2 class="h-lg reveal" style="max-width:20ch">Five things you can do.</h2>
+    <p class="reveal lede">From two minutes to an afternoon. None of them costs money. We do not take any.</p>
+    <div class="rungs">
+      <div class="rung reveal">
+        <span class="rnum" aria-hidden="true">1</span>
+        <div class="rbody">
+          <h3>Give your agent the skill</h3>
+          <p>If you use Claude Code, Codex, Cursor, or another agent, hand it one short file: a standing instruction that your data is yours. It offers to keep a copy of what you make, reads the terms before you agree, and sends nothing the job does not need. It runs no code, asks for no permissions, and never puts its name in your work. Agents load a skill when the work matches it, so it is an instruction rather than a guarantee. Read it before you install it.</p>
+          <a class="rgo" href="skill/">The skill <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="rung reveal">
+        <span class="rnum" aria-hidden="true">2</span>
+        <div class="rbody">
+          <h3>See your own shadow</h3>
+          <p>The big platforms will hand you a copy of what they hold about you. In Europe and the UK the law requires it; in twenty US states, California among them, the law requires it of companies above a size threshold; elsewhere in America the button exists anyway, because they built one button for everybody. Ask for it. Open the folder. Then notice what is <em>not</em> in it: the inferences, the scores, the profile that decides what you see. The file is smaller than the shadow.</p>
+          <!-- Verified by Ledger 9 September 2026 against GDPR Art. 20, UK GDPR, Cal. Civ. Code §1798.140(d), and two state-law trackers; see lab/data/sources.json. Oklahoma's law takes effect January 2027, so the count becomes twenty-one then. -->
+          <a class="rgo" href="export/">Where the export button is <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="rung reveal">
+        <span class="rnum" aria-hidden="true">3</span>
+        <div class="rbody">
+          <h3>Add your voice</h3>
+          <p>Say you believe the internet should belong to the people who use it, and name the community you would gather with. That is the whole form, just below.</p>
+          <a class="rgo" href="#sign">Join the call <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="rung reveal">
+        <span class="rnum" aria-hidden="true">4</span>
+        <div class="rbody">
+          <h3>Send it to one person</h3>
+          <p>Not to everyone. To the one person you know who would argue with it. An argument is worth more to us than a like.</p>
+          <button class="rgo rgo-btn" type="button" id="copyLinkBtn" data-url="https://wetheusers.ai/skill">Copy the link <span class="arr">&rarr;</span></button>
+          <p class="copystatus" id="copyStatus" aria-live="polite" hidden></p>
+        </div>
+      </div>
+      <div class="rung reveal">
+        <span class="rnum" aria-hidden="true">5</span>
+        <div class="rbody">
+          <h3>Take up the pen</h3>
+          <p>Every document here lives in an open repository. Edit a word, a clause, or an argument. If you build software, build in export and delete from the first day; that is the movement in practice.</p>
+          <a class="rgo" href="https://github.com/wetheusers-ai/wetheusers" target="_blank" rel="noopener">Open the repository <span class="arr">&rarr;</span></a>
+          <a class="rgo" href="https://github.com/wetheusers-ai/wetheusers/discussions" target="_blank" rel="noopener">Start a discussion <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SIGN -->
 <section class="movement on-ivory" id="sign">
   <div class="wrap" style="text-align:center">
@@ -644,17 +713,6 @@ em,i{font-style:italic}
       </div>
       <p class="prevnote">We the Users, the default community, is first-come,&nbsp;first-served.<br>Your email is used only to confirm your voice and to send major updates. We never sell it, and never hand it to anyone outside the three companies that run this form &mdash; named, with what each one does, on the <a href="privacy/" style="color:inherit;text-decoration:underline">privacy page</a>.</p>
     </div>
-  </div>
-</section>
-
-<!-- DRAFT WITH US -->
-<section class="movement on-ivory" id="draft">
-  <div class="wrap" style="text-align:center">
-    <p class="eyebrow reveal">Draft with us</p>
-    <h2 class="h-lg reveal" style="max-width:16ch;margin-left:auto;margin-right:auto">Take up the pen.</h2>
-    <p class="reveal lede" style="margin-left:auto;margin-right:auto">Signing is the smallest edit. If you have more than a name to add, the drafting table is public: every document here lives in an open repository, where discussions and pull requests are welcome on any piece of this work &mdash; a word, a clause, a whole argument. Prefer to think out loud? Start a discussion.</p>
-    <div class="hero-cta reveal" style="justify-content:center;margin-top:6px"><a class="btn btn-gold" href="https://github.com/wetheusers-ai/wetheusers" target="_blank" rel="noopener">Open the repository</a><a class="btn btn-ghost-ink" href="https://github.com/wetheusers-ai/wetheusers/discussions" target="_blank" rel="noopener">Start a discussion</a></div>
-    <p class="draft-note reveal">None of this is a final product. The final version is the one written&nbsp;together.</p>
   </div>
 </section>
 
@@ -683,9 +741,10 @@ em,i{font-style:italic}
       <a href="#declaration">The Declaration</a>
       <a href="#case">The six essays</a>
       <a href="#how">How it works</a>
+      <a href="#help">What you can do</a>
       <a href="#sign">Join the call</a>
-    <a href="#draft">Draft with us</a>
     <a href="https://github.com/wetheusers-ai/wetheusers" target="_blank" rel="noopener">GitHub</a>
+    <a href="skill/">The skill</a>
     <a href="privacy/">Privacy</a>
     </div>
   </div>
@@ -1208,6 +1267,20 @@ document.documentElement.classList.add('js');
   if(tog){ tog.addEventListener('click',function(){ links.classList.toggle('show'); }); }
   Array.prototype.forEach.call(document.querySelectorAll('#navLinks a'),function(a){
     a.addEventListener('click',function(){ links.classList.remove('show'); }); });
+
+  // copy-link (rung 4)
+  var copyBtn=document.getElementById('copyLinkBtn'), copyStatus=document.getElementById('copyStatus');
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      var url=copyBtn.getAttribute('data-url');
+      function fallback(){ if(copyStatus){ copyStatus.textContent=url; copyStatus.hidden=false; } }
+      if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+        navigator.clipboard.writeText(url).then(function(){
+          if(copyStatus){ copyStatus.textContent='Copied: '+url; copyStatus.hidden=false; }
+        }, fallback);
+      } else { fallback(); }
+    });
+  }
 
   // scroll reveal
   var io;

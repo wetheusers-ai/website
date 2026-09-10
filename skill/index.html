@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your agent, on your side — We the Users</title>
+<meta name="description" content="A short file you hand your agent: a standing instruction that your data is yours. No scripts, no new permissions, no network calls of its own.">
+<link rel="canonical" href="https://wetheusers.ai/skill/">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wetheusers.ai/skill/">
+<meta property="og:site_name" content="We the Users">
+<meta property="og:title" content="Your agent, on your side">
+<meta property="og:description" content="A short file you hand your agent: a standing instruction that your data is yours.">
+<meta property="og:image" content="https://wetheusers.ai/media/og-skill.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your agent, on your side">
+<meta name="twitter:description" content="A short file you hand your agent: a standing instruction that your data is yours.">
+<meta name="twitter:image" content="https://wetheusers.ai/media/og-skill.jpg">
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 900;font-display:swap;src:url('../media/fonts/fraunces-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 600;font-display:swap;src:url('../media/fonts/newsreader-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../media/fonts/ibm-plex-mono-400.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../media/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+:root{
+  --navy95:#0E1A30;--ink:#1B2A4A;--inksoft:#3B4663;--gold:#B08D3A;--goldb:#C9A24B;
+  --paper:#FBF9F3;--cream:#ECE6D8;--line:#E6E0D2;--mutedl:#6E6A60;
+  --disp:'Fraunces',Georgia,'Times New Roman',serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.68;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:14vh 24px 12vh}
+.dia{display:block;width:14px;height:14px;margin-bottom:26px;background:var(--gold);transform:rotate(45deg)}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mutedl);margin:0 0 10px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(30px,5vw,42px);letter-spacing:-.012em;margin:0 0 22px;color:var(--ink)}
+h2{font-family:var(--disp);font-weight:600;font-size:19px;margin:34px 0 8px;color:var(--ink)}
+p{margin:0 0 16px;color:var(--inksoft)}
+ul{margin:0 0 16px;padding-left:1.15em;color:var(--inksoft)}
+li{margin:0 0 8px}
+a{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(176,141,58,.4)}
+a:hover{color:var(--goldb)}
+code{font-family:var(--mono);font-size:14.5px;background:var(--cream);padding:.12em .35em;border-radius:4px;word-break:break-word}
+pre{font-family:var(--mono);font-size:13.5px;line-height:1.6;background:var(--navy95);color:var(--cream);padding:16px 18px;
+  border-radius:8px;overflow-x:auto;margin:0 0 16px}
+pre code{background:none;padding:0;color:inherit}
+.hash{font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--mutedl);word-break:break-all;
+  background:var(--cream);padding:10px 14px;border-radius:6px;display:block;margin:0 0 16px}
+.note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--mutedl);border-top:1px dotted var(--line);padding-top:16px;margin-top:36px}
+.note + .note{border-top:none;margin-top:0;padding-top:0}
+.back{display:inline-block;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--cream);padding:12px 22px;border-radius:8px;text-decoration:none}
+.back:hover{background:var(--goldb);color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="dia" aria-hidden="true"></span>
+  <p class="eyebrow">The skill</p>
+  <h1>Your agent, on your side</h1>
+
+  <p>If you use an agent that reads a <code>SKILL.md</code> (Claude Code, Codex, Cursor, Gemini CLI, Copilot, and most others), you can hand it one short file: a standing instruction that your data is yours. Because it is.</p>
+
+  <p>With the skill installed, your agent:</p>
+  <ul>
+    <li>offers to keep a copy of what you make, in a format you can leave with, and asks where before it writes anything;</li>
+    <li>reads the terms before you agree, and tells you in three lines what a service keeps, whether it may train on what you give it, and how you get out, quoting the sentence it relied on so you can check;</li>
+    <li>does not send your life to a third party the job does not need;</li>
+    <li>and when you build software for other people, asks for export and delete on day one.</li>
+  </ul>
+
+  <p>It never puts its name in your work. Not in your code, your commits, your documents, your messages — nowhere. It is in the file you installed, and it stays there.</p>
+
+  <p>Agents load a skill when the work matches it, so this is a standing instruction rather than a guarantee. That is also why the file is short enough to read.</p>
+
+  <h2>What it is</h2>
+  <p>The skill is text. It contains no scripts, grants your agent no new permissions, and makes no network requests of its own. Fetching it from this page puts one line in our web server's log, the way any page you visit does; nothing in the file reports back, and there is nothing for it to report. Read it before you install it. It is thirty-three lines, and that is the point.</p>
+
+  <h2>Install</h2>
+  <p>If you use Claude Code or Codex, the paths below are the whole install; we have tested both. Cursor, Gemini CLI, and Copilot's agent mode read the same Agent Skills format but keep their skills somewhere else: check their docs for the folder, or use the always-on block below, which works everywhere.</p>
+
+  <p>Copy the file. You can read what you are copying first.</p>
+
+  <pre><code>mkdir -p ~/.claude/skills/we-the-users
+curl -fsSL https://wetheusers.ai/skill/SKILL.md -o ~/.claude/skills/we-the-users/SKILL.md</code></pre>
+
+  <p>For Codex, and for other agents that share its folder, the path is <code>~/.agents/skills/we-the-users/</code> instead. To remove it, delete the folder.</p>
+
+  <p>If you already use the <code>skills</code> CLI, <code>npx skills add wetheusers-ai/skill</code> places it for every agent at once. That command downloads and runs a tool we do not control, and installs whatever is on our main branch today. We mention it because it is convenient, not because it is the safer path.</p>
+
+  <p>The file you should have is version 0.5:</p>
+  <span class="hash">sha256 a94021f39bf2880c3c3b3e7a4626db911c29e2049c941594c2134938bbc140fe</span>
+  <p>Check it if you like. We would.</p>
+
+  <h2>Always on</h2>
+  <p>If you would rather not depend on your agent deciding when the skill applies, paste <a href="AGENTS-block.md">the body of the file</a> into your project's <code>AGENTS.md</code> or <code>CLAUDE.md</code>. Same words. Your agent reads those every time.</p>
+
+  <h2>Forks</h2>
+  <p>We claim no trademark, and anyone may copy this. That means someone could publish a file with our name and three extra lines. The real one lives in two places: this page, and <a href="https://github.com/wetheusers-ai/skill" target="_blank" rel="noopener">github.com/wetheusers-ai/skill</a>. If the hash does not match, it is not ours.</p>
+
+  <h2>Read it first</h2>
+  <p><a href="SKILL.md">The skill, in full.</a></p>
+
+  <h2>Improve it</h2>
+  <p>The skill is a draft, like everything else here. <a href="https://github.com/wetheusers-ai/wetheusers" target="_blank" rel="noopener">Open an issue or a pull request.</a> The one rule for changes: the skill serves the person running it, never us. Anything that makes the agent advertise, nag, or act without the user's say-so will not be merged.</p>
+
+  <p class="note">Skill text licensed CC BY 4.0.</p>
+  <p class="note">An open project, not affiliated with any company.</p>
+
+  <a class="back" href="/">&larr; Return to the call</a>
+</div>
+</body>
+</html>

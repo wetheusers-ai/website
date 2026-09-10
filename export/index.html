@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where the export button is — We the Users</title>
+<meta name="description" content="Ask each platform for a copy of what it holds about you. The links go to the platform's own export tool, not a guide about it.">
+<link rel="canonical" href="https://wetheusers.ai/export/">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wetheusers.ai/export/">
+<meta property="og:site_name" content="We the Users">
+<meta property="og:title" content="Where the export button is">
+<meta property="og:description" content="Ask each platform for a copy of what it holds about you. The file is smaller than the shadow.">
+<meta property="og:image" content="https://wetheusers.ai/media/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where the export button is">
+<meta name="twitter:description" content="Ask each platform for a copy of what it holds about you. The file is smaller than the shadow.">
+<meta name="twitter:image" content="https://wetheusers.ai/media/og-card.jpg">
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 900;font-display:swap;src:url('../media/fonts/fraunces-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 600;font-display:swap;src:url('../media/fonts/newsreader-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../media/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+:root{
+  --navy95:#0E1A30;--ink:#1B2A4A;--inksoft:#3B4663;--gold:#B08D3A;--goldb:#C9A24B;
+  --paper:#FBF9F3;--cream:#ECE6D8;--line:#E6E0D2;--mutedl:#6E6A60;
+  --disp:'Fraunces',Georgia,'Times New Roman',serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.68;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:14vh 24px 12vh}
+.dia{display:block;width:14px;height:14px;margin-bottom:26px;background:var(--gold);transform:rotate(45deg)}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mutedl);margin:0 0 10px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(28px,4.6vw,38px);letter-spacing:-.012em;margin:0 0 22px;color:var(--ink);max-width:24ch}
+p{margin:0 0 16px;color:var(--inksoft);max-width:64ch}
+a{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(176,141,58,.4)}
+a:hover{color:var(--goldb)}
+.tablewrap{overflow-x:auto;margin:8px 0 24px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mutedl);
+  text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 14px 12px 0;border-bottom:1px solid var(--line);color:var(--inksoft);vertical-align:top}
+td:first-child,th:first-child{font-family:var(--disp);font-weight:600;color:var(--ink)}
+.unverified{color:var(--mutedl);font-style:italic;font-size:14px}
+.note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--mutedl);border-top:1px dotted var(--line);padding-top:16px;margin-top:36px}
+.note + .note{border-top:none;margin-top:0;padding-top:0}
+.checked{font-family:var(--mono);font-size:12px;color:var(--mutedl)}
+.back{display:inline-block;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--cream);padding:12px 22px;border-radius:8px;text-decoration:none}
+.back:hover{background:var(--goldb);color:#fff}
+@media (max-width: 480px){
+  .wrap{padding:10vh 18px 10vh}
+  table{font-size:13.5px}
+  th,td{padding:8px 10px 8px 0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="dia" aria-hidden="true"></span>
+  <p class="eyebrow">See your own shadow</p>
+  <h1>Where the export button is.</h1>
+
+  <p>Ask each of these for a copy of what it holds about you; the links go to the platform's own tool, not a guide about it.</p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr>
+      <th>Platform</th><th>Export tool</th><th>What you get</th><th>Formats</th><th>Wait</th><th>Checked</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>Google</td>
+        <td><a href="https://takeout.google.com/" target="_blank" rel="noopener">takeout.google.com</a></td>
+        <td>Data from the Google services you use — Gmail, Drive, Photos, Calendar, YouTube, search and location history — chosen service by service</td>
+        <td>.zip or .tgz</td>
+        <td>Minutes to a few days; most arrive the same day</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Meta — Facebook</td>
+        <td><a href="https://www.facebook.com/dyi/" target="_blank" rel="noopener">facebook.com/dyi</a></td>
+        <td>Posts, photos, videos, messages, friends list, ads and activity info</td>
+        <td>HTML or JSON</td>
+        <td>Not stated by Meta; once ready, 4 days to download</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Meta — Instagram</td>
+        <td><a href="https://www.instagram.com/download/request/" target="_blank" rel="noopener">instagram.com/download/request</a></td>
+        <td>Photos, videos, messages, comments, search history, profile info</td>
+        <td class="unverified">(unverified)</td>
+        <td class="unverified">(unverified)</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Apple</td>
+        <td><a href="https://privacy.apple.com/" target="_blank" rel="noopener">privacy.apple.com</a></td>
+        <td>Account and sign-in records, iCloud data, app-usage info, purchase history</td>
+        <td>Original formats, plus .vcf/.ics/.html/.eml and .json/.csv/.pdf</td>
+        <td>About 7 days to prepare; 14 days to download once ready</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>X</td>
+        <td><a href="https://x.com/settings/download_your_data" target="_blank" rel="noopener">x.com/settings/download_your_data</a></td>
+        <td>Posts, direct messages, media, account info</td>
+        <td>ZIP with HTML and JSON</td>
+        <td>Usually 24–48 hours, longer for large accounts; link expires in 7 days</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>TikTok</td>
+        <td><a href="https://www.tiktok.com/setting/download-your-data" target="_blank" rel="noopener">tiktok.com/setting/download-your-data</a></td>
+        <td>Videos watched and posted, comments, messages, login history, follows</td>
+        <td>TXT or JSON</td>
+        <td>24 hours to 4 days; link expires 4 days after ready</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Microsoft</td>
+        <td><a href="https://account.microsoft.com/privacy/" target="_blank" rel="noopener">account.microsoft.com/privacy</a></td>
+        <td>Search, browsing, location, voice, and app/service activity tied to the account</td>
+        <td class="unverified">(unverified)</td>
+        <td>Reported as within 30 days; not confirmed on Microsoft's own page</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Amazon</td>
+        <td><a href="https://www.amazon.com/gp/privacycentral/dsar/preview.html" target="_blank" rel="noopener">amazon.com — Request My Data</a></td>
+        <td>Orders, payments, Alexa recordings, device info, browsing and search history, support records</td>
+        <td>ZIP of .csv files</td>
+        <td>Amazon states usually under a month, sometimes longer; 90 days to download once ready</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>LinkedIn</td>
+        <td><a href="https://www.linkedin.com/psettings/data-privacy/" target="_blank" rel="noopener">linkedin.com — Get a copy of your data</a></td>
+        <td>Profile, positions, education, connections, messages, job applications, skills, and more</td>
+        <td>ZIP of .csv files</td>
+        <td>Selected categories within minutes; full archive within 24 hours; link lasts 72 hours</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Reddit</td>
+        <td><a href="https://www.reddit.com/settings/data-request" target="_blank" rel="noopener">reddit.com/settings/data-request</a></td>
+        <td>Posts, comments, messages, saved items, vote and account history</td>
+        <td>ZIP of .csv files</td>
+        <td>Up to 30 days; one request per 30 days</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+      <tr>
+        <td>Spotify</td>
+        <td><a href="https://www.spotify.com/account/privacy/" target="_blank" rel="noopener">spotify.com/account/privacy</a></td>
+        <td>Streaming history, library and playlists, account and usage data</td>
+        <td>ZIP, multiple files (exact per-file format not confirmed)</td>
+        <td class="unverified">(unverified)</td>
+        <td class="checked">9 Sept 2026</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Every link above sits behind a sign-in — that is the platform's own security, not ours; we read the public description of each tool and did not sign in anywhere to check it. Where a detail is marked <span class="unverified">(unverified)</span>, it is because the platform's own page would not render without a login and no platform-owned source confirmed it either; ask the tool directly and it will tell you.</p>
+
+  <p>The file is smaller than the shadow.</p>
+
+  <p class="note">An open project, not affiliated with any company.</p>
+
+  <a class="back" href="/">&larr; Return to the call</a>
+</div>
+</body>
+</html>
