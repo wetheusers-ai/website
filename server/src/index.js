@@ -6,6 +6,7 @@
  *   GET  /communities         -> picker list + public tallies (aggregate counts only)
  *   POST /join                -> record a sign-up; emails get a verification link
  *   GET  /verify?token=...    -> confirm an email (returns a small HTML page)
+ *   GET  /forget?token=...    -> delete a sign-up row outright (same token as /verify)
  *
  * Admin endpoints (require ADMIN_TOKEN):
  *   GET  /admin/communities?token=...      -> list communities incl. pending write-ins
@@ -18,6 +19,10 @@
  *   - No-email / unverified joins are recorded but never inflate the public tally.
  *   - Write-in communities start PENDING and never appear publicly until approved.
  *   - Names and emails are private; /communities never returns them.
+ *   - verify_token is not cleared on verification (only on /forget, by deleting the
+ *     row outright) so the same link in the confirmation email keeps working as a
+ *     one-click delete afterwards. Re-hitting /verify with a spent token is harmless:
+ *     it can only re-confirm a row that already exists, never fabricate one.
  */
 
 const SISO = (d) => new Date(d).toISOString();
@@ -64,7 +69,7 @@ async function sha256(s) {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-async function sendVerifyEmail(env, email, link) {
+async function sendVerifyEmail(env, email, link, forgetLink) {
   if (!env.RESEND_API_KEY) return { sent: false, reason: "no_key" };
   const from = env.FROM_EMAIL || "We the Users <onboarding@resend.dev>";
   try {
@@ -80,7 +85,7 @@ async function sendVerifyEmail(env, email, link) {
              <p style="font-size:19px;margin:0 0 14px">We believe there is a better way.</p>
              <p>Thank you for joining the call for an internet owned by the people who use it. Confirm your email so your voice is counted toward your community, and so we can keep you posted as the work moves forward.</p>
              <p style="margin:28px 0"><a href="${link}" style="background:#B08D3A;color:#fff;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Confirm my place</a></p>
-             <p style="font-size:13px;color:#667">If you didn't ask to join, just ignore this email — nothing will be recorded.</p>
+             <p style="font-size:13px;color:#667">If you didn't ask to join, ignore this email — nothing will be counted, and this link deletes the record: <a href="${forgetLink}" style="color:#667">${forgetLink}</a>.</p>
            </div>`,
       }),
     });
@@ -99,6 +104,7 @@ export default {
       if (url.pathname === "/communities" && req.method === "GET") return getCommunities(env, origin);
       if (url.pathname === "/join" && req.method === "POST") return join(req, env, origin);
       if (url.pathname === "/verify" && req.method === "GET") return verify(url, env);
+      if (url.pathname === "/forget" && req.method === "GET") return forget(url, env);
       if (url.pathname === "/admin/communities" && req.method === "GET") return adminList(req, url, env, origin);
       if (url.pathname === "/admin/approve" && req.method === "POST") return adminApprove(req, env, origin);
       if (url.pathname === "/") return json({ ok: true, service: "wtu-call" }, 200, origin);
@@ -191,7 +197,7 @@ async function join(req, env, origin) {
   let emailStatus = "none";
   if (email && vtoken) {
     const base = env.PUBLIC_BASE || new URL(req.url).origin;
-    const res = await sendVerifyEmail(env, email, `${base}/verify?token=${vtoken}`);
+    const res = await sendVerifyEmail(env, email, `${base}/verify?token=${vtoken}`, `${base}/forget?token=${vtoken}`);
     emailStatus = res.sent ? "sent" : "unsent:" + res.reason;
   }
   return json({
@@ -202,7 +208,7 @@ async function join(req, env, origin) {
   }, 200, origin);
 }
 
-function verifyPage(title, msg, env, ok) {
+function verifyPage(title, msg, env, ok, extraHtml) {
   return new Response(
     `<!doctype html><html lang="en"><meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>
@@ -211,19 +217,38 @@ function verifyPage(title, msg, env, ok) {
        <div style="width:22px;height:22px;background:${ok ? "#B08D3A" : "#9AA6BC"};transform:rotate(45deg);margin:0 auto 28px"></div>
        <h1 style="font-weight:600;font-size:30px;margin:0 0 14px">${title}</h1>
        <p style="font-size:18px;line-height:1.65;color:#33405c;margin:0">${msg}</p>
+       ${extraHtml || ""}
        ${env.SITE_URL ? `<p style="margin-top:32px"><a href="${env.SITE_URL}" style="color:#B08D3A;font-family:ui-monospace,monospace;font-size:14px;text-decoration:none">Return to We the Users &rarr;</a></p>` : ""}
      </div></body></html>`,
     { status: ok ? 200 : 400, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } }
   );
 }
+function forgetLinkHtml(base, token) {
+  return `<p style="margin-top:26px;font-size:13px;color:#667">Changed your mind? <a href="${base}/forget?token=${token}" style="color:#B08D3A">Delete this record</a> — one click, no confirmation needed.</p>`;
+}
 async function verify(url, env) {
   const t = url.searchParams.get("token") || "";
   if (!t) return verifyPage("Invalid link", "This confirmation link is missing its token.", env, false);
   const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
-  if (!row) return verifyPage("Already confirmed, or expired", "We couldn't find a pending confirmation for this link — it may already be confirmed.", env, false);
-  await env.DB.prepare(`UPDATE signups SET email_verified=1, verify_token=NULL, verified_at=? WHERE id=?`)
+  if (!row) return verifyPage("Already confirmed, or expired", "We couldn't find a pending confirmation for this link — it may already be confirmed, or the record has been deleted.", env, false);
+  // The token is deliberately left in place (not nulled) so the same link keeps
+  // working as a one-click delete afterwards. /forget removes the row outright.
+  await env.DB.prepare(`UPDATE signups SET email_verified=1, verified_at=? WHERE id=?`)
     .bind(SISO(Date.now()), row.id).run();
-  return verifyPage("You're counted.", "Thank you for joining the call. Your email is confirmed, your community now reflects your voice, and we'll keep you posted as the work moves forward.", env, true);
+  const base = env.PUBLIC_BASE || url.origin;
+  return verifyPage(
+    "You're counted.",
+    "Thank you for joining the call. Your email is confirmed, your community now reflects your voice, and we'll keep you posted as the work moves forward.",
+    env, true, forgetLinkHtml(base, t)
+  );
+}
+async function forget(url, env) {
+  const t = url.searchParams.get("token") || "";
+  if (!t) return verifyPage("Invalid link", "This link is missing its token.", env, false);
+  const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
+  if (!row) return verifyPage("Nothing to remove", "We couldn't find a record for this link — it may already be deleted.", env, false);
+  await env.DB.prepare(`DELETE FROM signups WHERE id=?`).bind(row.id).run();
+  return verifyPage("You're removed.", "Your sign-up has been deleted. Nothing you gave this form remains in our records.", env, true);
 }
 
 function adminAuthed(req, url, env) {

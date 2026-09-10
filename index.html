@@ -20,10 +20,15 @@
 <meta name="twitter:title" content="We believe there is a better way.">
 <meta name="twitter:description" content="A call to draft a Declaration of Internet Independence — an internet owned by the people who use it.">
 <meta name="twitter:image" content="https://wetheusers.ai/media/og-card.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Self-hosted fonts — served from media/fonts/, latin subset only. No request leaves this page to load type. */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 900;font-display:swap;src:url('media/fonts/fraunces-normal.woff2') format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:400 700;font-display:swap;src:url('media/fonts/fraunces-italic.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 600;font-display:swap;src:url('media/fonts/newsreader-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400 500;font-display:swap;src:url('media/fonts/newsreader-italic.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('media/fonts/ibm-plex-mono-400.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('media/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('media/fonts/ibm-plex-mono-600.woff2') format('woff2')}
 :root{
   --navy:#1B2A4A;--navy9:#13203B;--navy95:#0E1A30;--navy7:#243457;
   --gold:#B08D3A;--goldb:#C9A24B;--ivory:#F4F1EA;--paper:#FBF9F3;
@@ -611,7 +616,7 @@ em,i{font-style:italic}
         </details>
       </div>
     </div>
-    <p class="signer-note reveal">A personal project. Not affiliated with, endorsed by, or the work of Intel, the Unified Acceleration Foundation, or&nbsp;Holonic.</p>
+    <p class="signer-note reveal">An open project, not affiliated with any&nbsp;company.</p>
   </div>
 </section>
 
@@ -637,7 +642,7 @@ em,i{font-style:italic}
         <button class="btn btn-gold" id="signBtn" type="button">Join the call</button>
         <span class="count" id="count"></span>
       </div>
-      <p class="prevnote">We the Users, the default community, is first-come,&nbsp;first-served.<br>Your email is used only to confirm your voice and to send major updates &mdash; we never share&nbsp;it&nbsp;with&nbsp;anyone.</p>
+      <p class="prevnote">We the Users, the default community, is first-come,&nbsp;first-served.<br>Your email is used only to confirm your voice and to send major updates &mdash; we never share&nbsp;it&nbsp;with&nbsp;anyone. See the <a href="privacy/" style="color:inherit;text-decoration:underline">privacy page</a> for what we keep and how to remove it.</p>
     </div>
   </div>
 </section>
@@ -681,6 +686,7 @@ em,i{font-style:italic}
       <a href="#sign">Join the call</a>
     <a href="#draft">Draft with us</a>
     <a href="https://github.com/wetheusers-ai/wetheusers" target="_blank" rel="noopener">GitHub</a>
+    <a href="privacy/">Privacy</a>
     </div>
   </div>
   <div class="wrap"><div class="meta">WETHEUSERS.AI · A CALL TO DRAFT · WRITTEN IN THE OPEN</div></div>

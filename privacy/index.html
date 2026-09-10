@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — We the Users</title>
+<meta name="description" content="What We the Users stores when you join the call, who processes it, what we never do with it, and how to remove it.">
+<link rel="canonical" href="https://wetheusers.ai/privacy/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 900;font-display:swap;src:url('../media/fonts/fraunces-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 600;font-display:swap;src:url('../media/fonts/newsreader-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../media/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+:root{
+  --navy95:#0E1A30;--ink:#1B2A4A;--inksoft:#3B4663;--gold:#B08D3A;--goldb:#C9A24B;
+  --paper:#FBF9F3;--cream:#ECE6D8;--line:#E6E0D2;--mutedl:#6E6A60;
+  --disp:'Fraunces',Georgia,'Times New Roman',serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.68;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:14vh 24px 12vh}
+.dia{display:block;width:14px;height:14px;margin-bottom:26px;background:var(--gold);transform:rotate(45deg)}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mutedl);margin:0 0 10px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(30px,5vw,42px);letter-spacing:-.012em;margin:0 0 22px;color:var(--ink)}
+h2{font-family:var(--disp);font-weight:600;font-size:19px;margin:34px 0 8px;color:var(--ink)}
+p{margin:0 0 16px;color:var(--inksoft)}
+ul{margin:0 0 16px;padding-left:1.15em;color:var(--inksoft)}
+li{margin:0 0 6px}
+a{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(176,141,58,.4)}
+a:hover{color:var(--goldb)}
+.note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--mutedl);border-top:1px dotted var(--line);padding-top:16px;margin-top:36px}
+.back{display:inline-block;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--cream);padding:12px 22px;border-radius:8px;text-decoration:none}
+.back:hover{background:var(--goldb);color:#fff}
+.herald{background:#F6E9C9;border:1px solid #E3C888;border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:12.5px;color:#6b5316;margin:0 0 28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="dia" aria-hidden="true"></span>
+  <p class="eyebrow">Privacy</p>
+  <h1>What we keep, and how to leave.</h1>
+
+  <div class="herald">[HERALD: copy needed — a pass in the site's full voice. The facts below are accurate as of 9 September 2026; the sentences are honest placeholders, not final prose.]</div>
+
+  <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole record.</p>
+
+  <h2>Who touches it</h2>
+  <p>Two processors, both under contract, neither permitted to use it for anything but running this form: <a href="https://www.cloudflare.com/trust-hub/gdpr/" target="_blank" rel="noopener">Cloudflare</a> stores the record and runs the page; <a href="https://resend.com" target="_blank" rel="noopener">Resend</a> sends the one confirmation email. No one else receives it.</p>
+
+  <h2>What we never do</h2>
+  <ul>
+    <li>We never sell it, and we never share it beyond the two processors above.</li>
+    <li>We never train a model on it.</li>
+    <li>We never show your name publicly. What is public is a count — how many confirmed voices a community has — never a list of who they are.</li>
+  </ul>
+
+  <h2>How to leave</h2>
+  <p>Every confirmation email carries a link that deletes your row in one click, permanently. If you never received or kept that email and want your record found and removed, write to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> and we'll do it by hand.</p>
+
+  <h2>The one thing we watch</h2>
+  <p>We count page views with <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener">Cloudflare Web Analytics</a>. We do not know who you are.</p>
+
+  <p class="note">This page describes the sign-up form and this site only. It is not a legal terms-of-service document, and nothing here is legal advice.</p>
+
+  <a class="back" href="/">&larr; Return to the call</a>
+</div>
+</body>
+</html>
