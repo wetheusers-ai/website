@@ -69,6 +69,18 @@ function rand(n) {
   crypto.getRandomValues(a);
   return [...a].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
+// Every token we issue is rand(24): lowercase hex, exactly 48 characters.
+// Anything else did not come from us, and it must never reach the HTML.
+const TOKEN_RE = /^[0-9a-f]{48}$/;
+function isValidToken(t) {
+  return typeof t === "string" && TOKEN_RE.test(t);
+}
+// Belt-and-braces even where the token has already matched a database row:
+// nothing untrusted or trusted alike gets interpolated into HTML unescaped.
+function escAttr(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
 async function sha256(s) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -238,7 +250,7 @@ function verifyPage(title, msg, env, ok, extraHtml) {
   );
 }
 function forgetLinkHtml(base, token) {
-  return `<p style="margin-top:26px;font-size:13px;color:#667">Changed your mind? <a href="${base}/forget?token=${token}" style="color:#B08D3A">Remove this record</a>.</p>`;
+  return `<p style="margin-top:26px;font-size:13px;color:#667">Changed your mind? <a href="${base}/forget?token=${escAttr(token)}" style="color:#B08D3A">Remove this record</a>.</p>`;
 }
 const btnStyle = "background:#B08D3A;color:#fff;padding:13px 24px;border-radius:8px;border:none;font-weight:bold;font-size:16px;font-family:inherit;cursor:pointer";
 
@@ -256,12 +268,13 @@ async function readToken(req) {
 function verifyPrompt(url, env) {
   const t = url.searchParams.get("token") || "";
   if (!t) return verifyPage("Invalid link", "This confirmation link is missing its token.", env, false);
+  if (!isValidToken(t)) return verifyPage("Invalid link", "This link's token is not in the right form.", env, false);
   return verifyPage(
     "Confirm your place.",
     "Press the button to confirm your email and count your voice toward your community.",
     env, true,
     `<form method="POST" action="/verify" style="margin-top:30px">
-       <input type="hidden" name="token" value="${t}">
+       <input type="hidden" name="token" value="${escAttr(t)}">
        <button type="submit" style="${btnStyle}">Confirm my place</button>
      </form>
      <p style="font-size:13px;color:#667;margin-top:18px">Nothing is confirmed until you press the button. This page does not act on its own.</p>`
@@ -286,12 +299,13 @@ async function verify(req, env) {
 function forgetPrompt(url, env) {
   const t = url.searchParams.get("token") || "";
   if (!t) return verifyPage("Invalid link", "This link is missing its token.", env, false);
+  if (!isValidToken(t)) return verifyPage("Invalid link", "This link's token is not in the right form.", env, false);
   return verifyPage(
     "Remove your record?",
     "Press the button to delete your sign-up. Nothing is deleted until you press it.",
     env, true,
     `<form method="POST" action="/forget" style="margin-top:30px">
-       <input type="hidden" name="token" value="${t}">
+       <input type="hidden" name="token" value="${escAttr(t)}">
        <button type="submit" style="${btnStyle}">Delete my record</button>
      </form>
      <p style="font-size:13px;color:#667;margin-top:18px">This page does not act on its own.</p>`

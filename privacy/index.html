@@ -33,6 +33,7 @@ li{margin:0 0 6px}
 a{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(176,141,58,.4)}
 a:hover{color:var(--goldb)}
 .note{font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--mutedl);border-top:1px dotted var(--line);padding-top:16px;margin-top:36px}
+.note + .note{border-top:none;margin-top:0;padding-top:0}
 .back{display:inline-block;margin-top:40px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--cream);padding:12px 22px;border-radius:8px;text-decoration:none}
 .back:hover{background:var(--goldb);color:#fff}
 </style>
@@ -43,12 +44,10 @@ a:hover{color:var(--goldb)}
   <p class="eyebrow">Privacy</p>
   <h1>What we keep, and how to leave.</h1>
 
-  <!-- HERALD: copy needed — a pass in the site's full voice. The facts below are accurate as of 9 September 2026; the sentences are honest placeholders, not final prose. -->
-
   <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole record.</p>
 
   <h2>Who touches it</h2>
-  <p><strong>Who touches it.</strong> Three companies, all under contract, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores the record and serves the page, <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them.</p>
+  <p>Three companies, all under contract, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores the record and serves the page, <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them.</p>
 
   <h2>What we never do</h2>
   <ul>
@@ -65,6 +64,7 @@ a:hover{color:var(--goldb)}
   <p>We count page views with <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener">Cloudflare Web Analytics</a>. We do not know who you are.</p>
 
   <p class="note">This page describes the sign-up form and this site only. It is not a legal terms-of-service document, and nothing here is legal advice.</p>
+  <p class="note">An open project, not affiliated with any company.</p>
 
   <a class="back" href="/">&larr; Return to the call</a>
 </div>
