@@ -1,0 +1,152 @@
+{
+  "_meta": {
+    "note": "This is the list of where to find each platform's own data-export tool, one entry per platform, compiled by hand from that platform's page on the date shown. Where a detail could not be confirmed it is marked `[UNVERIFIED]` rather than guessed; corrections go to https://github.com/wetheusers-ai/wetheusers/discussions.",
+    "compiled_from": "hand-checked against the cited pages on the dates shown",
+    "corrections": "https://github.com/wetheusers-ai/wetheusers/discussions",
+    "generated": "2026-09-10",
+    "purpose": "One verified entry per platform for rung 2 of the help ladder (see your data, download your export).",
+    "retrieved": "2026-09-09; Reddit and Instagram re-checked 2026-09-10",
+    "method": "Each primary_url was fetched directly this session. Where the fetch redirected to a login page or the platform's server refused the fetch tool, that is recorded in login_gated / fetch_note, and a platform-owned help page is cited as secondary confirmation, per task instructions. No account was created and no export was requested anywhere.",
+    "note_on_meta": "Facebook and Instagram exports both now route through Meta's shared Accounts Center (unified since October 2023, per TechCrunch, cited below), so the two flows have substantially converged even though each still has its own entry URL."
+  },
+  "platforms": [
+    {
+      "platform": "Google",
+      "primary_url": "https://takeout.google.com/",
+      "login_gated": true,
+      "fetch_note": "Direct fetch 2026-09-09 returned a 302 redirect to accounts.google.com/ServiceLogin, confirming login is required before the tool loads.",
+      "secondary_confirmation_url": "https://support.google.com/accounts/answer/3024190?hl=en",
+      "contains": "Data from the Google services in use, selectable per service (Gmail, Drive, Photos, Calendar, YouTube, Search/location history, account activity, and more).",
+      "formats": "Archive as .zip or .tgz; formats inside vary by service (e.g. mbox for Mail, JSON for most activity data, native file formats for Photos/Drive).",
+      "wait_time": "\"A few minutes to a few days\"; Google states most people get the link the same day they request it. Download link/archive expires after about 7 days or 5 downloads.",
+      "retrieved": "2026-09-09",
+      "confidence": "high"
+    },
+    {
+      "platform": "Meta — Facebook",
+      "primary_url": "https://www.facebook.com/dyi/",
+      "login_gated": true,
+      "fetch_note": "Direct fetch 2026-09-09 served the Facebook login form (no data-download content visible without authentication).",
+      "secondary_confirmation_url": "https://www.facebook.com/help/212802592074644",
+      "contains": "Posts, photos, videos, messages, friends list, and account/activity/ads information.",
+      "formats": "HTML (\"an easy to view format\") or JSON (\"a machine readable format\"); date range and media quality are selectable.",
+      "wait_time": "Meta's own help page does not state a fixed preparation time; once the export is ready, it is available in the \"Available downloads\" section for about 4 days before it expires. [UNVERIFIED: exact preparation-time figure — not stated on the retrieved Meta help page.]",
+      "retrieved": "2026-09-09",
+      "confidence": "medium",
+      "notes": "Since Meta's October 2023 consolidation, this tool is also reachable at https://accountscenter.facebook.com/info_and_permissions/dyi and covers linked Meta accounts."
+    },
+    {
+      "platform": "Meta — Instagram",
+      "primary_url": "https://accountscenter.instagram.com/info_and_permissions/",
+      "login_gated": true,
+      "fetch_note": "An earlier pass (2026-09-10): re-fetched help.instagram.com/181231772500920 directly with browser-like headers (User-Agent, Accept, Accept-Language) — the earlier pass technique — and got HTTP 200 with the full article body this time, recovered from the embedded JSON payload in the server-rendered HTML (same method that unblocked facebook.com/privacy/genai in an earlier pass). CORRECTION: the article's own text never mentions instagram.com/download/request/ anywhere; it names accountscenter.instagram.com/info_and_permissions/ (inside \"Accounts Center\") as where the export flow starts — \"You can export your information in the Your information and permissions section in Accounts Center.\" instagram.com/download/request/ is still live (direct fetch today returns HTTP 302 to the Instagram login page, not a 404), so it is not wrong to use, but it is no longer the URL Instagram's own current documentation names; primary_url updated accordingly. Both instagram.com/download/request/ and accountscenter.instagram.com/info_and_permissions/dyi/ confirmed login-gated by direct fetch today (both 302 to instagram.com/accounts/login/).",
+      "secondary_confirmation_url": "https://help.instagram.com/181231772500920",
+      "contains": "For export to a device: \"Your Instagram activity\" (activity across Instagram), \"Personal Information\" (profile setup info), \"Connections\" (who/how you've connected with people), \"Logged Information\" (including location and search history), \"Security and Login Information,\" \"Apps and Websites off of Instagram,\" \"Preferences,\" and \"Ad information.\" For export to an external service, original media (photos/videos) can also be included. Instagram's own page states the export \"won't include information that someone else shared, like another person's photos that you're tagged in.\"",
+      "formats": "Confirmed: you \"can choose specific info to export, select a date range, format, the notification email and media quality\" during setup — so a format IS selectable. [UNVERIFIED: Instagram's own help article, now fully retrieved, never states what the format options actually are — no occurrence of \"JSON\" or \"HTML\" anywhere in the page text this session. This is a genuine gap in Instagram's own documentation, not a fetch failure. Facebook's own DYI help page (212802592074644) does name HTML/JSON explicitly, and the two tools share the same Accounts Center backend, so it is likely Instagram offers the same choice — but that is an inference, not a quote, and is not presented as confirmed.]",
+      "wait_time": "Confirmed, quoted directly: \"It may take up to 30 days for us to email you an export link.\" Once ready: \"you'll have 4 days to export your information in the Available downloads section... in Accounts Center.\"",
+      "retrieved": "2026-09-10",
+      "confidence": "medium-high",
+      "notes": "An earlier pass correction to an earlier pass: contents and wait time are now confirmed against Instagram's own page (previously both [UNVERIFIED]); format remains the one open gap, now precisely characterized rather than a blanket fetch failure. Also reachable at https://accountscenter.instagram.com/info_and_permissions/dyi/, the same Accounts Center tool used for Facebook."
+    },
+    {
+      "platform": "Apple",
+      "primary_url": "https://privacy.apple.com/",
+      "login_gated": true,
+      "fetch_note": "Apple's own support article (HT208502) states sign-in is required and describes the request flow; the tool page itself was not fetched interactively (it requires an Apple Account sign-in to render).",
+      "secondary_confirmation_url": "https://support.apple.com/en-us/HT208502",
+      "contains": "Account details and sign-in records; iCloud data (contacts, calendars, notes, bookmarks, reminders, mail, photos, videos, documents); app-usage data tied to iCloud, Apple Music, Game Center, and other services; purchase history.",
+      "formats": "Photos/videos/documents in original format; contacts/calendar/mail as .vcf, .ics, .html, .eml; app-usage information as spreadsheets or .json, .csv, .pdf.",
+      "wait_time": "Apple verifies identity, then \"about 7 days\" until notification the data is ready; once ready, 14 days to download before it is removed.",
+      "retrieved": "2026-09-09",
+      "confidence": "high"
+    },
+    {
+      "platform": "X (Twitter)",
+      "primary_url": "https://x.com/settings/download_your_data",
+      "login_gated": true,
+      "fetch_note": "Direct fetch of the settings URL returned HTTP 402 from the fetch tool, which is not evidence either way of the page's real behavior; login-gating is instead confirmed by X's own help documentation, which describes a sign-in-and-password-confirmation flow to reach this page.",
+      "secondary_confirmation_url": "https://help.x.com/en/managing-your-account/how-to-download-your-x-archive",
+      "contains": "Posts (formerly tweets), direct messages, media, account information, and — for the full archive — additional interaction data.",
+      "formats": "ZIP file containing both HTML and JSON.",
+      "wait_time": "Typically 24–48 hours; can take several days to weeks for large accounts. The emailed download link expires after 7 days.",
+      "retrieved": "2026-09-09",
+      "confidence": "medium",
+      "notes": "help.x.com itself returned HTTP 403 to the fetch tool directly; the wording above is drawn from a web-search snippet of that same X help page, so it is a step further from primary than the other platform-owned confirmations in this file."
+    },
+    {
+      "platform": "TikTok",
+      "primary_url": "https://www.tiktok.com/setting/download-your-data",
+      "login_gated": true,
+      "fetch_note": "Direct fetch returned only a bare page title (\"TikTok - Make Your Day\") with no body content rendered without a session — consistent with, but not conclusive proof of, a login-gated single-page app. TikTok's own support article (redirected target https://www.tiktok.com/support/faq_detail?id=7543597460594285112) also returned no retrievable body this session; secondary reporting is relied on for format/wait detail.",
+      "secondary_confirmation_url": "https://pirg.org/edfund/resources/how-to-request-and-download-tiktok-data/",
+      "contains": "Videos watched and posted, comments, direct messages, login history, and following/follower lists.",
+      "formats": "TXT or JSON, selectable at request time.",
+      "wait_time": "24 hours to 4 days; the download link expires 4 days after the file is ready.",
+      "retrieved": "2026-09-09",
+      "confidence": "medium",
+      "notes": "As of this retrieval date TikTok is operating in the US under the TikTok USDS Joint Venture LLC structure (effective January 2026) after a brief January 2025 service interruption; the export tool and URL were confirmed live and unchanged in the sources checked today."
+    },
+    {
+      "platform": "Microsoft",
+      "primary_url": "https://account.microsoft.com/privacy/",
+      "login_gated": true,
+      "fetch_note": "Direct fetch 2026-09-09 returned a 302 redirect to login.microsoftonline.com (Microsoft's OAuth sign-in), confirming login is required.",
+      "secondary_confirmation_url": "https://support.microsoft.com/en-us/accounts-billing/security/view-your-data-on-the-privacy-dashboard",
+      "contains": "Data tied to a Microsoft account and visible on the privacy dashboard (Bing/Cortana search, Edge browsing, location, voice, media, apps/services activity); \"Export my data\" produces a fuller account export. Does not include files created within Microsoft apps and services.",
+      "formats": "[UNVERIFIED against a Microsoft-owned page in this session: Microsoft's own support article describes the dashboard and export button but the retrieved text did not state a file format. Secondary how-to sources (not platform-owned) describe a ZIP of JSON files; that detail is not confirmed against Microsoft's own documentation here.]",
+      "wait_time": "\"Available within 30 days\" as an archive at account.microsoft.com/privacy/download-data, per secondary reporting; archives are described as being removed again after a few days. [Confidence: medium — this figure traces to third-party how-to pages summarizing Microsoft's own UI text, not a Microsoft help article fetched directly this session.]",
+      "retrieved": "2026-09-09",
+      "confidence": "medium"
+    },
+    {
+      "platform": "Amazon",
+      "primary_url": "https://www.amazon.com/gp/privacycentral/dsar/preview.html",
+      "login_gated": true,
+      "fetch_note": "Direct fetch returned HTTP 503 from the fetch tool this session (server-side, not conclusive). Login-gating is confirmed instead via Amazon's own help page, which routes the \"Request your data\" action through account sign-in, and via independent reporting that this is a signed-in flow.",
+      "secondary_confirmation_url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=TP1zlemejtTn6pwYKS",
+      "contains": "Personally identifiable information, location data, order and payment details, product usage data, search history, Alexa recordings, device information, and customer-support communications, organized by category.",
+      "formats": "ZIP archive of folders, each holding .csv files.",
+      "wait_time": "Amazon states it \"usually takes less than a month, but it may take longer\"; once ready, up to 90 days to download.",
+      "retrieved": "2026-09-09",
+      "confidence": "medium",
+      "notes": "Format and wait-time figures are drawn from a third-party guide (ExpressVPN) that quotes Amazon's own page text; Amazon's help page itself could not be fully re-rendered by the fetch tool this session (503)."
+    },
+    {
+      "platform": "LinkedIn",
+      "primary_url": "https://www.linkedin.com/psettings/data-privacy/",
+      "login_gated": true,
+      "fetch_note": "LinkedIn's own help page states this feature is reached from within Settings & Privacy while signed in and is not available on mobile — i.e., the tool itself sits behind login.",
+      "secondary_confirmation_url": "https://www.linkedin.com/help/linkedin/answer/a1339364/downloading-your-account-data",
+      "contains": "Over 60 categories including profile, positions, education, connections, messages, job applications, and skills.",
+      "formats": "ZIP file containing CSV files. [Confidence note: this format detail is confirmed via a third-party summary (mellermarketing.com) of LinkedIn's own export, not stated explicitly in the LinkedIn help-page text retrieved directly this session.]",
+      "wait_time": "For selected data categories, \"we'll email you within minutes\"; for the complete archive, \"you'll receive an email within 24 hours.\" Downloaded data remains accessible for 72 hours.",
+      "retrieved": "2026-09-09",
+      "confidence": "medium-high"
+    },
+    {
+      "platform": "Reddit",
+      "primary_url": "https://www.reddit.com/settings/data-request",
+      "login_gated": true,
+      "fetch_note": "An earlier pass (2026-09-10): re-fetched with browser-like headers (User-Agent, Accept, Accept-Language, Sec-Fetch-*) via curl — the earlier pass technique. support.reddithelp.com/hc/en-us/articles/360043048352 and the companion page support.reddithelp.com/hc/en-us/p/what_is_in_my_reddit_data_copy both returned HTTP 200 with full article bodies this time (both returned fetch errors in an earlier pass). The tool page itself (reddit.com/settings/data-request) also now returns HTTP 200, but serves a JS anti-bot challenge page (a \"solution\" hashcash-style script), not the login form directly — so its own response is not conclusive proof of login-gating on its own. Login-gating is instead confirmed by a direct quote from Reddit's own help article: \"Visit https://www.reddit.com/settings/data-request... Log in to the Reddit account you'd like to request data from. Follow the instructions and click Submit.\" This is a primary-source quote, not a search-snippet paraphrase — an upgrade from an earlier pass.",
+      "secondary_confirmation_url": "https://support.reddithelp.com/hc/en-us/p/what_is_in_my_reddit_data_copy",
+      "contains": "38 individually named CSV files as of this retrieval (support.reddithelp.com's \"What's in my Reddit data copy?\" table), including posts.csv, comments.csv, messages.csv, chat_history.csv, saved_posts.csv, saved_comments.csv, post_votes.csv/comment_votes.csv, ip_logs.csv, birthdate.csv, subscribed_subreddits.csv, and account/ads-preference and payout files. CORRECTION from an earlier pass: not \"roughly 35\" — the page names 38 exactly, and states \"We may add more files to your Reddit data from time to time,\" so this count is not fixed going forward.",
+      "formats": "CSV files (confirmed — Reddit's own page names each file with a .csv extension). [UNVERIFIED: whether the files are delivered packaged as a single ZIP archive. Neither Reddit-owned page fetched this session (the data-request how-to article or the file-contents table) uses the word \"zip\" or \"archive\" anywhere in its text — the prior entry's \"ZIP archive of CSV files\" claim is not supported by Reddit's own pages as retrieved today. It is a reasonable inference for ~38 files delivered via one download link, but it is an inference, not a quote.]",
+      "wait_time": "Confirmed, quoted directly: \"After submitting your request, it may take up to 30 days to prepare your data. Once your data is ready, we'll send a notification to your Reddit inbox with a link to download your Reddit account's data.\" CORRECTION from an earlier pass: no statement of a fixed download-link expiration, and no statement limiting requests to once per 30 days, was found on either Reddit page fetched this session — the prior entry's \"a fresh request can only be filed once every 30 days\" is dropped as unconfirmed, not carried forward.",
+      "retrieved": "2026-09-10",
+      "confidence": "high",
+      "notes": "An earlier pass correction to an earlier pass, formerly the weakest-sourced entry in this file (search-snippet only). Both Reddit-owned pages now directly fetched and quoted verbatim. Two figures from the prior entry (~35 files, one-request-per-30-days) are corrected/dropped rather than repeated, since Reddit's own text does not support them at this precision."
+    },
+    {
+      "platform": "Spotify",
+      "primary_url": "https://www.spotify.com/account/privacy/",
+      "login_gated": true,
+      "fetch_note": "Direct fetch 2026-09-09 returned a 302 redirect to accounts.spotify.com/login, confirming login is required.",
+      "secondary_confirmation_url": "https://support.spotify.com/us/article/data-rights-and-privacy-settings/",
+      "contains": "Streaming history, library and playlists, account and technical/usage data, delivered as multiple files with a \"Read Me First\" index describing each one.",
+      "formats": "ZIP file containing several files; Spotify's own support text (as retrieved) did not spell out the file format of each component (e.g. whether JSON or CSV). [UNVERIFIED at that level of detail.]",
+      "wait_time": "[UNVERIFIED against Spotify's own page: the retrieved support-page text did not state a wait time. Community/support-forum sources describe standard account data arriving within a few days and \"extended streaming history\" taking up to 30 days, but that figure was not confirmed against a Spotify-owned page this session.]",
+      "retrieved": "2026-09-09",
+      "confidence": "low-medium"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "note": "This is the platform-by-platform revenue data behind the estimate on this page, compiled by hand from the company filing or page cited, on the date shown, with the method shown alongside each figure. Where a figure could not be confirmed it is marked `[UNVERIFIED]` rather than guessed; corrections go to https://github.com/wetheusers-ai/wetheusers/discussions.",
+    "compiled_from": "hand-checked against the cited pages on the dates shown",
+    "corrections": "https://github.com/wetheusers-ai/wetheusers/discussions",
+    "generated": "2026-09-10",
+    "purpose": "Backs the per-platform revenue table (`const P`) in /shadow/index.html. Every number here traces to an entry in sources.json with the same claim text.",
+    "created": "2026-09-10",
+    "method_summary": "Meta and Reddit disclose ARPU directly, broken out by region, in their own filings — no derivation. Google/YouTube, X and Snap do not disclose a region-matched advertising-revenue-per-user figure, so each of those is disclosed revenue divided by disclosed users, shown explicitly below, with limitations named. Amazon, TikTok and LinkedIn are omitted entirely: no primary source pairs a users figure with an ad-revenue figure for any of the three, at any region, for any year checked.",
+    "js_field_note": "The `arpu` object keys/values below map 1:1 onto the `arpu:{year:value,...}` object for each platform in index.html's `const P` array, WITH ONE EXCEPTION: for `reddit`, index.html uses the `annualized.arpu` values (the filed quarterly figure ×4), not the raw `arpu` values here — see that platform's `annualized` field. `margin` maps onto that platform's `margin` field there."
+  },
+  "platforms": [
+    {
+      "k": "meta",
+      "n": "Facebook & Instagram",
+      "region": "US & Canada",
+      "first_ad_year": 2004,
+      "first_ad_year_method": "Facebook's own ARPU is a total-company-revenue figure (advertising plus everything else), not an ads-only metric, so the ramp's zero point is matched to Facebook's first-ever paid placement, not to the later, larger 'Facebook Ads' self-serve platform (launched 6 Nov 2007) — the company's first dollar of any kind came from selling ad space.",
+      "first_ad_year_source": "No contemporaneous primary source (Facebook press release or news report from 2004) could be retrieved; no Facebook blog existed in 2004. Best available: secondary marketing-history accounts (HubSpot, retrieved 2026-09-10, https://blog.hubspot.com/marketing/history-facebook-adtips-slideshare) place the 'Flyers' banner-ad product in April 2004, corroborated by a contemporaneous Harvard Crimson interview (thecrimson.com/article/2004/3/1/facebook-expands-beyond-harvard-harvard-students/, retrieved 2026-09-10) in which Zuckerberg says only 'it might be nice in the future to get some ads going' and no ads are yet running — consistent with, but not proof of, a launch the following month. Confidence: medium-low. The year 2004 is corroborated across independent secondary sources; the specific month (April) is not independently confirmed.",
+      "first_ad_year_retrieved": "2026-09-10",
+      "disclosure": "direct — Meta reports ARPU (later ARPP) by user geography every quarter; no derivation needed",
+      "arpu_method": "Meta's own definition: 'Annual ARPU is the sum of respective quarterly ARPU amounts in that year.'",
+      "arpu": {
+        "2011": 11.33,
+        "2012": 13.58,
+        "2020": 163.86,
+        "2021": 213.95,
+        "2022": 206.44,
+        "2023": 226.93
+      },
+      "arpu_gap_note": "2013-2019 are not populated: those years' investor decks and 10-Ks render the ARPU-by-geography chart as an image with no extractable per-quarter dollar labels, and no alternate primary source with the same figures was found in this session. 2024 onward: Meta stopped publishing ARPU/ARPP broken out by region starting Q1 2024 (worldwide-only 'Family ARPP' replaced it), so no anchor exists after 2023.",
+      "margin": 0.3,
+      "margin_period": "FY2025",
+      "margin_note": "Whole-company net margin, actual filed figure (includes a one-time FY2025 tax valuation-allowance charge per Meta's own footnote)."
+    },
+    {
+      "k": "google",
+      "n": "Google & YouTube",
+      "region": "global (Alphabet does not break out YouTube ad revenue or users by region)",
+      "first_ad_year": 2006,
+      "first_ad_year_method": "This row's ARPU is specifically YouTube ad revenue divided by YouTube users (not Google's, and not a total-revenue figure), so the entity measured is YouTube, and the ramp's zero point uses YouTube's own first ad sale — not Google's (AdWords launched October 2000, a different, much larger entity).",
+      "first_ad_year_source": "TechCrunch, 'Can Paris Hilton Storm YouTube?', https://techcrunch.com/2006/08/22/paris-hilton-storms-youtube/, retrieved 2026-09-10, published 2006-08-22: 'Fox has paid an undisclosed sum to advertise its TV show Prison Break on the YouTube channel of [Paris Hilton]' — describes both a paid brand-channel deal (Warner Bros./Paris Hilton) and a paid display placement (Fox), both on 2006-08-22. Corroborated same-day by NPR, 'Marketplace Report: YouTube's Brand Channel', https://www.npr.org/2006/08/22/5690056/marketplace-report-youtubes-brand-channel, retrieved 2026-09-10 (fetch of full transcript timed out; date and headline confirmed via search index). No earlier paid YouTube ad was found in this session; a claimed February 2006 'Participatory Video Ads' launch appears only in undated retrospective marketing blogs and was not independently confirmed.",
+      "first_ad_year_retrieved": "2026-09-10",
+      "disclosure": "derived — YouTube global ads revenue (Alphabet 10-K) ÷ YouTube global logged-in MAU (YouTube's own May 2019 announcement)",
+      "arithmetic": "$15,149,000,000 / 2,000,000,000 users = $7.57/user/year",
+      "arpu": {
+        "2019": 7.57
+      },
+      "arpu_gap_note": "Only one anchor exists. Google has not published a directly comparable, dated 'logged-in monthly users' figure for YouTube since May 2019; later press citations (2.5-2.7 billion, 2021-2026) do not trace to a clean primary restatement of the same metric and are not used.",
+      "margin": 0.29,
+      "margin_period": "FY2024",
+      "margin_note": "Alphabet whole-company net margin — a proxy, since Alphabet does not disclose a YouTube-segment net margin."
+    },
+    {
+      "k": "x",
+      "n": "X (Twitter)",
+      "region": "United States",
+      "first_ad_year": 2010,
+      "first_ad_year_method": "Twitter's first advertising product of any kind was Promoted Tweets; this row's total-revenue ARPU is matched to that year rather than to Twitter's 2006 public launch, since Twitter earned nothing from advertising for its first four years.",
+      "first_ad_year_source": "X's own blog (as Twitter), 'Promoted Tweets: Testing in the Timeline', https://blog.x.com/en_us/a/2010/promoted-tweets-testing-in-the-timeline, retrieved 2026-09-10, dated April 2010 — primary source, the company's own announcement.",
+      "first_ad_year_retrieved": "2026-09-10",
+      "disclosure": "derived — US total revenue (Twitter 10-K, billing-address geography note) ÷ US mDAU (Twitter 10-K, Q4 point figure)",
+      "arithmetic": {
+        "2020": "$2,078,836,000 / 37,000,000 users = $56.19/user/year",
+        "2021": "$2,835,760,000 / 38,000,000 users = $74.63/user/year"
+      },
+      "arpu": {
+        "2020": 56.19,
+        "2021": 74.63
+      },
+      "arpu_limitations": [
+        "Revenue used is TOTAL revenue (advertising + data licensing), not advertising-only — Twitter never broke out advertising revenue by geography, only worldwide.",
+        "User count is a Q4 point-in-time figure, not a full-year average — Twitter disclosed US mDAU only as a quarterly snapshot compared to the same quarter a year earlier, never a full-year regional average."
+      ],
+      "arpu_gap_note": "Series stops at 2021: Elon Musk took Twitter/X private on 2022-10-27, it deregistered from SEC reporting, and has published no audited financials since.",
+      "margin": -0.04,
+      "margin_period": "FY2021 (last audited fiscal year as a public company)",
+      "margin_note": "Net LOSS, not a profit — the previous placeholder (+12%) was wrong in sign as well as size."
+    },
+    {
+      "k": "reddit",
+      "n": "Reddit",
+      "region": "United States",
+      "first_ad_year": 2009,
+      "first_ad_year_method": "Reddit's own ARPU is a total-revenue figure (not ads-only), so the ramp's zero point is matched to Reddit's first sale of any advertising to any advertiser, not to the later, better-documented self-serve ad platform (closed beta from November 2009).",
+      "first_ad_year_source": "No January 2009 announcement itself could be retrieved (Reddit had no blog post found from that month). Two independent contemporaneous TechCrunch pieces corroborate the month: 'Reddit Opens Its Homepage To Anyone Willing To Pay', https://techcrunch.com/2009/11/12/reddit-advertising/, retrieved 2026-09-10, published 2009-11-12: 'It officially unveiled sponsored links for advertisers (big name ones) in January [2009]'; and 'Reddit Revamps Its Sponsored Link Platform', https://techcrunch.com/2010/04/28/reddit-revamps-its-sponsored-link-platform-with-some-help-from-the-oatmeal/, retrieved 2026-09-10, published 2010-04-28: 'Reddit actually launched its promoted links to traditional advertisers six months before Digg launched Digg Ads — it was the self-serve version that launched late last year.' Confidence: medium (named outlet, contemporaneous, but no direct primary source).",
+      "first_ad_year_retrieved": "2026-09-10",
+      "disclosure": "direct — Reddit reports ARPU broken out United States vs. rest of world every quarter; no derivation needed",
+      "arpu_method": "Quarterly figure, as Reddit defines and publishes it. Reddit does not publish a full-year ARPU.",
+      "arpu": {
+        "2023": 5.51,
+        "2024": 7.04
+      },
+      "annualized": {
+        "method": "Reddit does not publish a full-year ARPU, only quarterly figures — the raw filed figures above are one quarter, not twelve months. index.html's `const P` uses these filed quarterly figures multiplied by 4, stated as such in the page's own <details> copy, rather than treating a Q4 snapshot as if it were the year.",
+        "arpu": {
+          "2023": 22.04,
+          "2024": 28.16
+        }
+      },
+      "arpu_gap_note": "Only Q4 2023 and Q4 2024 were pulled (both appear together in the FY2024 10-K). Earlier years (Reddit's 2024 S-1 covers FY2021-2023) were not checked in this pass; a follow-up could extend this series backward.",
+      "margin": -0.37,
+      "margin_period": "FY2024",
+      "margin_note": "Net LOSS. Reddit has never reported a profitable fiscal year as a public company; FY2024's loss is driven substantially by IPO-related stock-based compensation."
+    },
+    {
+      "k": "snap",
+      "n": "Snapchat",
+      "region": "North America (Snap's own definition: US, Canada, Mexico, the Caribbean and Central America)",
+      "first_ad_year": 2014,
+      "first_ad_year_method": "Snap's own ARPU is a total-revenue figure (not ads-only, as already noted below), and advertising was also Snapchat's first-ever revenue of any kind, so the two match without a separate judgment call.",
+      "first_ad_year_source": "Washington Post, 'And the first advertisement on Snapchat is...', https://www.washingtonpost.com/news/arts-and-entertainment/wp/2014/10/19/and-the-first-advertisement-on-snapchat-is/, retrieved 2026-09-10, published 2014-10-19 — contemporaneous, named outlet, reporting the ad (for the film 'Ouija') on the day it ran.",
+      "first_ad_year_retrieved": "2026-09-10",
+      "disclosure": "derived — North America total revenue (Snap 10-K, geography note) ÷ North America DAU (Snap Q4 2024 Investor Letter, Q4 point figure)",
+      "arithmetic": {
+        "2023": "$2,952,301,000 / 100,000,000 users = $29.52/user/year",
+        "2024": "$3,236,217,000 / 100,000,000 users = $32.36/user/year"
+      },
+      "arpu": {
+        "2023": 29.52,
+        "2024": 32.36
+      },
+      "arpu_limitations": [
+        "No ads-only caveat is needed: Snap's own ARPU definition already uses total company revenue, not advertising-only.",
+        "User count is a Q4 point-in-time figure, not a full-year average — Snap's own regional ARPU chart in the 10-K is image-based with no extractable per-quarter dollar labels.",
+        "'North America' is broader than 'US'; Snap separately discloses US-only revenue (~$3.1B for 2024) but not a matching US-only DAU figure, so North America is used throughout instead."
+      ],
+      "margin": -0.13,
+      "margin_period": "FY2024",
+      "margin_note": "Net LOSS. Snap has never reported a profitable fiscal year."
+    }
+  ],
+  "removed": [
+    {
+      "k": "amazon",
+      "n": "Amazon (ads only)",
+      "reason": "Amazon's 'Advertising services' revenue line (disclosed from FY2018 on, not broken out by region) cannot be paired with any comparable disclosed 'users' figure. Amazon has not disclosed an active-customer or user count since roughly 2015; the only user-adjacent figure it publishes today is worldwide Prime membership (a different, non-overlapping population from everyone an ad reaches)."
+    },
+    {
+      "k": "tiktok",
+      "n": "TikTok",
+      "reason": "ByteDance is privately held and publishes no audited financial statements; no SEC or equivalent regulator filing discloses TikTok revenue or ARPU-equivalent figures. The one company-published US figure found (170 million US users, CEO congressional testimony, March 2023) was never paired with a revenue disclosure, so no ARPU can be built even from that."
+    },
+    {
+      "k": "linkedin",
+      "n": "LinkedIn",
+      "reason": "Neither LinkedIn's pre-2016 standalone 10-Ks nor Microsoft's post-acquisition 10-Ks break out LinkedIn's advertising-specific (Marketing Solutions) revenue by region, or disclose a matching regional member/user count. Microsoft's 10-K discloses only a single LinkedIn segment revenue figure with no product-line split and no user count at all."
+    }
+  ]
+}

@@ -27,6 +27,7 @@
 ## Optional
 
 - [Privacy](https://wetheusers.ai/privacy/): what the sign-up form stores, who touches it, and how to leave.
+- [Shadow](https://wetheusers.ai/shadow/): a local-only look at your own digital shadow, run in your browser, and what it earned somebody else.
 - [Where the export button is](https://wetheusers.ai/export/): the export tool for eleven major platforms.
 - [The terms, read](https://wetheusers.ai/terms/): what ten platforms' own privacy policies say they keep, whether they train on or sell what you give them, and how you leave — quoted and linked, not summarized.
 - [The repository](https://github.com/wetheusers-ai/wetheusers): where the Declaration, the essays, and the founding brief are drafted in the open.
