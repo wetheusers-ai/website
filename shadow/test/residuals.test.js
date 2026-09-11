@@ -12,7 +12,11 @@
  *      HTTP 200 from the same local static server (not a data: URL, not a
  *      404) — checked by reading their hrefs out of the rendered DOM, then
  *      fetching them directly against the server this test itself started.
- *   3. A synthetic, non-Meta archive (Google-Takeout-shaped, built by
+ *      Note: this fixture used to be Google-Takeout-shaped; since W-02 gave
+ *      Google Takeout its own shape-based parser (parsers/google.js), it was
+ *      reshaped so it still exercises this fallback path instead of routing
+ *      to the new parser — see fixtures/generic/fixture-data.js.
+ *   3. A synthetic, non-Meta, non-Google archive (built by
  *      fixtures/generic/build-fixture.js) uploaded through the real file
  *      picker produces "The inferences" finding — the regression test for
  *      the scan() keyword-regex bug, where the key's closing quote sat
@@ -173,6 +177,14 @@ const WORK_LOG_TOKEN_RES = [
   { name: 'crew name', re: /\b(?:ledger|wright|herald|adversary|steward|cartographer)\b/gi },
   { name: '"red team"', re: /red team/gi },
   { name: '"shift N"', re: /shift[- ]\d+/gi },
+  // (W-21) worker-phrase residue: "this session" (which retrieval this
+  // was), "the fetch tool" (an internal tool name), and "per task
+  // instructions" (a note to whoever wrote the row, not evidence) — see
+  // lab/ops/publish-safe-data.js's THIS_SESSION_RE/FETCH_TOOL_RE/
+  // PER_TASK_INSTRUCTIONS_RE.
+  { name: '"this session"', re: /this session/gi },
+  { name: '"the fetch tool"', re: /the fetch tool/gi },
+  { name: '"per task instructions"', re: /per task instructions/gi },
 ];
 function checkPublishedTokenCensus() {
   const FILES = ['sources.json', 'revenue-model.json', 'export-buttons.json'];
@@ -283,7 +295,7 @@ async function main() {
     console.log(`PASS — both source-list links (${detailsLinks.join(', ')}) resolve 200 from the local static server.`);
 
     // ---- 3. scan() regex fix: a non-Meta "title" key must be detected ---
-    const fixtureZip = path.join(SHADOW, 'fixtures', 'generic', 'takeout-export.zip');
+    const fixtureZip = path.join(SHADOW, 'fixtures', 'generic', 'generic-export.zip');
     assert.ok(
       fs.existsSync(fixtureZip),
       'fixture missing — run: node website/shadow/fixtures/generic/build-fixture.js'

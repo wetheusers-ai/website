@@ -74,7 +74,7 @@
     },
     {
       "claim": "Instagram help center names instagram.com/download/request as the data-download tool.",
-      "value": "Article exists at this URL; full body text not retrievable by the fetch tool this session (returned only page header)",
+      "value": "Article exists at this URL; full body text not retrievable by our retrieval this pass (returned only page header)",
       "unit": "text",
       "period": "retrieved 2026-09-09",
       "source_url": "https://help.instagram.com/181231772500920",
@@ -124,7 +124,7 @@
       "source_type": "secondary (nonprofit consumer guide)",
       "retrieved": "2026-09-09",
       "confidence": "medium",
-      "notes": "TikTok's own support article (redirect target www.tiktok.com/support/faq_detail?id=7543597460594285112) would not render body text for the fetch tool this session, so this secondary source is the confirmation on file. Direct fetch of the tool URL itself returned only a bare page title, consistent with a login-gated SPA but not independently conclusive."
+      "notes": "TikTok's own support article (redirect target www.tiktok.com/support/faq_detail?id=7543597460594285112) would not render body text for our retrieval this pass, so this secondary source is the confirmation on file. Direct fetch of the tool URL itself returned only a bare page title, consistent with a login-gated SPA but not independently conclusive."
     },
     {
       "claim": "TikTok is operating in the US as of September 2026 under the TikTok USDS Joint Venture LLC structure.",
@@ -177,7 +177,7 @@
       "source_type": "platform help page (Amazon-owned)",
       "retrieved": "2026-09-09",
       "confidence": "high",
-      "notes": "Direct fetch of the tool URL itself returned HTTP 503 this session (server-side error, inconclusive on its own)."
+      "notes": "Direct fetch of the tool URL itself returned HTTP 503 this pass (server-side error, inconclusive on its own)."
     },
     {
       "claim": "Amazon export format, contents, and wait time.",
@@ -208,7 +208,7 @@
       "source_type": "secondary (marketing blog)",
       "retrieved": "2026-09-09",
       "confidence": "medium",
-      "notes": "LinkedIn's own help page (a1339364) did not state the file format explicitly in the text retrieved this session."
+      "notes": "LinkedIn's own help page (a1339364) did not state the file format explicitly in the text retrieved this pass."
     },
     {
       "claim": "Reddit's data-request tool is reddit.com/settings/data-request; export is a ZIP of ~35 CSV files, ready within 30 days.",
@@ -219,7 +219,7 @@
       "source_type": "platform help page (Reddit-owned)",
       "retrieved": "2026-09-09",
       "confidence": "low-medium",
-      "notes": "Both reddit.com and this help article returned fetch errors to the tool directly this session; content is drawn from a search-engine snippet of Reddit's own help article, not a rendered page. Weakest-sourced platform in this file — flagged for a follow-up direct check."
+      "notes": "Both reddit.com and this help article returned fetch errors to the tool directly this pass; content is drawn from a search-engine snippet of Reddit's own help article, not a rendered page. Weakest-sourced platform in this file — flagged for a follow-up direct check."
     },
     {
       "claim": "Spotify's privacy/data-download page is spotify.com/account/privacy and is login-gated.",
@@ -251,7 +251,7 @@
       "source_type": "primary (Reddit-owned help article, fetched directly with browser-like headers)",
       "retrieved": "2026-09-10",
       "confidence": "high",
-      "notes": "An earlier pass, re-checking an earlier pass's weakest-sourced entry. An earlier pass (2026-09-09) could not reach support.reddithelp.com at all and used a search-engine snippet instead; this session's direct fetch with browser-like headers (User-Agent, Accept, Accept-Language, Sec-Fetch-*) returned HTTP 200 with the full article body. The tool URL itself (reddit.com/settings/data-request) also returned HTTP 200 today but served a JS anti-bot challenge page, not the login form or the real tool, so it is not independently conclusive; the quote above from Reddit's own help text is the load-bearing confirmation of login-gating."
+      "notes": "An earlier pass, re-checking an earlier pass's weakest-sourced entry. An earlier pass (2026-09-09) could not reach support.reddithelp.com at all and used a search-engine snippet instead; this pass's direct fetch with browser-like headers (User-Agent, Accept, Accept-Language, Sec-Fetch-*) returned HTTP 200 with the full article body. The tool URL itself (reddit.com/settings/data-request) also returned HTTP 200 today but served a JS anti-bot challenge page, not the login form or the real tool, so it is not independently conclusive; the quote above from Reddit's own help text is the load-bearing confirmation of login-gating."
     },
     {
       "claim": "What a Reddit data-request copy contains and its file format, per Reddit's own file-by-file table.",
@@ -284,7 +284,7 @@
       "source_type": "near-primary (unofficial but widely used verbatim mirror of Regulation (EU) 2016/679)",
       "retrieved": "2026-09-09",
       "confidence": "high",
-      "notes": "Attempted the official EUR-Lex text (eur-lex.europa.eu) directly; the fetch tool could not extract the article body from that page this session, so this well-established mirror is used instead. Recommend a follow-up direct EUR-Lex check if this claim is ever contested."
+      "notes": "Attempted the official EUR-Lex text (eur-lex.europa.eu) directly; our retrieval could not extract the article body from that page this pass, so this well-established mirror is used instead. Recommend a follow-up direct EUR-Lex check if this claim is ever contested."
     },
     {
       "claim": "UK GDPR retains the same Article 20 right to data portability, with no UK-specific amendment to that article.",
@@ -295,7 +295,7 @@
       "source_type": "primary (UK government legislation database)",
       "retrieved": "2026-09-09",
       "confidence": "high",
-      "notes": "The ICO's own guidance page (ico.org.uk) returned HTTP 403 to the fetch tool this session; the one-month response window is carried over from a WebSearch snippet of that ICO page as a secondary confirmation of practice, not independently re-verified against the statute text (the statute itself does not itself state the one-month figure; that comes from the UK GDPR's general Article 12(3) response-time provision, not Article 20)."
+      "notes": "The ICO's own guidance page (ico.org.uk) returned HTTP 403 to our retrieval this pass; the one-month response window is carried over from a WebSearch snippet of that ICO page as a secondary confirmation of practice, not independently re-verified against the statute text (the statute itself does not itself state the one-month figure; that comes from the UK GDPR's general Article 12(3) response-time provision, not Article 20)."
     },
     {
       "claim": "California's CCPA/CPRA business-size thresholds (Cal. Civ. Code § 1798.140(d)).",
@@ -339,7 +339,7 @@
       "source_type": "primary (platform's own current privacy policy, fetched directly)",
       "retrieved": "2026-09-10",
       "confidence": "high",
-      "notes": "Full quotes and section headings in /terms/. Each sentence confirmed on at least one direct fetch of the live page this session. Updated 2026-09-10: the no-sell sentence and the CCPA-definitional sentence that immediately follows it both sit under \"U.S. state law requirements,\" a jurisdiction-scoped section, not a global claim; the CCPA sentence is now quoted alongside it rather than left out."
+      "notes": "Full quotes and section headings in /terms/. Each sentence confirmed on at least one direct fetch of the live page this pass. Updated 2026-09-10: the no-sell sentence and the CCPA-definitional sentence that immediately follows it both sit under \"U.S. state law requirements,\" a jurisdiction-scoped section, not a global claim; the CCPA sentence is now quoted alongside it rather than left out."
     },
     {
       "claim": "Meta (Facebook and Instagram): data retention, no-sell, AI-training, and rights sentences (an earlier pass, rung 3).",
@@ -369,10 +369,10 @@
       "unit": "text",
       "period": "policy update effective 15 November 2024, as reported; retrieved via secondary source 2026-09-10",
       "source_url": "https://x.com/en/privacy",
-      "source_type": "secondary (Social Media Today and TechCrunch, both quoting the primary policy text; the primary page itself returned HTTP 402 to the fetch tool on every attempt this session)",
+      "source_type": "secondary (Social Media Today and TechCrunch, both quoting the primary policy text; the primary page itself returned HTTP 402 to our retrieval on every attempt this pass)",
       "retrieved": "2026-09-10",
       "confidence": "medium",
-      "notes": "x.com, privacy.x.com, and help.x.com were all unreachable to the fetch tool this session (HTTP 402/403, and one stale CDN PDF link that now redirects to an unrelated page). Retention and export sentences for X are marked [UNVERIFIED] in /terms/ rather than filled with paraphrase."
+      "notes": "x.com, privacy.x.com, and help.x.com were all unreachable to our retrieval this pass (HTTP 402/403, and one stale CDN PDF link that now redirects to an unrelated page). Retention and export sentences for X are marked [UNVERIFIED] in /terms/ rather than filled with paraphrase."
     },
     {
       "claim": "TikTok: data retention, no-sell/AI-training, and rights sentences (an earlier pass, rung 3).",
@@ -394,7 +394,7 @@
       "source_type": "primary (platform's own current privacy statement and state-law notice, fetched directly)",
       "retrieved": "2026-09-10",
       "confidence": "high",
-      "notes": "Sell sentence is from the U.S. State Data Privacy Laws Notice, a distinct page from the main Privacy Statement; both are Microsoft-owned and both fetched directly this session. Added 2026-09-10: the sentence immediately before the no-sell sentence on that same notice, which narrows what counts as a \"sale\" under those state laws in the first place."
+      "notes": "Sell sentence is from the U.S. State Data Privacy Laws Notice, a distinct page from the main Privacy Statement; both are Microsoft-owned and both fetched directly this pass. Added 2026-09-10: the sentence immediately before the no-sell sentence on that same notice, which narrows what counts as a \"sale\" under those state laws in the first place."
     },
     {
       "claim": "Amazon: no verbatim retention or sell/AI sentence could be retrieved; the export/delete page title was confirmed via a search index (an earlier pass, rung 3).",
@@ -402,7 +402,7 @@
       "unit": "text",
       "period": "as of 2026-09-10",
       "source_url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=468496 and https://www.amazon.com/gp/help/customer/display.html?nodeId=GDK92DNLSGWTV6MP",
-      "source_type": "primary page targeted, but unreachable this session (HTTP 503 on six attempts across amazon.com, amazon.co.uk, amazon.ca); title confirmed via search-engine index",
+      "source_type": "primary page targeted, but unreachable this pass (HTTP 503 on six attempts across amazon.com, amazon.co.uk, amazon.ca); title confirmed via search-engine index",
       "retrieved": "2026-09-10",
       "confidence": "low",
       "notes": "Consistent with an earlier pass's finding the previous day that Amazon's privacy-central DSAR page also returned 503. AWS's privacy notice (a different Amazon product) does say it is \"not in the business of selling our customers' personal information to others,\" but was not substituted for the retail store's own policy, since that would misattribute one Amazon service's terms to another."
@@ -416,7 +416,7 @@
       "source_type": "primary (platform's own current privacy policy and California disclosure, fetched directly)",
       "retrieved": "2026-09-10",
       "confidence": "high",
-      "notes": "No-sell sentence is on the separate California Privacy Disclosure page, both LinkedIn-owned and both fetched directly this session. Added 2026-09-10: the sentence immediately before the no-sell sentence on that same page, disclosing that LinkedIn shares personal information with Microsoft for ad personalization off-platform."
+      "notes": "No-sell sentence is on the separate California Privacy Disclosure page, both LinkedIn-owned and both fetched directly this pass. Added 2026-09-10: the sentence immediately before the no-sell sentence on that same page, disclosing that LinkedIn shares personal information with Microsoft for ad personalization off-platform."
     },
     {
       "claim": "Reddit: no verbatim sentence could be retrieved for retention, sell/AI, or export/delete (an earlier pass, rung 3).",
@@ -424,10 +424,10 @@
       "unit": "text",
       "period": "as of 2026-09-10",
       "source_url": "https://www.reddit.com/policies/privacy-policy",
-      "source_type": "primary page targeted, but unreachable this session across every Reddit domain tried",
+      "source_type": "primary page targeted, but unreachable this pass across every Reddit domain tried",
       "retrieved": "2026-09-10",
       "confidence": "none",
-      "notes": "reddit.com, old.reddit.com, policies.reddit.com, redditinc.com, and support.reddithelp.com all failed to fetch this session — consistent with an earlier pass's finding the day before that reddit.com could not be reached at all. This is the weakest-sourced platform in an earlier pass; a follow-up direct check is worth doing when the tool can reach reddit.com."
+      "notes": "reddit.com, old.reddit.com, policies.reddit.com, redditinc.com, and support.reddithelp.com all failed to fetch this pass — consistent with an earlier pass's finding the day before that reddit.com could not be reached at all. This is the weakest-sourced platform in an earlier pass; a follow-up direct check is worth doing when the tool can reach reddit.com."
     },
     {
       "claim": "Spotify: data retention and export sentences confirmed; sell/AI-training sentence not confirmable from the retrieved text (an earlier pass, rung 3).",
@@ -438,7 +438,7 @@
       "source_type": "primary (platform's own current privacy policy, fetched directly)",
       "retrieved": "2026-09-10",
       "confidence": "medium",
-      "notes": "Spotify's separate California Privacy Disclosure page is reported elsewhere to state \"We do not sell personal information,\" but returned HTTP 500 to the fetch tool on two direct attempts, so that sentence is not verified here and not used as the quote. Retried 2026-09-10 with browser-like request headers at both spotify.com/us/legal/california-privacy-disclosure/ and its /plain/ variant: both now return HTTP 200, but the response body is Spotify's own client-side error shell (\"Oh no!... This page got tripped up\"), confirming the page is genuinely unreachable today rather than blocked on header grounds. No narrowing quote was added anywhere for Spotify because no unqualified no-sell line from Spotify is printed in terms.md to begin with."
+      "notes": "Spotify's separate California Privacy Disclosure page is reported elsewhere to state \"We do not sell personal information,\" but returned HTTP 500 to our retrieval on two direct attempts, so that sentence is not verified here and not used as the quote. Retried 2026-09-10 with browser-like request headers at both spotify.com/us/legal/california-privacy-disclosure/ and its /plain/ variant: both now return HTTP 200, but the response body is Spotify's own client-side error shell (\"Oh no!... This page got tripped up\"), confirming the page is genuinely unreachable today rather than blocked on header grounds. No narrowing quote was added anywhere for Spotify because no unqualified no-sell line from Spotify is printed in terms.md to begin with."
     },
     {
       "claim": "Meta (Facebook + Messenger) US & Canada ARPU, 2011, using Meta's own 'annual ARPU is the sum of respective quarterly ARPU amounts in that year' convention.",
@@ -702,7 +702,7 @@
       "source_type": "absence of a primary source",
       "retrieved": "2026-09-10",
       "confidence": "none",
-      "notes": "An earlier pass. ByteDance is privately held and does not file with the SEC or any equivalent regulator that publishes financial statements. TikTok CEO Shou Chew's March 2023 congressional testimony stated a US user count ('170 million American users') but was not paired with any revenue disclosure, so even that one company-published figure cannot be turned into an ARPU. No court or regulator filing found in this session discloses TikTok revenue or regional ad revenue. The tiktok row is removed from the shadow page's data block rather than shown with an estimate."
+      "notes": "An earlier pass. ByteDance is privately held and does not file with the SEC or any equivalent regulator that publishes financial statements. TikTok CEO Shou Chew's March 2023 congressional testimony stated a US user count ('170 million American users') but was not paired with any revenue disclosure, so even that one company-published figure cannot be turned into an ARPU. No court or regulator filing found in this pass discloses TikTok revenue or regional ad revenue. The tiktok row is removed from the shadow page's data block rather than shown with an estimate."
     },
     {
       "claim": "LinkedIn's advertising-specific revenue and user counts are not broken out in either LinkedIn's own pre-acquisition filings or Microsoft's post-acquisition 10-Ks, so no LinkedIn ARPU-equivalent anchor can be verified under this task's ad-revenue/disclosed-users standard.",
@@ -724,7 +724,7 @@
       "source_type": "secondary (marketing-history retrospective) plus a contemporaneous but non-confirming primary-adjacent source (Harvard Crimson interview with Zuckerberg, dated 2004-03-01, in which he says only that ads 'might be nice in the future' and none are yet running)",
       "retrieved": "2026-09-10",
       "confidence": "medium-low",
-      "notes": "An earlier pass. No contemporaneous primary source (Facebook press release or 2004 news report) confirming the Flyers launch date could be retrieved this session — Facebook had no blog in 2004. The year 2004 is corroborated across several independent secondary marketing-history accounts (HubSpot, Adtaxi, ClickGuard, Wikipedia's History of Facebook, none of which cite a primary date themselves); the month (April) is not independently confirmed. Chosen over the alternative candidate, November 2007 ('Facebook Ads', the self-serve platform launch), because this row's ARPU is Meta's own total-company-revenue-per-user figure, not an ads-only metric, and Facebook's first-ever dollar of revenue, in 2004, came from selling ad space — matching the row's zero point to the company's true first-revenue year rather than to a later, better-documented platform relaunch."
+      "notes": "An earlier pass. No contemporaneous primary source (Facebook press release or 2004 news report) confirming the Flyers launch date could be retrieved this pass — Facebook had no blog in 2004. The year 2004 is corroborated across several independent secondary marketing-history accounts (HubSpot, Adtaxi, ClickGuard, Wikipedia's History of Facebook, none of which cite a primary date themselves); the month (April) is not independently confirmed. Chosen over the alternative candidate, November 2007 ('Facebook Ads', the self-serve platform launch), because this row's ARPU is Meta's own total-company-revenue-per-user figure, not an ads-only metric, and Facebook's first-ever dollar of revenue, in 2004, came from selling ad space — matching the row's zero point to the company's true first-revenue year rather than to a later, better-documented platform relaunch."
     },
     {
       "claim": "The year YouTube (not Google) first sold advertising (used as the google row's `from` / ramp-start year in /shadow/index.html's const P, and as first_ad_year in revenue-model.json).",
@@ -735,7 +735,7 @@
       "source_type": "secondary, contemporaneous (TechCrunch and NPR, both published the same day as the event, named outlets)",
       "retrieved": "2026-09-10",
       "confidence": "medium",
-      "notes": "An earlier pass. This row's ARPU (in revenue-model.json) is specifically YouTube global ad revenue divided by YouTube global logged-in users, not a Google-wide or total-revenue figure — so the row measures YouTube, and first_ad_year uses YouTube's own first paid placement, not Google's much earlier AdWords launch (October 2000, a different, much larger entity that this row does not measure). TechCrunch, 22 Aug 2006, quotes: 'Fox has paid an undisclosed sum to advertise its TV show Prison Break on the YouTube channel of [Paris Hilton].' The NPR transcript's full text could not be fetched this session (repeated timeout); its date and headline were confirmed via a search-engine index instead of a direct render. A retrospective (undated) marketing blog claims a February 2006 'Participatory Video Ads' launch predating this; no contemporaneous source for that claim was found, so it is not used."
+      "notes": "An earlier pass. This row's ARPU (in revenue-model.json) is specifically YouTube global ad revenue divided by YouTube global logged-in users, not a Google-wide or total-revenue figure — so the row measures YouTube, and first_ad_year uses YouTube's own first paid placement, not Google's much earlier AdWords launch (October 2000, a different, much larger entity that this row does not measure). TechCrunch, 22 Aug 2006, quotes: 'Fox has paid an undisclosed sum to advertise its TV show Prison Break on the YouTube channel of [Paris Hilton].' The NPR transcript's full text could not be fetched this pass (repeated timeout); its date and headline were confirmed via a search-engine index instead of a direct render. A retrospective (undated) marketing blog claims a February 2006 'Participatory Video Ads' launch predating this; no contemporaneous source for that claim was found, so it is not used."
     },
     {
       "claim": "Promoted Tweets, Twitter/X's first advertising product, launched April 2010 (used as the x row's `from` / ramp-start year in /shadow/index.html's const P, and as first_ad_year in revenue-model.json).",
@@ -757,7 +757,7 @@
       "source_type": "secondary, contemporaneous (TechCrunch, named outlet; two independent articles corroborate the same January 2009 date, though neither is the original announcement itself)",
       "retrieved": "2026-09-10",
       "confidence": "medium",
-      "notes": "An earlier pass. No direct January 2009 announcement (Reddit blog post or contemporaneous news article from that month) could be retrieved this session. The 2009-11-12 TechCrunch piece states Reddit 'officially unveiled sponsored links for advertisers (big name ones) in January'; the 2010-04-28 piece independently corroborates: 'Reddit actually launched its promoted links to traditional advertisers six months before Digg launched Digg Ads — it was the self-serve version that launched late last year [2009].' This row's ARPU is a total-revenue figure (not ads-only), matching the zero point to Reddit's first ad sale of any kind rather than to the later, better-documented self-serve platform."
+      "notes": "An earlier pass. No direct January 2009 announcement (Reddit blog post or contemporaneous news article from that month) could be retrieved this pass. The 2009-11-12 TechCrunch piece states Reddit 'officially unveiled sponsored links for advertisers (big name ones) in January'; the 2010-04-28 piece independently corroborates: 'Reddit actually launched its promoted links to traditional advertisers six months before Digg launched Digg Ads — it was the self-serve version that launched late last year [2009].' This row's ARPU is a total-revenue figure (not ads-only), matching the zero point to Reddit's first ad sale of any kind rather than to the later, better-documented self-serve platform."
     },
     {
       "claim": "Snapchat's first advertisement ran 19 October 2014 (used as the snap row's `from` / ramp-start year in /shadow/index.html's const P, and as first_ad_year in revenue-model.json).",

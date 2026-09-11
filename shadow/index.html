@@ -32,6 +32,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none';">
 <script src="vendor/jszip.min.js"></script>
 <script src="parsers/meta.js"></script>
+<script src="parsers/google.js"></script>
 <style>
 /* Self-hosted fonts — served from ../media/fonts/ (shared with the rest of the site), latin subset only. No request leaves this page to load type. */
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:400 900;font-display:swap;src:url('../media/fonts/fraunces-normal.woff2') format('woff2')}
@@ -398,11 +399,14 @@ async function ingest(file){
 
   say(`${names.length.toLocaleString()} files inside. Looking for the parts that describe you…`);
   try{
-    // Meta (Instagram/Facebook) gets a real shape-based parser — see
-    // parsers/meta.js. Everything else still goes through the generic
-    // regex-sniffing harvest() below until it gets the same treatment.
+    // Meta (Instagram/Facebook) and Google (Takeout) each get a real
+    // shape-based parser — see parsers/meta.js and parsers/google.js.
+    // Everything else still goes through the generic regex-sniffing
+    // harvest() below until it gets the same treatment.
     const data = (window.MetaParser && MetaParser.isMetaExport(names))
       ? await harvestMeta(zip, names)
+      : (window.GoogleParser && GoogleParser.isGoogleExport(names))
+      ? await harvestGoogle(zip, names)
       : await harvest(zip, names);
     render(data);
   }catch(err){
@@ -437,6 +441,40 @@ async function harvestMeta(zip, names){
     people: scores,
     advertisers: r.advertisers,
     source: names.some(n => /instagram/i.test(n)) ? 'Instagram' : 'Facebook',
+    files: names.length,
+  };
+}
+
+/* Google Takeout call site — delegates the actual parsing to
+   parsers/google.js and reshapes its output into the shape render()
+   expects. Google's export carries no message threads, so `people` is
+   always empty (no "The circle" finding fires on a Google archive) and no
+   interest-mining is attempted on activity titles — this parser reports
+   only what the task asked it to count: events, products, the timestamp
+   span, advertisers where Takeout lists them, and days with a location
+   point. `products` and `locationDays` are Google-specific fields render()
+   reads directly; every other field reuses the same shape harvestMeta()
+   produces. */
+async function harvestGoogle(zip, names){
+  const r = await GoogleParser.parseArchive(zip, {
+    onProgress: (done, total) => prog(total ? done/total : 0),
+  });
+  prog(null);
+  return {
+    events: r.timestamps,
+    words: [],
+    people: {},
+    advertisers: r.advertisers,
+    products: r.products,
+    locationDays: r.locationDays,
+    // A file this page never even tried to read counts as scanned zero and
+    // matched zero, not as "nothing was there" — see render()'s skippedNote().
+    skipped: r.skipped,
+    // Set only when nothing matched AND the file list itself shows an HTML
+    // My Activity/YouTube-history export, so a real, small, all-JSON
+    // archive is never misdiagnosed by this path.
+    htmlExport: r.filesMatched === 0 && GoogleParser.looksLikeHtmlExport(names),
+    source: 'Google Takeout',
     files: names.length,
   };
 }
@@ -559,12 +597,33 @@ function scan(txt, name, out){
 // staying inert — no markup a name contains is ever parsed as markup.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+// Google-specific: a plain-words note about any file this page refused to
+// open because it was over the per-file size cap (Costly C1), so a
+// heavily-tracked account gets an explanation on screen instead of a
+// silent zero. `d.skipped` is only ever set by harvestGoogle().
+function skippedNote(d){
+  if(!d.skipped || !d.skipped.length) return '';
+  return d.skipped.map(s => {
+    const mb = (s.bytes/(1024*1024)).toFixed(1);
+    const label = /Records\.json$/i.test(s.name) ? 'location history' : s.name;
+    return ` ${label} skipped: ${mb} MB, above the cap.`;
+  }).join('');
+}
+
 function render(d){
   const F = [];
   const N = d.events.length;
 
+  // Google-specific: an HTML-format Takeout (History exported as HTML,
+  // not JSON) matches none of the shapes below — without this check it
+  // reads as "found little," which misdiagnoses a problem the user can
+  // fix in ninety seconds (Costly C3).
+  if(d.htmlExport){
+    say('This export is in HTML; request the JSON format. Re-run Takeout, choose "Multiple formats," and select JSON for History — then this page can read it.');
+    return;
+  }
   if(N < 20 && !d.advertisers.length){
-    say('Read the archive, but found little that this prototype recognises yet — export formats differ by platform and change often. That gap is a build task, not a dead end.');
+    say('Read the archive, but found little that this prototype recognises yet — export formats differ by platform and change often. That gap is a build task, not a dead end.' + skippedNote(d));
     return;
   }
   if(d.source === 'sample'){
@@ -572,7 +631,7 @@ function render(d){
     say('This is a made-up sample. Nothing here is a real person or a real export. Drop your own archive above to see your own.');
   }else{
     status.classList.remove('sample-flag');
-    say(`Read ${d.files.toLocaleString()} files from your ${d.source} archive, entirely in this tab. Nothing was sent anywhere.`);
+    say(`Read ${d.files.toLocaleString()} files from your ${d.source} archive, entirely in this tab. Nothing was sent anywhere.` + skippedNote(d));
   }
 
   // 1 — the span
@@ -598,11 +657,51 @@ function render(d){
   }
 
   // 3 — the advertisers
+  // Meta's advertiser list and Google's are not the same mechanism: Meta's
+  // (Custom Audiences) really is a business uploading a contact list with
+  // you in it; Google's Takeout "Ads" activity only tells you an ad from
+  // that advertiser was served to you, which does not by itself mean they
+  // ever held your contact details. Reusing Meta's "uploaded your contact
+  // details" claim for Google's list would be an unverified fact about a
+  // mechanism this file never inspects — so the headline branches on
+  // provenance instead. d.products is only ever set by harvestGoogle().
   if(d.advertisers.length){
     const uniq = [...new Set(d.advertisers)];
-    F.push({v:'The list', h:`${uniq.length.toLocaleString()} companies uploaded your contact details.`,
-      p:`These are businesses that handed a file with you in it to a platform, to find you. Most you have never dealt with. You were not asked, you were not told, and there is no line item anywhere for what that was worth.`,
-      tags: uniq.sort(()=>Math.random()-.5).slice(0,26)});
+    const isGoogleSourced = !!d.products;
+    // Google's Ads-activity names are not documented by Google's own schema
+    // reference as an "advertiser" field (subtitles[].name can be a site,
+    // an ad format, or a category as easily as an advertiser) — so the
+    // headline says only what the record actually supports: a name this
+    // file's own Ads activity attaches to the ad, not a confirmed
+    // advertiser identity. See Costly C4.
+    F.push(isGoogleSourced
+      ? {v:'The list', h:`${uniq.length.toLocaleString()} name${uniq.length===1?'':'s'} that appear in your Ads activity.`,
+          p:`This list comes from your own Ads activity: each name is one this file attached to an ad Google logged as shown to you. That is not Meta's list of companies that uploaded your contact details — Takeout does not say why any of these names reached you, only that it did.`,
+          tags: uniq.sort(()=>Math.random()-.5).slice(0,26)}
+      : {v:'The list', h:`${uniq.length.toLocaleString()} companies uploaded your contact details.`,
+          p:`These are businesses that handed a file with you in it to a platform, to find you. Most you have never dealt with. You were not asked, you were not told, and there is no line item anywhere for what that was worth.`,
+          tags: uniq.sort(()=>Math.random()-.5).slice(0,26)});
+  }
+
+  // 3b — the products (Google-specific: only present when a Google Takeout
+  // archive was read — see harvestGoogle()). Names what the parser actually
+  // found, never counts "bundled" folders — the file can hold products
+  // (Gmail, Drive, Photos…) this parser deliberately never opens, and a
+  // count would silently claim to speak for all of them.
+  if(d.products && d.products.length){
+    const names = d.products;
+    const list = names.length > 1
+      ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+      : names[0];
+    F.push({v:'The products', h:`${list}, in one file.`,
+      p:`Each of these is normally a separate system, answering one question on its own — what you searched, what you watched, what you were shown, where you went. Here they sit on the same timeline, under the same account, because Takeout gathers what already existed; it does not collect anything new.`,
+      tags: d.products});
+  }
+
+  // 3c — the trail (Google-specific: Location History)
+  if(d.locationDays){
+    F.push({v:'The trail', h:`${d.locationDays.toLocaleString()} day${d.locationDays===1?'':'s'} carry a recorded location.`,
+      p:`A counted day means this file recorded your location at least once on it — not a route, and not a guarantee of more than one point. What it adds up to is how many days out of your calendar carry that kind of entry at all.`});
   }
 
   // 4 — the circle
@@ -630,7 +729,7 @@ function render(d){
     <div class="find">
       <div class="v">${f.v}</div>
       <div class="h">${f.h}</div>
-      <p>${f.p}</p>
+      ${f.p ? `<p>${f.p}</p>` : ''}
       ${f.spark ? `<div class="spark">${(()=>{const m=Math.max(...f.spark);return f.spark.map(x=>`<i class="${x===m?'pk':''}" style="height:${Math.max(2,x/m*100)}%"></i>`).join('')})()}</div>
         <div class="axis">${f.ax.map(a=>`<span>${a}</span>`).join('')}</div>` : ''}
       ${f.tags ? `<div class="tags">${f.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}

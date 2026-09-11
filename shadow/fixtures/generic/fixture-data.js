@@ -1,10 +1,14 @@
-/* Synthetic, non-Meta export data — shaped like a Google Takeout
- * `MyActivity.json` file (an array of `{time, title}` records under a path
- * containing both "takeout" and "myactivity"). Built to exercise the
- * generic `harvest()`/`scan()` path in website/shadow/index.html, specifically
- * the "title" key of scan()'s keyword regex, which a bug (the key's
- * closing quote sitting inside the alternation) prevented from ever
- * matching before W-15. All names and search terms here are invented.
+/* Synthetic, non-Meta, non-Google export data — an array of `{time, title}`
+ * records at a path containing "myactivity" but deliberately NOT rooted at
+ * "Takeout/" or naming one of Takeout's own product folders, so it exercises
+ * the generic `harvest()`/`scan()` path rather than parsers/google.js (W-02
+ * gave Google Takeout its own shape-based parser; this fixture's whole job
+ * is to stand in for an export format nothing recognizes yet). Originally
+ * built to exercise the "title" key of scan()'s keyword regex, which a bug
+ * (the key's closing quote sitting inside the alternation) prevented from
+ * ever matching before W-15 — kept the same shape since, so as not to
+ * disturb what that regression test checks. All names and search terms
+ * here are invented.
  */
 'use strict';
 
@@ -39,7 +43,7 @@ for (let i = 0; i < ENTRY_COUNT; i++) {
 module.exports = {
   TOPICS,
   ENTRIES,
-  PATH: 'Takeout/My Activity/Search/MyActivity.json',
+  PATH: 'Export/My Activity/Search/MyActivity.json',
   EXPECTED: {
     // Every entry contributes 3 non-stopword words >3 chars from its title
     // ("mortgage refinance rates", "near"/"me" are both stopwords) — 90 x 3
