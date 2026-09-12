@@ -92,6 +92,26 @@ function findCard(cards, v) {
 }
 
 async function main() {
+  // 0. The disclosure note near the drop zone must cover all five readers,
+  // not just three — checked against the page's own markup, since the
+  // sentence is static copy, not something a parser renders.
+  {
+    const html = fs.readFileSync(path.join(SHADOW, 'index.html'), 'utf8');
+    const sentence =
+      'Every reader here was built against sample exports we invented; ' +
+      'no real export has been through this page yet. If yours reads wrong, ' +
+      'that is why, and the repository is where to say so.';
+    assert.ok(
+      html.includes(sentence),
+      `expected the disclosure note to cover all five readers with the exact sentence — not found in shadow/index.html`
+    );
+    assert.ok(
+      !/Apple, X, and Reddit readers were built/i.test(html),
+      'the old three-reader disclosure sentence must be gone, not merely supplemented'
+    );
+  }
+  console.log('PASS — the disclosure note covers all five readers, not just three.');
+
   // ---- PART A: real fixtures through the real page ------------------------
   let playwright;
   try {
