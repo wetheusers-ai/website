@@ -28,6 +28,22 @@
   request. `object-src`/`base-uri`/`form-action` are locked down as routine
   hardening; this page has no plugins, no relative-base tricks, and no forms
   that submit anywhere.
+
+  Tried and dropped, 12 September 2026: `frame-ancestors 'none'` and
+  `navigate-to 'none'`. Checked live in Chrome (the browser this page's own
+  tests drive) — `frame-ancestors` is explicitly ignored by spec when a CSP
+  is delivered via a <meta> element rather than an HTTP header ("The
+  Content Security Policy directive 'frame-ancestors' is ignored when
+  delivered via a <meta> element"), and `navigate-to` is not implemented by
+  any shipping browser at all ("Unrecognized Content-Security-Policy
+  directive 'navigate-to'"). Adding either would only print a console error
+  on every load while enforcing nothing — worse than omitting them, since a
+  reader who checks the console would see a security warning that isn't
+  real. Neither is enforceable from a static file with no server in front
+  of it to send a real header; that is the actual fix this page cannot
+  supply on its own. The real defense against the navigation-exfil path
+  this CSP cannot close is escaping every field at the renderer's sink
+  (see esc() and render() below) so there is nothing left to navigate with.
 -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none';">
 <script src="vendor/jszip.min.js"></script>
@@ -725,13 +741,20 @@ function render(d){
   F.push({v:'The point', h:'Everything above was computed on your laptop, in about a second.',
     p:`No server saw it. No account was needed. It cost nothing. That is the whole argument in one demonstration: the technology was never what stood between you and owning your own shadow. The arrangement was.`});
 
+  // Every field below can, in the worst case, come from a name an attacker
+  // chose (a Google Takeout "My Activity" folder name lands in f.h/f.p — see
+  // the products finding above; f.v is currently always our own static
+  // label, but is escaped too so nothing here depends on which fields are
+  // "currently" safe). f.ax is our own fixed strings but costs nothing to
+  // escape as well. Only f.spark (numbers, used for a bar height, never
+  // concatenated into markup as text) is exempt.
   $('finds').innerHTML = F.map(f=>`
     <div class="find">
-      <div class="v">${f.v}</div>
-      <div class="h">${f.h}</div>
-      ${f.p ? `<p>${f.p}</p>` : ''}
+      <div class="v">${esc(f.v)}</div>
+      <div class="h">${esc(f.h)}</div>
+      ${f.p ? `<p>${esc(f.p)}</p>` : ''}
       ${f.spark ? `<div class="spark">${(()=>{const m=Math.max(...f.spark);return f.spark.map(x=>`<i class="${x===m?'pk':''}" style="height:${Math.max(2,x/m*100)}%"></i>`).join('')})()}</div>
-        <div class="axis">${f.ax.map(a=>`<span>${a}</span>`).join('')}</div>` : ''}
+        <div class="axis">${f.ax.map(a=>`<span>${esc(a)}</span>`).join('')}</div>` : ''}
       ${f.tags ? `<div class="tags">${f.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
     </div>`).join('');
   $('finds').style.display='block';
