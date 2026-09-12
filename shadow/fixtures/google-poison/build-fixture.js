@@ -1,8 +1,7 @@
 /* Builds fixtures/google-poison/google-poison-export.zip — a Takeout-shaped
  * archive with one hostile folder name under `Takeout/My Activity/`, used
- * by test/xss.test.js to prove the stored-XSS finding from 12 September
- * 2026 stays closed:
- * lab/factory/queue/decisions/2026-09-12-BLOCKING-shadow-malicious-file-exfiltrates.md
+ * by test/xss.test.js to prove a stored-XSS path through a Takeout folder
+ * name stays closed.
  *
  * Run with:
  *   node website/shadow/fixtures/google-poison/build-fixture.js

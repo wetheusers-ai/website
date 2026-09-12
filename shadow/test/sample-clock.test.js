@@ -1,9 +1,9 @@
-/* Falsifiability test for FATAL 3 — the sample generator must build its
- * events from local midnight, not from the current moment, so the peak
- * hour it reports is stable regardless of when the visitor loads the page.
+/* Falsifiability test: the sample generator must build its events from
+ * local midnight, not from the current moment, so the peak hour it reports
+ * is stable regardless of when the visitor loads the page.
  *
  * Serves the whole website/ tree from a local static HTTP server (Shadow
- * lives at /shadow/ under the rest of the site as of W-16), drives the real
+ * lives at /shadow/ under the rest of the site), drives the real
  * page through Playwright (headless Chromium) twice — once with the
  * browser's clock frozen at 03:05 local time, once at 15:05 the same
  * calendar day — clicks "Try it with a sample" both times, and asserts the

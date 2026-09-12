@@ -526,7 +526,7 @@
       "source_type": "primary (Meta news release, exhibit to 8-K filed with the SEC, 2026-01-28)",
       "retrieved": "2026-09-10",
       "confidence": "high",
-      "notes": "An earlier pass. Meta's own FY2025 press release footnotes that the FY2025 tax provision includes a one-time valuation-allowance charge tied to the 'One Big Beautiful Bill Act,' which depresses this figure versus a normalized year; used as filed rather than adjusted, per doctrine (actual filed number, not a smoothed one)."
+      "notes": "An earlier pass. Meta's own FY2025 press release footnotes that the FY2025 tax provision includes a one-time valuation-allowance charge tied to the 'One Big Beautiful Bill Act,' which depresses this figure versus a normalized year; used as filed rather than adjusted (actual filed number, not a smoothed one)."
     },
     {
       "claim": "YouTube global advertising revenue, FY2019, as first broken out by Alphabet.",
@@ -614,7 +614,7 @@
       "source_type": "absence of filing (X Corp deregistered from SEC reporting following the going-private transaction)",
       "retrieved": "2026-09-10",
       "confidence": "none",
-      "notes": "An earlier pass. Any revenue figures reported in the press since 2022 trace to leaked bond-investor materials or unaudited company claims, not a public filing or a company publication; per doctrine these are not used and the x.arpu series stops at 2021."
+      "notes": "An earlier pass. Any revenue figures reported in the press since 2022 trace to leaked bond-investor materials or unaudited company claims, not a public filing or a company publication; unfiled figures are not used here, so the x.arpu series stops at 2021."
     },
     {
       "claim": "Reddit US ARPU, directly disclosed, Q4 2023.",

@@ -78,8 +78,7 @@ async function main() {
   // (no Records.json in the mix) through the public parseFromEntries()
   // entry point and asserts its two distinct days are found — a fixture
   // built to the wrong (bare-root) path would report zero here, exactly
-  // the failure mode shift 6 red team's FATAL 3 found invisible to the old
-  // suite.
+  // the failure mode that was once invisible to the old suite.
   {
     const semanticOnly = GoogleParser.parseFromEntries([
       {
@@ -149,8 +148,8 @@ async function main() {
     const capResult = await GoogleParser.parseArchive(loaded);
     assert.strictEqual(oversizedAsyncCalls, 0, 'entry above the per-file cap must never be inflated');
     assert.strictEqual(capResult.filesScanned, 1, 'only the small, real entry should have been scanned');
-    // Costly C1: a refused entry must be reported, not just silently
-    // dropped, so the page can say what was skipped and how large it was.
+    // A refused entry must be reported, not just silently dropped, so the
+    // page can say what was skipped and how large it was.
     assert.strictEqual(capResult.skipped.length, 1, 'expected one entry recorded as skipped');
     assert.strictEqual(capResult.skipped[0].name, 'Takeout/My Activity/Ads/MyActivity.json');
     assert.strictEqual(capResult.skipped[0].bytes, GoogleParser.SIZE_CAPS.PER_FILE_BYTES + 1024);
@@ -215,8 +214,8 @@ async function main() {
     assert.strictEqual(calls, 0, `expected zero out-of-scope files inflated, got ${calls}`);
   }
 
-  // 13. Costly C2 — a malformed record must not void the whole file. A
-  // 1,000-row MyActivity.json with one row missing "time" and one row with
+  // 13. A malformed record must not void the whole file. A 1,000-row
+  // MyActivity.json with one row missing "time" and one row with
   // time: null must still be recognized as an activity file, and must
   // count the 998 good rows rather than zero.
   {
@@ -233,10 +232,10 @@ async function main() {
     assert.strictEqual(malformedResult.eventCount, 998, `expected 998 counted events (1000 - 2 malformed), got ${malformedResult.eventCount}`);
     assert.strictEqual(malformedResult.skippedRecords, 2, `expected 2 skipped records noted, got ${malformedResult.skippedRecords}`);
   }
-  console.log('PASS — Costly C2: a malformed record is skipped and counted, not treated as a reason to drop the whole file.');
+  console.log('PASS — a malformed record is skipped and counted, not treated as a reason to drop the whole file.');
 
-  // 14. Costly C3 — an HTML-format Takeout (History exported as HTML
-  // instead of JSON) must be diagnosable from its file list alone.
+  // 14. An HTML-format Takeout (History exported as HTML instead of JSON)
+  // must be diagnosable from its file list alone.
   {
     assert.strictEqual(
       GoogleParser.looksLikeHtmlExport(['Takeout/archive_browser.html', 'Takeout/My Activity/Search/MyActivity.html']),
@@ -249,7 +248,7 @@ async function main() {
       'the real (JSON) fixture must not be misdetected as an HTML export'
     );
   }
-  console.log('PASS — Costly C3: an HTML-format Takeout is distinguishable from a JSON one by its file list.');
+  console.log('PASS — an HTML-format Takeout is distinguishable from a JSON one by its file list.');
 
   console.log('PASS — google.js parser:');
   console.log(`  products: ${r.products.length} (${r.products.join(', ')})`);

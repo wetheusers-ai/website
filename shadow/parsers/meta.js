@@ -44,9 +44,9 @@
   // this set). Checked against the FIRST path segment only, by exact
   // string equality — never a substring test — so a file that merely
   // mentions "facebook" or "instagram" somewhere in its name (e.g. a
-  // Google Takeout "Saved/facebook links.csv") cannot match. This is what
-  // W-01 got wrong: /facebook/i.test(name) matches that substring anywhere
-  // in the path, including inside another platform's export tree.
+  // Google Takeout "Saved/facebook links.csv") cannot match. A naive
+  // /facebook/i.test(name) would match that substring anywhere in the
+  // path, including inside another platform's export tree.
   const META_TOP_LEVEL_DIRS = new Set([
     'your_instagram_activity',
     'your_facebook_activity',
@@ -353,8 +353,8 @@
   //     the rest of the archive is still read.
   //
   //   TOTAL_BYTES  500 MB  — a generous multiple of what a decade of real
-  //     activity produces (the FATAL-2 reproduction — 150,000 timestamped
-  //     rows in one file — was a few MB uncompressed), left large enough
+  //     activity produces (150,000 timestamped rows in one file is a few
+  //     MB uncompressed), left large enough
   //     that an unusually large but honest export still gets read, while
   //     still well inside what a modern browser tab's heap can hold as
   //     parsed JSON plus the parser's own derived arrays without the tab

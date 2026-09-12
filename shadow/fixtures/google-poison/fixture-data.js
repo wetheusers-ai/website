@@ -1,14 +1,13 @@
 /* Fixture data for fixtures/google-poison/google-poison-export.zip — a
- * Takeout-shaped archive with one hostile folder name, built to prove the
- * BLOCKING finding from 12 September 2026 stays closed:
- * lab/factory/queue/decisions/2026-09-12-BLOCKING-shadow-malicious-file-exfiltrates.md
+ * Takeout-shaped archive with one hostile folder name, built to prove a
+ * stored-XSS path through a Takeout "My Activity" folder name stays closed.
  *
- * The folder name under `Takeout/My Activity/` is exactly the payload the
- * red team used: `<img src=x onerror="window.__pwned=1">`. GoogleParser
- * reads that folder name as a product name (parsers/google.js's
- * MY_ACTIVITY_RE capture group), and render() in shadow/index.html used to
- * interpolate it into the "products" headline's innerHTML unescaped. All
- * records here are invented; no real export was used to build this.
+ * The folder name under `Takeout/My Activity/` is a markup-injection
+ * payload: `<img src=x onerror="window.__pwned=1">`. GoogleParser reads
+ * that folder name as a product name (parsers/google.js's MY_ACTIVITY_RE
+ * capture group), and render() in shadow/index.html used to interpolate it
+ * into the "products" headline's innerHTML unescaped. All records here are
+ * invented; no real export was used to build this.
  */
 'use strict';
 

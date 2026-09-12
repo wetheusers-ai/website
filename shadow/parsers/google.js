@@ -101,7 +101,7 @@
     return RELEVANT_PATH_RES.some((re) => re.test(name));
   }
 
-  // ---------- HTML-format Takeout detection (Costly item C3) ----------
+  // ---------- HTML-format Takeout detection ----------
   //
   // Takeout offers History exports as HTML or JSON; an HTML export routes
   // here (the product-folder names and archive_browser.html are still
@@ -180,8 +180,8 @@
   // still carry the occasional malformed row (a null time, a record that
   // isn't an object) without the file itself being some other shape
   // entirely — so this checks a sample, not every row, and tolerates a
-  // minority being off-shape (Costly C2: previously one bad record voided
-  // the whole file, silently zeroing the biggest finding on the page).
+  // minority being off-shape (one bad record must not void the whole
+  // file and silently zero the biggest finding on the page).
   // classify() below still skips — and counts — any row that fails the
   // per-record check, whichever file shape matched.
   function isActivityArray(j) {
@@ -408,15 +408,15 @@
   //
   // Each entry is parsed and classified as soon as its text is read, then
   // discarded — never collected into an array of every file's full text
-  // first (Costly C5: on a single 50 MB Records.json, holding the text
-  // alongside its own parse doubled peak heap for no reason). Only the
+  // first (on a single 50 MB Records.json, holding the text alongside
+  // its own parse would double peak heap for no reason). Only the
   // running totals in `out` persist across files.
   //
   // An entry whose declared size is over the per-file cap is refused
   // before inflation, same as before — but now recorded in `skipped`
   // rather than silently dropped, so the caller can say what was skipped
-  // and how large it was (Costly C1) instead of the page reporting zero
-  // with no explanation.
+  // and how large it was, instead of the page reporting zero with no
+  // explanation.
   async function parseArchive(zip, opts) {
     const options = opts || {};
     const onProgress = typeof options.onProgress === 'function' ? options.onProgress : function () {};

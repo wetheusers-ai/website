@@ -1,6 +1,5 @@
-/* Falsifiability test for W-27 / the 12 September 2026 BLOCKING finding —
- * a crafted Google Takeout archive must not run script in the shadow tool:
- * lab/factory/queue/decisions/2026-09-12-BLOCKING-shadow-malicious-file-exfiltrates.md
+/* Falsifiability test: a crafted Google Takeout archive must not run
+ * script in the shadow tool.
  *
  * Serves the whole website/ tree from a local static HTTP server (Shadow
  * lives at /shadow/ under the rest of the site), drives the real page
@@ -18,8 +17,8 @@
  *   3. No `<img>`, `<svg>`, or `<script>` node exists anywhere under
  *      `#finds .find` — no markup from the archive was parsed as markup.
  *   4. `location.href` is unchanged after render — the navigation-exfil
- *      path the BLOCKING finding also raised (a page that escapes markup
- *      but still let a handler fire could still navigate off-origin).
+ *      path a page could still be vulnerable to even after it escapes
+ *      markup, if a handler were still able to fire.
  *   5. Zero requests left the page's own origin, same census the other
  *      tests run, on this specific upload path.
  *
@@ -149,8 +148,8 @@ async function main() {
     const hostileNodeCount = await page.locator('#finds .find img, #finds .find svg, #finds .find script').count();
     assert.strictEqual(hostileNodeCount, 0, `expected zero img/svg/script nodes under .find; got ${hostileNodeCount}`);
 
-    // 4. location.href must be unchanged — the navigation-exfil path the
-    // BLOCKING finding raised as the thing the CSP alone cannot stop.
+    // 4. location.href must be unchanged — the navigation-exfil path is
+    // the thing the CSP alone cannot stop.
     const hrefAfter = await page.evaluate(() => location.href);
     assert.strictEqual(hrefAfter, startHref, `expected location.href unchanged; got ${hrefAfter}`);
 

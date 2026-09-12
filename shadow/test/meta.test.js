@@ -87,13 +87,13 @@ async function main() {
   assert.strictEqual(r.advertisers.includes('A1'), false);
   assert.ok(!r.advertisers.some((a) => /sku/i.test(a)));
 
-  // 7. FATAL-2 regression: 200,000 timestamps must not throw. The bug was
+  // 7. Regression: 200,000 timestamps must not throw. The failure mode is
   // `Math.min(...arr)`/`Math.max(...arr)` — spreading an array into a call
   // is bounded by V8's argument-count limit (measured: fine at 124,000,
-  // RangeError at 125,000). Reproduces the exact shape of the red-team's
-  // repro — a single ads_and_topics file, one array-valued key, one row per
-  // impression — at above that threshold, called directly through
-  // parseFromEntries so the case is fast and needs no zip I/O.
+  // RangeError at 125,000). Reproduces that shape — a single ads_and_topics
+  // file, one array-valued key, one row per impression — at above that
+  // threshold, called directly through parseFromEntries so the case is
+  // fast and needs no zip I/O.
   {
     const big = [];
     const base = Date.parse('2015-01-01T00:00:00Z') / 1000;
@@ -206,8 +206,8 @@ async function main() {
     );
   }
 
-  // 11. FATAL-2 regression: the account owner must be identified and
-  // excluded from the friend ranking, and a large group thread must not
+  // 11. Regression: the account owner must be identified and excluded
+  // from the friend ranking, and a large group thread must not
   // out-credit a real, two-person friendship. detectOwner() should find
   // "You Test Person" (present in all 4 fixture threads); friendScores()
   // should then rank a real friend on top, never the owner, with scores

@@ -1,9 +1,9 @@
 /* Builds fixtures/generic/generic-export.zip — a synthetic, minimal
  * stand-in for a data export from a platform nothing here recognizes yet
- * (an array of {time, title} records — NOT shaped like Meta or, since W-02,
- * Google Takeout, both of which now get their own shape-based parser). Used
- * by test/residuals.test.js to exercise the generic harvest()/scan() path,
- * in particular the "title" key regression fixed in W-15. Run with:
+ * (an array of {time, title} records — NOT shaped like Meta or Google
+ * Takeout, both of which get their own shape-based parser). Used by
+ * test/residuals.test.js to exercise the generic harvest()/scan() path,
+ * in particular the "title" key regex match. Run with:
  *
  *   node website/shadow/fixtures/generic/build-fixture.js
  */

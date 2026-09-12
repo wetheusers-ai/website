@@ -20,7 +20,7 @@
 <!--
   Content-Security-Policy: this page loads nothing from any origin but its
   own. `script-src`/`style-src` carry 'unsafe-inline' because the page's own
-  inline <script> (the ledger + shadow logic below) and inline <style> block
+  inline <script> (the tally + shadow logic below) and inline <style> block
   are not served as separate files and have no nonce/hash infrastructure to
   authorize them otherwise — both are first-party, hand-written code, not
   third-party content. `connect-src 'none'` forbids fetch/XHR/WebSocket/
@@ -149,9 +149,9 @@ table.brk td.num{text-align:right;font-family:var(--mono);font-size:14px;color:v
 /* findings */
 .finds{margin-top:34px;display:none}
 .find{border-left:2px solid var(--goldb);padding:3px 0 3px 20px;margin-bottom:26px}
-.find .h{font-family:var(--disp);font-size:23px;line-height:1.15}
-.find .v{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.find p{margin:9px 0 0;color:var(--cream);opacity:.8;font-size:16.5px;max-width:58ch}
+.find .h{font-family:var(--disp);font-size:23px;line-height:1.15;overflow-wrap:anywhere}
+.find .v{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;overflow-wrap:anywhere}
+.find p{margin:9px 0 0;color:var(--cream);opacity:.8;font-size:16.5px;max-width:58ch;overflow-wrap:anywhere}
 .spark{display:flex;align-items:flex-end;gap:2px;height:52px;margin-top:14px;max-width:520px}
 .spark i{flex:1;background:rgba(201,162,75,.42);border-radius:1px;min-height:1px}
 .spark i.pk{background:var(--goldb)}
@@ -177,7 +177,7 @@ footer{padding:52px 0 78px;color:var(--muted);font-size:14.5px}
 </div></header>
 
 <section><div class="wrap">
-  <p class="eyebrow">One · The ledger</p>
+  <p class="eyebrow">One · The tally</p>
   <h2>What you were worth to them.</h2>
   <p class="lede">You don't need a data export for this part. Pick the places you live online and roughly when you got there. The arithmetic is public — it comes out of their own filings.</p>
 
@@ -613,10 +613,21 @@ function scan(txt, name, out){
 // staying inert — no markup a name contains is ever parsed as markup.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+// A span under about 18 days rounds to "0.0 years" under
+// (seconds/31557600).toFixed(1) — a real number that reads as no time
+// having passed at all. Below that threshold this reports whole days
+// instead, never a year figure that displays as zero.
+function fmtSpan(seconds){
+  const yrs = Number((seconds/31557600).toFixed(1));
+  if(yrs > 0) return `${yrs.toLocaleString()} ${yrs === 1 ? 'year' : 'years'}`;
+  const days = Math.max(1, Math.round(seconds/86400));
+  return `${days.toLocaleString()} day${days===1?'':'s'}`;
+}
+
 // Google-specific: a plain-words note about any file this page refused to
-// open because it was over the per-file size cap (Costly C1), so a
-// heavily-tracked account gets an explanation on screen instead of a
-// silent zero. `d.skipped` is only ever set by harvestGoogle().
+// open because it was over the per-file size cap, so a heavily-tracked
+// account gets an explanation on screen instead of a silent zero.
+// `d.skipped` is only ever set by harvestGoogle().
 function skippedNote(d){
   if(!d.skipped || !d.skipped.length) return '';
   return d.skipped.map(s => {
@@ -633,7 +644,7 @@ function render(d){
   // Google-specific: an HTML-format Takeout (History exported as HTML,
   // not JSON) matches none of the shapes below — without this check it
   // reads as "found little," which misdiagnoses a problem the user can
-  // fix in ninety seconds (Costly C3).
+  // fix in ninety seconds.
   if(d.htmlExport){
     say('This export is in HTML; request the JSON format. Re-run Takeout, choose "Multiple formats," and select JSON for History — then this page can read it.');
     return;
@@ -654,8 +665,7 @@ function render(d){
   const ss = d.events.slice().sort((a,b)=>a-b);
   if(ss.length > 8){
     const a = new Date(ss[0]*1000), b = new Date(ss[ss.length-1]*1000);
-    const yrs = ((ss[ss.length-1]-ss[0])/31557600).toFixed(1);
-    F.push({v:'The span', h:`${Number(yrs).toLocaleString()} years, ${N.toLocaleString()} timestamped moments.`,
+    F.push({v:'The span', h:`${fmtSpan(ss[ss.length-1]-ss[0])}, ${N.toLocaleString()} timestamped moments.`,
       p:`The record starts ${a.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} and runs to ${b.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}. That is not a profile. It is a diary you did not know you were keeping, and you are not the one holding it.`});
   }
 
@@ -689,7 +699,7 @@ function render(d){
     // an ad format, or a category as easily as an advertiser) — so the
     // headline says only what the record actually supports: a name this
     // file's own Ads activity attaches to the ad, not a confirmed
-    // advertiser identity. See Costly C4.
+    // advertiser identity.
     F.push(isGoogleSourced
       ? {v:'The list', h:`${uniq.length.toLocaleString()} name${uniq.length===1?'':'s'} that appear in your Ads activity.`,
           p:`This list comes from your own Ads activity: each name is one this file attached to an ad Google logged as shown to you. That is not Meta's list of companies that uploaded your contact details — Takeout does not say why any of these names reached you, only that it did.`,

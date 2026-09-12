@@ -1,7 +1,7 @@
-/* Falsifiability test for the local-only claim (W-01b / former W-06).
+/* Falsifiability test for the local-only claim.
  *
  * Serves the whole website/ tree from a local static HTTP server (Shadow
- * lives at /shadow/ under the rest of the site as of W-16, and shares the
+ * lives at /shadow/ under the rest of the site, and shares the
  * site's /media/fonts/ and /media/og-card.jpg rather than duplicating
  * them), drives the real page through Playwright (headless Chromium),
  * uploads the fixture Meta export through the actual file-picker UI, runs
@@ -152,10 +152,10 @@ async function main() {
 
     console.log('PASS — zero non-origin network requests across upload + sample-demo flows.');
 
-    // C1 regression: a 400px-wide viewport (the doctype + viewport meta
-    // fix) must not produce horizontal scroll. Checked with the findings
-    // (the widest content on the page — the ledger table and the tag
-    // clouds) already rendered from the sample-demo click above.
+    // A 400px-wide viewport (the doctype + viewport meta fix) must not
+    // produce horizontal scroll. Checked with the findings (the widest
+    // content on the page — the tally table and the tag clouds) already
+    // rendered from the sample-demo click above.
     await page.setViewportSize({ width: 400, height: 800 });
     const overflow = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
