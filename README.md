@@ -32,5 +32,4 @@ discussions and pull requests are welcome on any piece of the work:
 
 ## License
 
-Site text and documents: CC BY-SA 4.0. Code: Apache-2.0. See the LICENSE files in the main
-repository.
+Site text and documents: CC BY-SA 4.0 (`LICENSE-DOCS`). Code: Apache-2.0 (`LICENSE-CODE`). See `NOTICE`.

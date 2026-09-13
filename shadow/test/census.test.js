@@ -1,19 +1,10 @@
-/* Falsifiability test: the whole published website/ tree — not just the
- * data files under shadow/data/ — must carry no internal work-log
- * residue left behind by however this site gets built: no task-tracking
- * IDs, no internal role names, no phrase describing an internal review
- * exercise or its round number, no word used to mean an automated
- * contributor rather than a visitor's own tool, no name for this
- * project's internal policy file, no word for the person this project
- * routes decisions to when it's used as an internal process role, and no
- * path into this project's private working directory. The exact pattern
- * list is not reproduced here on purpose: it lives in this project's
- * private working directory, not in the published tree, because a
- * published copy of the list would hand a reader the exact words to
- * search for. Filesystem-only, needs no browser — but needs that private
- * directory present to actually check anything. If it is absent (a fresh
- * clone that only took website/), this SKIPS loudly rather than silently
- * passing.
+/* Hygiene test: the published website/ tree must carry no internal
+ * tracking residue from how the site is built (issue-tracker IDs, internal
+ * role names, review-round notes, paths into the private working tree).
+ * The pattern list is maintenance tooling and lives beside the private
+ * working tree rather than in the published site. Filesystem-only, no
+ * browser. If the private tree is absent (a clone that only took
+ * website/), this SKIPS loudly rather than silently passing.
  *
  * Run with:
  *   node website/shadow/test/census.test.js
@@ -26,12 +17,8 @@ const ROOT = path.join(__dirname, '..', '..');
 const PRIVATE_ROOT = path.join(ROOT, '..');
 
 function findCensusModule() {
-  // The private working directory, if present, is a sibling of website/.
-  // Its own top-level name is intentionally not written out as a string
-  // literal here — it is assembled at runtime — so this file itself
-  // carries none of the words the census it runs exists to catch.
-  const dirName = ['l', 'a', 'b'].join('');
-  const dir = path.join(PRIVATE_ROOT, dirName);
+  // The private working tree, if present, is a sibling of website/.
+  const dir = path.join(PRIVATE_ROOT, 'lab');
   if (!fs.existsSync(dir)) return null;
   const modulePath = path.join(dir, 'ops', 'publish-census.js');
   if (!fs.existsSync(modulePath)) return null;

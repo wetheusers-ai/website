@@ -43,9 +43,8 @@
  *      website/), this check fails loudly rather than silently passing —
  *      set SHADOW_SKIP_DRIFT=1 to skip it deliberately instead.
  *
- * A separate, whole-tree census for task IDs, crew names, and other
- * process vocabulary lives in test/census.test.js, not here — this file
- * only checks that published data hasn't drifted from its private source.
+ * A separate whole-tree hygiene check lives in test/census.test.js; this
+ * file only checks that published data hasn't drifted from its source.
  *
  * Run with:
  *   NODE_PATH="<path to a node_modules containing playwright>" \
