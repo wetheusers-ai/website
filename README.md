@@ -14,6 +14,11 @@ the vote for American independence. Live at **https://wetheusers.ai**.
 | `robots.txt` | Allows indexing. |
 | `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `site.webmanifest` | Icons for browsers and devices. |
 | `media/shadow.jpg`, `media/extraction.jpg`, `media/covenant.jpg`, `media/return.jpg` | The engraved section images. |
+| `skill/`, `terms/`, `export/`, `privacy/` | The instrument pages and the privacy page, each a self-contained HTML file. `shadow/` holds a note on why the export reader was set aside. |
+| `test/` | The checks a stranger can run: `node <file>`. The terms test compares every quote on `/terms` against saved page captures and skips, saying so, where the captures are not in the checkout. |
+| `server/` | The Cloudflare Worker behind the form and the ledger. |
+| `llms.txt` | A machine-readable index of the pages. |
+| `LICENSE-CODE`, `LICENSE-DOCS`, `NOTICE` | Apache-2.0 for code, CC BY-SA 4.0 for text. |
 | `media/og-card.jpg` | The card shown when the link is shared on social platforms. |
 
 ## How it works

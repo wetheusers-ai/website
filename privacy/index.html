@@ -44,10 +44,10 @@ a:hover{color:var(--goldb)}
   <p class="eyebrow">Privacy</p>
   <h1>What we keep, and how to leave.</h1>
 
-  <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole record.</p>
+  <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole of what you gave us. Alongside it the row carries only what running the form needs: a random id, whether the email was confirmed and when, and the token from your confirmation email, which is what lets that email's link delete the row. The schema is published in <a href="https://github.com/wetheusers-ai/website/blob/main/server/schema.sql">the site's repository</a>.</p>
 
   <h2>Who touches it</h2>
-  <p>Three companies, all under contract, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores the record and serves the page, <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them.</p>
+  <p>Three companies touch the record, each under its own terms, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores it and counts page views on the home page; <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them. A fourth company sees something else: <strong>GitHub</strong> serves these pages and, like any host, sees the address each visit comes from. It never receives the record.</p>
 
   <h2>What we never do</h2>
   <ul>
@@ -61,7 +61,7 @@ a:hover{color:var(--goldb)}
   <p>If you joined without giving an email, there is no link to send you and no way for us to prove a request is yours. What we hold in that case is a first name, a community, and a timestamp. Write to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a>, tell us what you entered and roughly when, and we will find it and remove it.</p>
 
   <h2>The one thing we watch</h2>
-  <p>We count page views with <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener">Cloudflare Web Analytics</a>. We do not know who you are.</p>
+  <p>We count page views on the home page only, with <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener">Cloudflare Web Analytics</a>. We do not know who you are.</p>
 
   <p class="note">This page describes the sign-up form and this site only. It is not a legal terms-of-service document, and nothing here is legal advice.</p>
   <p class="note">An open project, not affiliated with any company.</p>
