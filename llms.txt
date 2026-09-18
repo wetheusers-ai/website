@@ -10,7 +10,7 @@
 
 ## The essays
 
-- [We Never Agreed](https://wetheusers.ai/#read/weather): why change is possible.
+- [We Never Agreed](https://wetheusers.ai/#read/never-agreed): why change is possible.
 - [Your Digital Shadow](https://wetheusers.ai/#read/shadow): what your data is made of.
 - [Ambition Against Ambition](https://wetheusers.ai/#read/ambition): how a user-owned internet keeps power from re-concentrating.
 - [The Longer Race](https://wetheusers.ai/#read/race): why the race worth running is the next thousand years, not the next quarter.

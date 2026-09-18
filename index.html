@@ -149,11 +149,11 @@ em,i{font-style:italic}
 .rgt{font-family:var(--disp);font-weight:600;font-size:16px}
 .rgs{font-family:var(--body);font-size:13px}
 
-/* ---- weather interstitial ---- */
-.weather-line{font-family:var(--disp);font-weight:300;font-size:clamp(22px,3vw,30px);color:var(--muted);
+/* ---- interstitial ---- */
+.inter-line{font-family:var(--disp);font-weight:300;font-size:clamp(22px,3vw,30px);color:var(--muted);
   max-width:30ch;margin:0 0 22px}
-.weather-big{font-size:clamp(34px,6vw,68px)}
-.weather-big .lit{color:var(--goldb)}
+.inter-big{font-size:clamp(34px,6vw,68px)}
+.inter-big .lit{color:var(--goldb)}
 .movement .usedline{font-family:var(--disp);font-weight:600;font-size:clamp(28px,4.6vw,54px);color:var(--ink);text-align:center;max-width:22ch;margin:84px auto 0;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
 .usedline em{font-style:italic;color:var(--gold)}
 .figrow{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:0 auto;max-width:1000px;text-align:left}
@@ -468,11 +468,11 @@ em,i{font-style:italic}
   </div>
 </section>
 
-<!-- WEATHER -->
+<!-- INTERSTITIAL -->
 <section class="movement on-navy deep">
   <div class="wrap">
-    <p class="weather-line reveal">We click &ldquo;I agree.&rdquo; But we don&rsquo;t.</p>
-    <h2 class="weather-big shadowcast reveal">No one chose this.<br>It was built, <span class="lit">and it can be built&nbsp;differently.</span></h2>
+    <p class="inter-line reveal">We click &ldquo;I agree.&rdquo; But we don&rsquo;t.</p>
+    <h2 class="inter-big shadowcast reveal">No one chose this.<br>It was built, <span class="lit">and it can be built&nbsp;differently.</span></h2>
   </div>
 </section>
 
@@ -594,7 +594,7 @@ em,i{font-style:italic}
     <p class="eyebrow reveal">The case</p>
     <h2 class="h-lg reveal" style="max-width:20ch">We didn't just say it. We made the case.</h2>
     <p class="reveal lede">Six short essays carry the full argument — why change is possible, what your data is made of, how power stays divided, the economics, how AI and crypto can finally decentralize the rewards, and where the road leads. Read any of them&nbsp;in&nbsp;full.</p>
-    <div class="cards"><button class="card reveal" data-open="weather"><span class="cnum">01</span><h3>We Never Agreed</h3><span class="ctag">Why change is possible</span><p class="cthesis">&ldquo;What was built can be built differently.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="shadow"><span class="cnum">02</span><h3>Your Digital Shadow</h3><span class="ctag">What your data is made of</span><p class="cthesis">&ldquo;Your shadow has a shape, and the shape has rights.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="ambition"><span class="cnum">03</span><h3>Ambition Against Ambition</h3><span class="ctag">How power stays divided</span><p class="cthesis">&ldquo;No part of the new internet should rule the rest.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="race"><span class="cnum">04</span><h3>The Longer Race</h3><span class="ctag">The economics</span><p class="cthesis">&ldquo;Working together can out-build racing apart.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="ledger"><span class="cnum">05</span><h3>The Ledger and the Spoils</h3><span class="ctag">AI meets crypto</span><p class="cthesis">&ldquo;The ledger was the easy part. The spoils are the prize.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="secondzero"><span class="cnum">06</span><h3>The Second Zero</h3><span class="ctag">Where it leads</span><p class="cthesis">&ldquo;The first zero freed the word. The second frees the work.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button></div>
+    <div class="cards"><button class="card reveal" data-open="never-agreed"><span class="cnum">01</span><h3>We Never Agreed</h3><span class="ctag">Why change is possible</span><p class="cthesis">&ldquo;What was built can be built differently.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="shadow"><span class="cnum">02</span><h3>Your Digital Shadow</h3><span class="ctag">What your data is made of</span><p class="cthesis">&ldquo;Your shadow has a shape, and the shape has rights.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="ambition"><span class="cnum">03</span><h3>Ambition Against Ambition</h3><span class="ctag">How power stays divided</span><p class="cthesis">&ldquo;No part of the new internet should rule the rest.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="race"><span class="cnum">04</span><h3>The Longer Race</h3><span class="ctag">The economics</span><p class="cthesis">&ldquo;Working together can out-build racing apart.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="ledger"><span class="cnum">05</span><h3>The Ledger and the Spoils</h3><span class="ctag">AI meets crypto</span><p class="cthesis">&ldquo;The ledger was the easy part. The spoils are the prize.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button><button class="card reveal" data-open="secondzero"><span class="cnum">06</span><h3>The Second Zero</h3><span class="ctag">Where it leads</span><p class="cthesis">&ldquo;The first zero freed the word. The second frees the work.&rdquo;</p><span class="cgo">Read the essay <span class="arr">&rarr;</span></span></button></div>
   </div>
 </section>
 
@@ -793,16 +793,16 @@ em,i{font-style:italic}
 <p>In support of this Declaration, with a firm reliance on one another, we pledge our effort, our good faith, and our names.</p>
 <hr>
 <p><em>A provisional draft — not yet declared, and not yet signed. Offered to everyone who believes there is a better way: to argue with, to improve, and one day to ratify together, community by community.</em></p>
-<div class="decl-sign"><p class="ds-label">A provisional draft &mdash; not yet signed. First to call for it, and answerable for that:</p><p class="ds-name">John Melonakos</p><p class="ds-tail">&mdash; to be ratified, with the constitution, by the communities who join and choose to adopt it.</p></div></div></article><article class="doc" data-doc="weather" data-title="We Never Agreed" data-kind="Essay 01"><div class="dochead"><div class="dkind">Essay 01</div><h1>We Never Agreed</h1><p class="dsub">The case for an internet that belongs to the people who use it</p><div class="drule"></div></div><div class="doc-body"><p>Most of us have made a quiet peace with the internet. We know, somewhere, that the feed is built to keep us scrolling; that the "free" service is paid for with our attention and our data; that the companies we depend on answer to their shareholders, not to us. We know it, and every day we click <em>I agree</em> anyway — not because we agree, but because there is no other button, and it all seems to be simply how things are.</p>
+<div class="decl-sign"><p class="ds-label">A provisional draft &mdash; not yet signed. First to call for it, and answerable for that:</p><p class="ds-name">John Melonakos</p><p class="ds-tail">&mdash; to be ratified, with the constitution, by the communities who join and choose to adopt it.</p></div></div></article><article class="doc" data-doc="never-agreed" data-title="We Never Agreed" data-kind="Essay 01"><div class="dochead"><div class="dkind">Essay 01</div><h1>We Never Agreed</h1><p class="dsub">The case for an internet that belongs to the people who use it</p><div class="drule"></div></div><div class="doc-body"><p>Most of us have made a quiet peace with the internet. We know, somewhere, that the feed is built to keep us scrolling; that the "free" service is paid for with our attention and our data; that the companies we depend on answer to their shareholders, not to us. We know it, and every day we click <em>I agree</em> anyway — not because we agree, but because there is no other button, and it all seems to be simply how things are.</p>
 <p>But no one chose this — we only clicked <em>agree</em>. Every part of the internet we touch was built by someone, for a purpose, and the purpose was rarely us. The bottomless feed, the data taken without asking, the rules written in private and changed at will — none of it is a law of nature. It was chosen, because it paid a few people very well. And what was chosen can be chosen differently.</p>
 <p>What follows is an argument that we should, and that, for the first time in a long while, we actually can.</p>
 <h2>The shadow you cast</h2>
 <p>Begin with what you make. Every day, you leave a trail: the things you search and buy and watch, the messages you send, the places you go, the people you know, the moods you let slip at one in the morning. Call it your digital shadow. It is not you, but it could not exist without you. It is cast by a single real life, yours, and no one else's.</p>
-<p>That shadow turns out to be worth a great deal. It is what lets a company predict what you will click, what you will buy, what you can be persuaded of, what you can be sold. Gathered across billions of people, these shadows are the raw material of some of the most valuable enterprises in history. And lately they have become something more than an advertising tool. They are the fuel of artificial intelligence — systems trained on the collected output of humanity that are beginning to reshape how nearly everything is made and done. The wealth of that intelligence is flowing, overwhelmingly, to the few companies that happen to hold the data.<sup id="fnref:weather-dataecon"><a class="footnote-ref" href="#fn:weather-dataecon">1</a></sup> Not because those companies are wiser than the rest of us. Because they hold the shadows.</p>
+<p>That shadow turns out to be worth a great deal. It is what lets a company predict what you will click, what you will buy, what you can be persuaded of, what you can be sold. Gathered across billions of people, these shadows are the raw material of some of the most valuable enterprises in history. And lately they have become something more than an advertising tool. They are the fuel of artificial intelligence — systems trained on the collected output of humanity that are beginning to reshape how nearly everything is made and done. The wealth of that intelligence is flowing, overwhelmingly, to the few companies that happen to hold the data.<sup id="fnref:never-agreed-dataecon"><a class="footnote-ref" href="#fn:never-agreed-dataecon">1</a></sup> Not because those companies are wiser than the rest of us. Because they hold the shadows.</p>
 <p>That is the quiet bargain at the heart of the modern internet: you produce the value, and someone else keeps it. We the Users have quietly become <em>we the used</em> — a bargain never struck, only assumed.</p>
 <h2>Nothing natural about it</h2>
 <p>We have been taught to treat this as a kind of natural law — as though it were always bound to be the case that a few enormous firms would own the public square, the marketplace, and the running record of our lives. It is worth recalling how new this is, and how thoroughly it was chosen.</p>
-<p>The internet did not begin as a machine for watching people. It began, not so long ago, as something closer to a commons — a place its early builders hoped would be open, decentralized, and free.<sup id="fnref:weather-barlow"><a class="footnote-ref" href="#fn:weather-barlow">2</a></sup> The surveillance, the consolidation, the sense that five or six companies simply <em>are</em> the internet now: these arrived later, and they arrived because someone decided that the surest way to make money was to harvest attention and sell prediction. It was a reasonable decision, given the incentives. It was still a decision. The engineers who built the feed to hold you could have built it to serve you. The businesses that kept the value could have been arranged to share it. None of this was handed down by nature. All of it was authored, and what is authored can be rewritten.</p>
+<p>The internet did not begin as a machine for watching people. It began, not so long ago, as something closer to a commons — a place its early builders hoped would be open, decentralized, and free.<sup id="fnref:never-agreed-barlow"><a class="footnote-ref" href="#fn:never-agreed-barlow">2</a></sup> The surveillance, the consolidation, the sense that five or six companies simply <em>are</em> the internet now: these arrived later, and they arrived because someone decided that the surest way to make money was to harvest attention and sell prediction. It was a reasonable decision, given the incentives. It was still a decision. The engineers who built the feed to hold you could have built it to serve you. The businesses that kept the value could have been arranged to share it. None of this was handed down by nature. All of it was authored, and what is authored can be rewritten.</p>
 <p>We know rewriting is possible, because pieces of the alternative already exist. Much of the internet's own foundation runs on software built by communities and owned by no one — given away, maintained in the open, relied upon by everyone. Wikipedia, written by strangers for free, outlasted the encyclopedias that were sold. And beyond software, the longer human story is largely the story of people taking power that looked permanent — that called itself natural — and making it answer to them. The means to own things together, to share what a network earns among the people who actually make it, are more available now than they have ever been. What has been missing is not the tools. It is the decision to use them.</p>
 <h2>What is yours</h2>
 <p>So let us say plainly what a fairer internet would look like.</p>
@@ -822,11 +822,11 @@ em,i{font-style:italic}
 <div class="footnote"><h2 class="fn-title">Sources &amp; notes</h2>
 <hr>
 <ol>
-<li id="fn:weather-dataecon">
-<p>Because data is <em>nonrival</em>, usable by many at once, the value built on it tends to accrue to whoever holds it, not to whoever generated it. Charles I. Jones and Christopher Tonetti, "Nonrivalry and the Economics of Data," <em>American Economic Review</em> 110, no. 9 (2020); and, on returning that value to its source, Jaron Lanier, <em>Who Owns the Future?</em> (Simon &amp; Schuster, 2013).&#160;<a class="footnote-backref" href="#fnref:weather-dataecon" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:never-agreed-dataecon">
+<p>Because data is <em>nonrival</em>, usable by many at once, the value built on it tends to accrue to whoever holds it, not to whoever generated it. Charles I. Jones and Christopher Tonetti, "Nonrivalry and the Economics of Data," <em>American Economic Review</em> 110, no. 9 (2020); and, on returning that value to its source, Jaron Lanier, <em>Who Owns the Future?</em> (Simon &amp; Schuster, 2013).&#160;<a class="footnote-backref" href="#fnref:never-agreed-dataecon" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:weather-barlow">
-<p>The early internet's promise of an open, self-governing commons was captured most famously in John Perry Barlow, "A Declaration of the Independence of Cyberspace" (Electronic Frontier Foundation, 1996) — a document this project admires but parts from, since declaring independence proved nowhere near enough to keep the network free. <a target="_blank" rel="noopener" href="https://www.eff.org/cyberspace-independence">https://www.eff.org/cyberspace-independence</a>&#160;<a class="footnote-backref" href="#fnref:weather-barlow" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li id="fn:never-agreed-barlow">
+<p>The early internet's promise of an open, self-governing commons was captured most famously in John Perry Barlow, "A Declaration of the Independence of Cyberspace" (Electronic Frontier Foundation, 1996) — a document this project admires but parts from, since declaring independence proved nowhere near enough to keep the network free. <a target="_blank" rel="noopener" href="https://www.eff.org/cyberspace-independence">https://www.eff.org/cyberspace-independence</a>&#160;<a class="footnote-backref" href="#fnref:never-agreed-barlow" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div></article><article class="doc" data-doc="shadow" data-title="Your Digital Shadow" data-kind="Essay 02"><div class="dochead"><div class="dkind">Essay 02</div><h1>Your Digital Shadow</h1><p class="dsub">What your data is made of, and who should be able to see it, change it, and profit from it</p><div class="drule"></div></div><div class="docfig"><svg class="dia" viewBox="0 0 470 280" role="img" aria-label="The four regions of a digital shadow: what you make, what you do, what you are, and what is inferred.">
@@ -1327,12 +1327,20 @@ document.documentElement.classList.add('js');
   document.getElementById('backBtn').addEventListener('click',function(){ closeReader(true); });
   [prevBtn,nextBtn].forEach(function(btn){ btn.addEventListener('click',function(){ if(btn.dataset.target){ openDoc(btn.dataset.target,true);} }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&reader.classList.contains('open')) closeReader(true); });
+  // old links keep working: a renamed essay's former id redirects to its new one
+  var MOVED={'weather':'never-agreed'};
+  function hashDoc(){
+    var m=location.hash.match(/^#read\/(.+)$/); if(!m) return null;
+    var id=m[1];
+    if(MOVED[id]){ id=MOVED[id]; try{history.replaceState({doc:id},'', '#read/'+id);}catch(e){} }
+    return id;
+  }
   window.addEventListener('popstate',function(e){
-    var m=location.hash.match(/^#read\/(.+)$/);
-    if(m){ openDoc(m[1],false); } else { closeReader(false); }
+    var id=hashDoc();
+    if(id&&meta(id)){ openDoc(id,false); } else { closeReader(false); }
   });
   // deep link on load
-  (function(){ var m=location.hash.match(/^#read\/(.+)$/); if(m&&meta(m[1])) openDoc(m[1],false); })();
+  (function(){ var id=hashDoc(); if(id&&meta(id)) openDoc(id,false); })();
 
   // ---- join the call + community dashboard ----
   var API_BASE = "https://wtu-call.wetheusers.workers.dev"; // set to your Worker URL after deploy, e.g. "https://api.wetheusers.ai"
