@@ -3,6 +3,9 @@ main = "src/index.js"
 compatibility_date = "2025-01-01"
 workers_dev = true
 
+[triggers]
+crons = ["*/10 * * * *"]
+
 # --- D1 database binding ---
 # Create the DB once with:  wrangler d1 create wtu_call
 # then paste the printed database_id below.
@@ -25,6 +28,7 @@ PUBLIC_BASE = ""
 # A community appears in the public tallies only after this many CONFIRMED voices.
 # The picker always offers every approved community regardless of this threshold.
 MIN_PUBLIC_TALLY = "50"
+MAX_EMAILS_PER_HOUR = "100"
 
 # --- secrets (DO NOT put these here; set with `wrangler secret put NAME`) ---
 #   RESEND_API_KEY   required to send verification emails (https://resend.com)

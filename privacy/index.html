@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src  https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://wtu-call.wetheusers.workers.dev https://cloudflareinsights.com; manifest-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — We the Users</title>
 <meta name="description" content="What We the Users stores when you join the call, who processes it, what we never do with it, and how to remove it.">
@@ -45,6 +47,8 @@ a:hover{color:var(--goldb)}
   <h1>What we keep, and how to leave.</h1>
 
   <p>When you add your voice at <a href="/#sign">the call</a>, we store what you gave us: your name if you gave one, your email if you gave one, the community you named, the time you joined, and a salted hash of your IP address — not the address itself — used only to slow down abuse of the form. That is the whole of what you gave us. Alongside it the row carries only what running the form needs: a random id, whether the email was confirmed and when, and the token from your confirmation email, which is what lets that email's link delete the row. The schema is published in <a href="https://github.com/wetheusers-ai/website/blob/main/server/schema.sql">the site's repository</a>.</p>
+
+  <p>To slow automated signups and repeated emails, we also keep short-lived counters with salted hashes of an IP address or email. These contain no name, raw address, or link to your signup. Their windows expire within an hour, and a scheduled cleanup removes expired counters every ten minutes. Deleting a signup does not reset these counters.</p>
 
   <h2>Who touches it</h2>
   <p>Three companies touch the record, each under its own terms, none permitted to use it for anything but running this: <strong>Cloudflare</strong> stores it and counts page views on the home page; <strong>Resend</strong> sends the one confirmation email, and <strong>Mailgun</strong> carries mail addressed to <a href="mailto:hello@wetheusers.ai">hello@wetheusers.ai</a> — including, if you use it, your request to be deleted. Each of those three runs on infrastructure of its own, listed on its own site. We add no one beyond them. A fourth company sees something else: <strong>GitHub</strong> serves these pages and, like any host, sees the address each visit comes from. It never receives the record.</p>

@@ -11,7 +11,7 @@
  *   POST /forget  (form: token) -> delete a sign-up row outright (same token as /verify)
  *
  * Admin endpoints (require ADMIN_TOKEN):
- *   GET  /admin/communities?token=...      -> list communities incl. pending write-ins
+ *   GET  /admin/communities (Bearer auth) -> list communities incl. pending write-ins
  *   POST /admin/approve  {key, approve}    -> approve or reject a write-in community
  *
  * Honesty rules baked in:
@@ -34,7 +34,7 @@ const SISO = (d) => new Date(d).toISOString();
 
 function corsHeaders(origin) {
   return {
-    "access-control-allow-origin": origin,
+    ...(origin ? { "access-control-allow-origin": origin } : {}),
     "access-control-allow-methods": "GET,POST,OPTIONS",
     "access-control-allow-headers": "content-type,authorization",
     "access-control-max-age": "86400",
@@ -47,15 +47,49 @@ function json(data, status, origin) {
     headers: {
       "content-type": "application/json; charset=utf-8",
       "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
       ...corsHeaders(origin),
     },
   });
 }
 function allowedOrigin(req, env) {
   const o = req.headers.get("Origin") || "";
-  const allow = (env.ALLOWED_ORIGINS || "*").split(",").map((s) => s.trim());
+  const allow = (env.ALLOWED_ORIGINS || "https://wetheusers.ai").split(",").map((s) => s.trim());
   if (allow.includes("*")) return "*";
-  return allow.includes(o) ? o : (allow[0] || "*");
+  return allow.includes(o) ? o : "";
+}
+
+// Read a bounded body even when Content-Length is absent or false.
+async function readJson(req) {
+  if (!req.body) throw new Error("bad_json");
+  const reader = req.body.getReader();
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > 8192) { await reader.cancel(); throw new Error("body_too_large"); }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  const body = JSON.parse(new TextDecoder().decode(bytes));
+  if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error("bad_json");
+  return body;
+}
+
+// Atomic fixed-window counters survive deletion of a signup. No raw IP or
+// email is retained here; expired buckets are purged on joins and by cron.
+async function takeQuota(env, key, seconds, limit) {
+  const now = Math.floor(Date.now() / 1000);
+  const end = (Math.floor(now / seconds) + 1) * seconds;
+  const result = await env.DB.prepare(
+    `INSERT INTO abuse_limits (bucket, hits, expires_at) VALUES (?,1,?)
+     ON CONFLICT(bucket) DO UPDATE SET hits=hits+1 WHERE hits < ? RETURNING hits`
+  ).bind(`${key}:${end}`, end, limit).first();
+  return Boolean(result);
 }
 function slugify(s) {
   return s.toLowerCase().trim()
@@ -113,13 +147,23 @@ async function sendVerifyEmail(env, email, link, forgetLink) {
 }
 
 export default {
+  async scheduled(_event, env) {
+    await env.DB.prepare(`DELETE FROM abuse_limits WHERE expires_at<=?`)
+      .bind(Math.floor(Date.now() / 1000)).run();
+  },
   async fetch(req, env) {
     const url = new URL(req.url);
     const origin = allowedOrigin(req, env);
+    const suppliedOrigin = req.headers.get("Origin");
+    const tokenPost = req.method === "POST" && ["/verify", "/forget"].includes(url.pathname);
+    const foreignOrigin = suppliedOrigin && !origin && !(tokenPost && suppliedOrigin === url.origin);
+    if (foreignOrigin && (req.method === "POST" || req.method === "OPTIONS")) {
+      return json({ ok: false, error: "origin_not_allowed" }, 403, "");
+    }
     if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders(origin) });
     try {
-      if (url.pathname === "/communities" && req.method === "GET") return getCommunities(env, origin);
-      if (url.pathname === "/join" && req.method === "POST") return join(req, env, origin);
+      if (url.pathname === "/communities" && req.method === "GET") return await getCommunities(env, origin);
+      if (url.pathname === "/join" && req.method === "POST") return await join(req, env, origin);
       // GET is what mail link-scanners issue before a human ever opens the message
       // (Microsoft Defender/ATP Safe Links, Proofpoint, Mimecast and Barracuda all
       // pre-fetch every link in transit). Nothing that changes a row or a public
@@ -128,15 +172,15 @@ export default {
       // is exactly what RFC 8058 requires for one-click email actions, and for the
       // same reason: an automated fetch must not be able to trigger the action.
       if (url.pathname === "/verify" && req.method === "GET") return verifyPrompt(url, env);
-      if (url.pathname === "/verify" && req.method === "POST") return verify(req, env);
+      if (url.pathname === "/verify" && req.method === "POST") return await verify(req, env);
       if (url.pathname === "/forget" && req.method === "GET") return forgetPrompt(url, env);
-      if (url.pathname === "/forget" && req.method === "POST") return forget(req, env);
-      if (url.pathname === "/admin/communities" && req.method === "GET") return adminList(req, url, env, origin);
-      if (url.pathname === "/admin/approve" && req.method === "POST") return adminApprove(req, env, origin);
+      if (url.pathname === "/forget" && req.method === "POST") return await forget(req, env);
+      if (url.pathname === "/admin/communities" && req.method === "GET") return await adminList(req, url, env, origin);
+      if (url.pathname === "/admin/approve" && req.method === "POST") return await adminApprove(req, env, origin);
       if (url.pathname === "/") return json({ ok: true, service: "wtu-call" }, 200, origin);
       return json({ ok: false, error: "not_found" }, 404, origin);
     } catch (e) {
-      return json({ ok: false, error: "server_error", detail: String((e && e.message) || e) }, 500, origin);
+      return json({ ok: false, error: "server_error" }, 500, origin);
     }
   },
 };
@@ -148,7 +192,7 @@ async function getCommunities(env, origin) {
   const minListed = Math.max(0, Number(env.MIN_PUBLIC_TALLY ?? 50) || 0);
   const rows = await env.DB.prepare(
     `SELECT c.key AS key, c.name AS name, c.category AS category,
-            COALESCE(SUM(CASE WHEN s.email_verified=1 THEN 1 ELSE 0 END),0) AS confirmed,
+            COUNT(DISTINCT CASE WHEN s.email_verified=1 AND trim(s.email)<>'' THEN lower(trim(s.email)) END) AS confirmed,
             COUNT(s.id) AS total
        FROM communities c
        LEFT JOIN signups s ON s.community_key = c.key
@@ -177,23 +221,29 @@ async function getCommunities(env, origin) {
 
 async function join(req, env, origin) {
   let body;
-  try { body = await req.json(); } catch { return json({ ok: false, error: "bad_json" }, 400, origin); }
+  try { body = await readJson(req); } catch (e) {
+    return json({ ok: false, error: e.message === "body_too_large" ? "body_too_large" : "bad_json" }, e.message === "body_too_large" ? 413 : 400, origin);
+  }
 
   let community = String(body.community || "").trim().slice(0, 80);
   const name = (String(body.name || "").trim().slice(0, 80)) || null;
-  const email = (String(body.email || "").trim().slice(0, 200)) || null;
+  const email = (String(body.email || "").trim().toLowerCase().slice(0, 200)) || null;
   if (!community) return json({ ok: false, error: "community_required" }, 400, origin);
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: "bad_email" }, 400, origin);
   const key = slugify(community);
   if (!key) return json({ ok: false, error: "bad_community" }, 400, origin);
 
-  // light per-IP throttle (hashed; no raw IP stored)
+  if (!env.SALT) return json({ ok: false, error: "service_unavailable" }, 503, origin);
   const ip = req.headers.get("CF-Connecting-IP") || "0";
-  const ipHash = await sha256(ip + "|" + (env.SALT || "wtu"));
-  const hourAgo = SISO(Date.now() - 3600_000);
-  const recent = await env.DB.prepare(`SELECT COUNT(*) AS n FROM signups WHERE ip_hash=? AND created_at>?`)
-    .bind(ipHash, hourAgo).first();
-  if (recent && Number(recent.n) >= 25) return json({ ok: false, error: "rate_limited" }, 429, origin);
+  const ipHash = await sha256(ip + "|" + env.SALT);
+  const abuseIpHash = await sha256("abuse-ip|" + ip + "|" + env.SALT);
+  await env.DB.prepare(`DELETE FROM abuse_limits WHERE expires_at<=?`)
+    .bind(Math.floor(Date.now() / 1000)).run();
+  if (!await takeQuota(env, `ip:${abuseIpHash}`, 3600, 25)) return json({ ok: false, error: "rate_limited" }, 429, origin);
+  if (email) {
+    const recipientHash = await sha256("abuse-email|" + email + "|" + env.SALT);
+    if (!await takeQuota(env, `email:${recipientHash}`, 600, 1)) return json({ ok: false, error: "rate_limited" }, 429, origin);
+  }
 
   const now = SISO(Date.now());
   // Resolve by derived key OR exact display name: the picker submits names
@@ -206,7 +256,7 @@ async function join(req, env, origin) {
   const useKey = existing ? existing.key : key;
   let communityPending;
   if (!existing) {
-    await env.DB.prepare(`INSERT INTO communities (key, name, approved, seeded, created_at) VALUES (?,?,0,0,?)`)
+    await env.DB.prepare(`INSERT OR IGNORE INTO communities (key, name, approved, seeded, created_at) VALUES (?,?,0,0,?)`)
       .bind(key, community, now).run();
     communityPending = true;
   } else {
@@ -215,16 +265,34 @@ async function join(req, env, origin) {
 
   const id = rand(16);
   const vtoken = email ? rand(24) : null;
+  // One row per normalized mailbox and community. The predicate is part of the
+  // INSERT so concurrent requests cannot both pass a separate existence check.
   await env.DB.prepare(
     `INSERT INTO signups (id, community_key, name, email, email_verified, verify_token, created_at, ip_hash)
-     VALUES (?,?,?,?,0,?,?,?)`
+     SELECT ?1,?2,?3,?4,0,?5,?6,?7
+     WHERE ?4 IS NULL OR NOT EXISTS (
+       SELECT 1 FROM signups WHERE community_key=?2 AND lower(trim(email))=?4
+     )`
   ).bind(id, useKey, name, email, vtoken, now, ipHash).run();
 
   let emailStatus = "none";
   if (email && vtoken) {
+    const record = await env.DB.prepare(
+      `SELECT verify_token, email_verified FROM signups WHERE community_key=? AND lower(trim(email))=?
+       ORDER BY email_verified DESC, created_at ASC, id ASC LIMIT 1`
+    ).bind(useKey, email).first();
     const base = env.PUBLIC_BASE || new URL(req.url).origin;
-    const res = await sendVerifyEmail(env, email, `${base}/verify?token=${vtoken}`, `${base}/forget?token=${vtoken}`);
-    emailStatus = res.sent ? "sent" : "unsent:" + res.reason;
+    if (record && !record.email_verified && isValidToken(record.verify_token)) {
+      const budget = Number(env.MAX_EMAILS_PER_HOUR || 100);
+      if (!Number.isSafeInteger(budget) || budget < 1 || !await takeQuota(env, "mail-global", 3600, budget)) {
+        return json({ ok: false, error: "rate_limited" }, 429, origin);
+      }
+      const token = record.verify_token;
+      const res = await sendVerifyEmail(env, email, `${base}/verify?token=${token}`, `${base}/forget?token=${token}`);
+      emailStatus = res.sent ? "sent" : "unsent:" + res.reason;
+    } else {
+      emailStatus = "sent"; // Same response for an already confirmed mailbox.
+    }
   }
   return json({
     ok: true,
@@ -244,9 +312,13 @@ function verifyPage(title, msg, env, ok, extraHtml) {
        <h1 style="font-weight:600;font-size:30px;margin:0 0 14px">${title}</h1>
        <p style="font-size:18px;line-height:1.65;color:#33405c;margin:0">${msg}</p>
        ${extraHtml || ""}
-       ${env.SITE_URL ? `<p style="margin-top:32px"><a href="${env.SITE_URL}" style="color:#B08D3A;font-family:ui-monospace,monospace;font-size:14px;text-decoration:none">Return to We the Users &rarr;</a></p>` : ""}
+       ${env.SITE_URL ? `<p style="margin-top:32px"><a href="${escAttr(env.SITE_URL)}" style="color:#B08D3A;font-family:ui-monospace,monospace;font-size:14px;text-decoration:none">Return to We the Users &rarr;</a></p>` : ""}
      </div></body></html>`,
-    { status: ok ? 200 : 400, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } }
+    { status: ok ? 200 : 400, headers: {
+      "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
+      "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
+      "x-frame-options": "DENY", "referrer-policy": "no-referrer", "x-content-type-options": "nosniff",
+    } }
   );
 }
 function forgetLinkHtml(base, token) {
@@ -282,7 +354,7 @@ function verifyPrompt(url, env) {
 }
 async function verify(req, env) {
   const t = await readToken(req);
-  if (!t) return verifyPage("Invalid link", "This confirmation link is missing its token.", env, false);
+  if (!isValidToken(t)) return verifyPage("Invalid link", "This confirmation link is missing or invalid.", env, false);
   const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
   if (!row) return verifyPage("Already confirmed, or expired", "We couldn't find a pending confirmation for this link — it may already be confirmed, or the record has been deleted.", env, false);
   // The token is deliberately left in place (not nulled) so the same link keeps
@@ -313,7 +385,7 @@ function forgetPrompt(url, env) {
 }
 async function forget(req, env) {
   const t = await readToken(req);
-  if (!t) return verifyPage("Invalid link", "This link is missing its token.", env, false);
+  if (!isValidToken(t)) return verifyPage("Invalid link", "This link is missing or invalid.", env, false);
   const row = await env.DB.prepare(`SELECT id FROM signups WHERE verify_token=?`).bind(t).first();
   if (!row) return verifyPage("Nothing to remove", "We couldn't find a record for this link — it may already be deleted.", env, false);
   await env.DB.prepare(`DELETE FROM signups WHERE id=?`).bind(row.id).run();
@@ -322,15 +394,15 @@ async function forget(req, env) {
 
 function adminAuthed(req, url, env) {
   const auth = req.headers.get("Authorization") || "";
-  const t = auth.replace(/^Bearer\s+/i, "") || url.searchParams.get("token") || "";
-  return Boolean(env.ADMIN_TOKEN) && t === env.ADMIN_TOKEN;
+  const match = /^Bearer\s+(\S+)$/i.exec(auth);
+  return Boolean(env.ADMIN_TOKEN) && Boolean(match) && match[1] === env.ADMIN_TOKEN;
 }
 async function adminList(req, url, env, origin) {
   if (!adminAuthed(req, url, env)) return json({ ok: false, error: "unauthorized" }, 401, origin);
   const rows = await env.DB.prepare(
     `SELECT c.key, c.name, c.category, c.approved, c.seeded, c.created_at,
             COUNT(s.id) AS signups,
-            COALESCE(SUM(CASE WHEN s.email_verified=1 THEN 1 ELSE 0 END),0) AS confirmed
+            COUNT(DISTINCT CASE WHEN s.email_verified=1 AND trim(s.email)<>'' THEN lower(trim(s.email)) END) AS confirmed
        FROM communities c LEFT JOIN signups s ON s.community_key=c.key
       GROUP BY c.key ORDER BY c.approved ASC, signups DESC, c.name ASC`
   ).all();
@@ -339,7 +411,7 @@ async function adminList(req, url, env, origin) {
 async function adminApprove(req, env, origin) {
   const url = new URL(req.url);
   if (!adminAuthed(req, url, env)) return json({ ok: false, error: "unauthorized" }, 401, origin);
-  let body; try { body = await req.json(); } catch { return json({ ok: false, error: "bad_json" }, 400, origin); }
+  let body; try { body = await readJson(req); } catch { return json({ ok: false, error: "bad_json" }, 400, origin); }
   const key = String(body.key || "");
   const approve = body.approve !== false;
   const category = (typeof body.category === "string" && body.category.trim()) ? body.category.trim() : null;
