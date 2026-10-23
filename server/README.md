@@ -9,14 +9,27 @@ to run or patch, and the free tier covers far more than launch traffic.
 
 - `GET /communities` — the picker list **and** the public tallies (aggregate counts only — never a name or email).
 - `POST /join` — records a sign-up. If an email is given, it sends a verification link.
-- `GET /verify?token=…` — confirms an email and shows a small "you're counted" page.
-- `GET /admin/communities?token=…` and `POST /admin/approve` — review and approve/reject **write-in** community names (guarded by `ADMIN_TOKEN`).
+- `GET /verify?token=…` and `GET /forget?token=…` show prompts; their forms POST to confirm or delete a signup.
+- `GET /admin/communities` and `POST /admin/approve` review and approve/reject **write-in** community names (Authorization Bearer header required).
 
 **Honesty rules are enforced server-side:** a community's public number is its
 *confirmed* voices (verified emails) only; no-email or unverified joins are
 recorded but never inflate the public tally; write-in communities stay hidden
 until you approve them; names and emails are private and never returned by the
 public API.
+
+Each normalized email counts once per community. Repeat joins reuse the existing
+record and token. Existing duplicate records keep their deletion links, but count
+only once. Email normalization trims whitespace and folds case; provider-specific
+aliases are not merged.
+
+Signup requests have an atomic per-IP quota of 25 per fixed hourly window.
+An email can be used once per fixed ten-minute window across all IPs and
+communities. Outgoing verification attempts have a global hourly budget of
+`MAX_EMAILS_PER_HOUR` (default 100). Fixed windows can allow adjacent bursts at
+a window boundary. Counters store salted hashes, expire within an hour, and are
+purged on joins and by the ten-minute cron. Deleting a signup does not reset them.
+`SALT` is required; missing configuration refuses signups.
 
 ## Deploy (about 10 minutes)
 
@@ -69,7 +82,8 @@ public dashboard until you approve it.
 
 ```bash
 # list everything, pending first
-curl "https://YOUR_WORKER_URL/admin/communities?token=YOUR_ADMIN_TOKEN"
+curl "https://YOUR_WORKER_URL/admin/communities" \
+  -H "authorization: Bearer YOUR_ADMIN_TOKEN"
 
 # approve one
 curl -X POST "https://YOUR_WORKER_URL/admin/approve" \
@@ -103,3 +117,38 @@ wrangler dev                  # serves on http://localhost:8787
 
 Point a local build's `API_BASE` at `http://localhost:8787` and set
 `ALLOWED_ORIGINS = "*"` in `[vars]` while testing.
+
+## Updating an existing deployment
+
+Before deploying this Worker, apply the additive migration to the existing D1
+database. It adds abuse counters and a lookup index; it does not delete signups
+or change their tokens. Confirm the `SALT` secret is configured, and review the
+hourly email budget in `wrangler.toml`.
+
+```bash
+cd server
+wrangler d1 execute wtu_call --remote --file=./migrations/0001_abuse_limits.sql
+wrangler deploy
+```
+
+After deployment, confirm the cron trigger is present and public GET endpoints
+still respond. Admin URLs no longer accept credentials in query strings. If an
+admin secret was logged or shared in a URL, rotate it through the secret store.
+Do not store a database export or credentials in this repository.
+
+## Security checks
+
+From the repository root, with Node.js 24.22.1 or a later supported security
+release and Python 3:
+
+```bash
+node --test test/server-security.test.mjs
+python tools/security-policy.py
+node test/terms.test.js
+```
+
+After regenerating any static HTML page, run
+`python tools/security-policy.py --write` to refresh its inline-script hashes.
+GitHub Pages cannot set custom response headers here. Its meta CSP restricts
+scripts and connections; framing protection requires an edge or host that can
+set a `Content-Security-Policy: frame-ancestors 'none'` response header.

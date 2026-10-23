@@ -1,0 +1,14 @@
+name: Security regression checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.22.1
+      - run: node --test test/server-security.test.mjs
+      - run: python3 tools/security-policy.py

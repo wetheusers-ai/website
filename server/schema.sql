@@ -24,4 +24,13 @@ CREATE TABLE IF NOT EXISTS signups (
 CREATE INDEX IF NOT EXISTS idx_signups_community ON signups(community_key);
 CREATE INDEX IF NOT EXISTS idx_signups_token     ON signups(verify_token);
 CREATE INDEX IF NOT EXISTS idx_signups_email     ON signups(email);
+CREATE INDEX IF NOT EXISTS idx_signups_mailbox_community ON signups(community_key, lower(trim(email)));
 CREATE INDEX IF NOT EXISTS idx_signups_iphash    ON signups(ip_hash, created_at);
+
+-- Short-lived salted hashes only. Never linked to signup ids or deleted by /forget.
+CREATE TABLE IF NOT EXISTS abuse_limits (
+  bucket TEXT PRIMARY KEY,
+  hits INTEGER NOT NULL,
+  expires_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_abuse_limits_expiry ON abuse_limits(expires_at);

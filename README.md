@@ -35,6 +35,13 @@ six essays, the founding brief — are drafted in the open in the main repositor
 discussions and pull requests are welcome on any piece of the work:
 **https://github.com/wetheusers-ai/wetheusers**
 
+## Security checks
+
+Run `node --test test/server-security.test.mjs` and
+`python tools/security-policy.py` before publishing. After rebuilding HTML, run
+`python tools/security-policy.py --write` to refresh the script hashes. See
+`server/README.md` for the required database migration and Worker deployment order.
+
 ## License
 
 Site text and documents: CC BY-SA 4.0 (`LICENSE-DOCS`). Code: Apache-2.0 (`LICENSE-CODE`). See `NOTICE`.
